@@ -23,8 +23,8 @@ yarn add vitepress-markmap-preview -D
 
 ```ts
 // .vitepress/config.ts
-import { defineConfig } from "vitepress";
-import { markmapPreview } from "vitepress-markmap-preview";
+import { defineConfig } from 'vitepress';
+import { markmapPreview } from 'vitepress-markmap-preview';
 
 export default defineConfig({
   // ...其他配置

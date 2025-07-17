@@ -3,8 +3,8 @@
 layout: home
 
 hero:
-  name: "docs"
-  text: "Markmap preview for docs"
+  name: 'docs'
+  text: 'Markmap preview for docs'
   tagline: My great project tagline
   actions:
     - theme: brand
@@ -22,4 +22,3 @@ features:
   - title: Feature C
     details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
 ---
-

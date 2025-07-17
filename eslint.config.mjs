@@ -1,9 +1,9 @@
-import { defineConfig } from "eslint/config";
-import init from "@flypeng/eslint-config";
+import flypeng from '@flypeng/eslint-config';
 
-export default defineConfig([
-  ...init(),
-  {
-    ignores: ["core/dist"],
-  },
-]);
+/** @type {import('eslint').Linter.Config[]} */
+export default [
+    ...flypeng(),
+    {
+        ignores: ['core/dist', 'docs/.vitepress/dist', 'docs/.vitepress/cache'],
+    },
+];

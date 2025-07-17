@@ -1,0 +1,10 @@
+/dist/*
+.local
+.output.js
+/node_modules/**
+**/*.svg
+**/*.sh
+/public/*
+**/*.yaml
+docs/.vitepress/dist
+docs/.vitepress/cache
