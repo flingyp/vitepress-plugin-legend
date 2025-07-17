@@ -1,24 +1,15 @@
----
-# https://vitepress.dev/reference/default-theme-home-page
-layout: home
+```mermaid-view
+# 学习计划
+  ## 前端
+    - HTML
+    - CSS
+    - JavaScript
+    - Vue3
+  ## 后端
+    - Node.js
+    - Python
+    - Go
 
-hero:
-  name: 'docs'
-  text: 'Markmap preview for docs'
-  tagline: My great project tagline
-  actions:
-    - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
-    - theme: alt
-      text: API Examples
-      link: /api-examples
-
-features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
----
+# Vue最强
+## 你好啊
+```

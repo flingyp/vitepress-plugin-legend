@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "./core/dist",
+    "types": ["node"],
+    "lib": ["ESNext", "DOM"]
+  },
+  "include": ["*.ts", "*.vue", "docs/.vitepress/config.mts"],
+  "exclude": [
+    "node_modules",
+    "core/dist",
+    "docs/.vitepress/cache",
+    "docs/.vitepress/dist"
+  ]
+}

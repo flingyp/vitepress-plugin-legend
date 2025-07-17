@@ -1,28 +1,22 @@
 import { defineConfig } from 'vitepress';
+import { vitepressMarkmapPreview } from 'vitepress-markmap-preview';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-    title: 'docs',
-    description: 'Markmap preview for docs',
+    title: 'vitepress-markmap-preview',
+    description: 'Markmap preview for vitepress',
     themeConfig: {
-        // https://vitepress.dev/reference/default-theme-config
-        nav: [
-            { text: 'Home', link: '/' },
-            { text: 'Examples', link: '/markdown-examples' },
-        ],
-
-        sidebar: [
+        socialLinks: [
             {
-                text: 'Examples',
-                items: [
-                    { text: 'Markdown Examples', link: '/markdown-examples' },
-                    { text: 'Runtime API Examples', link: '/api-examples' },
-                ],
+                icon: 'github',
+                link: 'https://github.com/flingyp/vitepress-markmap-preview',
             },
         ],
-
-        socialLinks: [
-            { icon: 'github', link: 'https://github.com/vuejs/vitepress' },
-        ],
+    },
+    markdown: {
+        config(md) {
+            // 使用更多的 Markdown-it 插件！
+            md.use(vitepressMarkmapPreview);
+        },
     },
 });
