@@ -1,7 +1,7 @@
 <template>
   <!-- 设置固定高度、宽度 100%、block 显示和主题适配的背景，使思维导图完全填充容器 -->
   <div class="mindmap-container">
-    <svg ref="svgRef"></svg>
+    <svg ref="svgRef" style="min-height: 300px"></svg>
   </div>
 </template>
 
@@ -16,6 +16,7 @@ import {
 } from 'vue';
 import { Transformer } from 'markmap-lib';
 import { Markmap } from 'markmap-view';
+import type { IMarkmapOptions } from 'markmap-view';
 
 interface MindMapRenderProps {
   type: 'view';
@@ -49,7 +50,7 @@ const markmapIns = shallowRef();
 const resizeObserver = ref<ResizeObserver>();
 
 // 计算暗黑模式相关配置
-const markmapOptions = computed(() => ({
+const markmapOptions = computed<Partial<IMarkmapOptions>>(() => ({
   // autoFit: true,
   // fitRatio: 1,
   // initialExpandLevel: 3,
@@ -62,6 +63,7 @@ const markmapOptions = computed(() => ({
   // spacingHorizontal: 5,
   // spacingVertical: 5,
   // duration: 200,
+  // maxWidth: 600,
   color: (node: any) => {
     // 针对暗黑模式调整节点颜色
     return isDark.value
