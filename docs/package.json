@@ -1,0 +1,17 @@
+{
+  "name": "docs",
+  "description": "Markmap preview for docs",
+  "type": "module",
+  "version": "0.0.0",
+  "author": "flingyp",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.3",
+    "vitepress-markmap-preview": "workspace:*"
+  }
+}

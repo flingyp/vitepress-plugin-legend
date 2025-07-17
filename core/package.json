@@ -1,0 +1,45 @@
+{
+  "name": "vitepress-markmap-preview",
+  "description": "Markmap preview for vitepress",
+  "type": "module",
+  "version": "0.0.0",
+  "author": "flingyp",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsup --watch --sourcemap",
+    "build": "tsup --minify"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "keywords": [
+    "typescript",
+    "libarary",
+    "template"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flingyp"
+  },
+  "devDependencies": {
+    "@flypeng/eslint-config": "^2.0.3",
+    "cross-env": "^7.0.3",
+    "nodemon": "^3.1.10",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.4"
+  },
+  "dependencies": {
+    "@flypeng/tool": "^5.7.0"
+  }
+}

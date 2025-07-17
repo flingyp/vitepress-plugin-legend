@@ -1,0 +1,52 @@
+{
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --filter vitepress-markmap-preview dev",
+    "build": "pnpm --filter vitepress-markmap-preview build",
+    "docs:dev": "pnpm --filter docs dev",
+    "docs:build": "pnpm --filter docs build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "changelog": "conventional-changelog -p custom-config -i CHANGELOG.md -s -n ./changelog.options.js && git add CHANGELOG.md",
+    "prepare": "husky install",
+    "commit": "git-cz",
+    "release": "release-it"
+  },
+  "author": "flingyp",
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@flypeng/eslint-config": "^2.0.3",
+    "@types/node": "^22.15.23",
+    "commitizen": "^4.3.1",
+    "compare-func": "^2.0.0",
+    "conventional-changelog": "^7.0.2",
+    "conventional-changelog-cli": "^5.0.0",
+    "conventional-changelog-custom-config": "^0.3.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^9.27.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^13.3.0",
+    "release-it": "^19.0.2",
+    "typescript": "^5.8.3"
+  },
+  "lint-staged": {
+    "core/**/*.ts": [
+      "pnpm run lint"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "release-it": {
+    "github": {
+      "release": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flingyp"
+  }
+}

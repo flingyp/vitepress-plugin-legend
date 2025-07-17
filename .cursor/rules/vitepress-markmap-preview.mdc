@@ -1,0 +1,14 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# vitepress-markmap-preview 插件规则
+
+本项目为 Vitepress 的思维导图预览插件，支持在 Markdown 中通过 markmap 代码块渲染交互式思维导图。
+
+- 主要入口：`[README.md](mdc:README.md)` 提供了插件的安装、使用和配置说明。
+- 插件核心代码位于 `core/index.ts` 目录。
+- 示例和用法可参考 `[example/](mdc:example)` 目录。
+
+如需了解插件集成方式、配置项或贡献指南，请优先查阅 [README.md](mdc:README.md)。
