@@ -3,6 +3,7 @@ import { vitepressMarkmapPreview } from 'vitepress-markmap-preview';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+    base: '/vitepress-markmap-preview',
     title: 'vitepress-markmap-preview',
     description: 'Markmap preview for vitepress',
     themeConfig: {

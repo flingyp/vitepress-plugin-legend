@@ -1,4 +1,4 @@
-```mermaid-view
+```mermaid
 # 学习计划
   ## 前端
     - HTML
