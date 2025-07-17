@@ -4,6 +4,11 @@ import flypeng from '@flypeng/eslint-config';
 export default [
     ...flypeng(),
     {
-        ignores: ['core/dist', 'docs/.vitepress/dist', 'docs/.vitepress/cache'],
+        ignores: [
+            'core/dist',
+            'docs/.vitepress/dist',
+            'docs/.vitepress/cache',
+            'README.md',
+        ],
     },
 ];

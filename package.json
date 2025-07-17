@@ -1,5 +1,7 @@
 {
   "type": "module",
+  "packageManager": "pnpm@10.13.1",
+  "author": "flingyp",
   "scripts": {
     "dev": "pnpm --filter vitepress-markmap-preview dev",
     "build": "pnpm --filter vitepress-markmap-preview build",
@@ -12,26 +14,27 @@
     "commit": "git-cz",
     "release": "release-it"
   },
-  "author": "flingyp",
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
-    "@flypeng/eslint-config": "^2.0.3",
-    "@flypeng/stylelint-config": "^1.0.7",
+    "@flypeng/eslint-config": "^3.0.0",
+    "@flypeng/stylelint-config": "^2.0.3",
     "@prettier/plugin-oxc": "^0.0.4",
-    "@types/node": "^22.15.23",
+    "@types/node": "^22.16.4",
     "commitizen": "^4.3.1",
     "compare-func": "^2.0.0",
-    "conventional-changelog": "^7.0.2",
+    "conventional-changelog": "^7.1.1",
     "conventional-changelog-cli": "^5.0.0",
     "conventional-changelog-custom-config": "^0.3.1",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^9.27.0",
+    "eslint": "^9.31.0",
     "husky": "^9.1.7",
     "lint-staged": "^13.3.0",
+    "postcss-html": "^1.8.0",
     "prettier": "^3.6.2",
-    "release-it": "^19.0.2",
+    "release-it": "^19.0.4",
     "stylelint": "^16.21.1",
+    "stylelint-config-html": "^1.1.0",
     "typescript": "^5.8.3"
   },
   "lint-staged": {

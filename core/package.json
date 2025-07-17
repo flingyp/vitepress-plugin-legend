@@ -32,7 +32,7 @@
     "url": "https://github.com/flingyp"
   },
   "devDependencies": {
-    "@flypeng/eslint-config": "^2.0.3",
+    "@flypeng/eslint-config": "^2.0.5",
     "@microsoft/api-extractor": "^7.52.8",
     "@types/markdown-it": "^14.1.2",
     "@vue/language-core": "^3.0.1",
@@ -41,10 +41,10 @@
     "tsup": "^8.5.0",
     "typescript": "^5.8.3",
     "unplugin-dts": "1.0.0-beta.0",
-    "vitest": "^3.1.4"
+    "vitest": "^3.2.4"
   },
   "dependencies": {
-    "@flypeng/tool": "^5.7.0",
+    "@flypeng/tool": "^5.7.2",
     "@vitejs/plugin-vue": "^6.0.0",
     "markdown-it": "^14.1.0",
     "markmap-lib": "^0.18.12",
