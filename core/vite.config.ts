@@ -7,14 +7,13 @@ import dts from 'unplugin-dts/vite';
 export default defineConfig({
   build: {
     lib: {
-      entry: './index.ts',
+      entry: ['./index.ts', './component.ts'],
       name: 'VitepressMarkmapPreview',
-      formats: ['es'],
-      fileName: 'index',
+      formats: ['es', 'cjs'],
     },
     rollupOptions: {
-      // 把 vue 打到外部依赖，不打包进库
-      external: ['vue'],
+      // 把 vue、path、fs 是外部依赖库，不需要被打进库中
+      external: ['vue', 'path', 'fs'],
       output: {
         globals: {
           vue: 'Vue',

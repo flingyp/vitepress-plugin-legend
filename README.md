@@ -7,7 +7,8 @@
 - 🧠 支持 Markdown 中的 mermaid 代码块自动渲染为思维导图
 - ⚡️ 即插即用，集成简单
 - 🎨 支持自适应主题（自动适配明/暗模式）
-- 📦 兼容 Vitepress 最新版本
+- �� 兼容 Vitepress 最新版本
+- 📄 支持读取指定 Markdown 文件并渲染为思维导图
 
 ## 安装
 
@@ -55,14 +56,24 @@ markmap:
 ```
 ````
 
-保存后即可在页面中看到交互式思维导图。
+3. 或者使用组件读取指定的 Markdown 文件内容并渲染为思维导图：
+
+```markdown
+<ReviewMarkmap path="./path/to/your-file.md" />
+```
+
+路径可以是相对于当前 Markdown 文件的路径，插件会自动解析文件内容并将其转换为交互式思维导图。
 
 ## 支持的语法
 
-插件支持以下类型的代码块：
+插件支持以下方式渲染思维导图：
 
-- `mermaid` 或 `mermaid-view`：渲染为思维导图视图
-- `mermaid-render`：将思维导图数据渲染为交互式 HTML
+- **代码块方式**：
+  - `mermaid` 或 `mermaid-view`：渲染为思维导图视图
+  - `mermaid-render`：将思维导图数据渲染为交互式 HTML
+
+- **组件方式**：
+  - `<ReviewMarkmap path="./file.md" />`：读取指定 Markdown 文件内容并渲染为思维导图
 
 ## 示例
 

@@ -21,7 +21,12 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./dist/index.css": "./dist/index.css"
+    "./component": {
+      "types": "./dist/component.d.ts",
+      "import": "./dist/component.js",
+      "require": "./dist/component.cjs"
+    },
+    "./dist/index.css": "./dist/vitepress-markmap-preview.css"
   },
   "types": "./dist/index.d.ts",
   "keywords": [
