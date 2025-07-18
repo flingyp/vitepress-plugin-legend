@@ -1,10 +1,3 @@
-<template>
-  <!-- 设置固定高度、宽度 100%、block 显示和主题适配的背景，使思维导图完全填充容器 -->
-  <div class="mindmap-container">
-    <svg ref="svgRef" style="min-height: 400px"></svg>
-  </div>
-</template>
-
 <script setup lang="ts">
 import {
   onMounted,
@@ -17,6 +10,8 @@ import {
 import { Transformer } from 'markmap-lib';
 import { Markmap } from 'markmap-view';
 import type { IMarkmapOptions } from 'markmap-view';
+import { Toolbar } from 'markmap-toolbar';
+import { snapdom } from '@zumer/snapdom';
 
 interface MindMapRenderProps {
   type: 'view';
@@ -45,9 +40,14 @@ const isDark = computed(() => {
   return false;
 });
 
+const mindmapContainerRef = ref<HTMLElement>();
 const svgRef = ref();
-const markmapIns = shallowRef();
+const markmapIns = shallowRef<Markmap>();
 const resizeObserver = ref<ResizeObserver>();
+
+const mindmapId = ref<string>(
+  `mindmap-${Math.random().toString(36).substring(2, 15)}`,
+);
 
 // 计算暗黑模式相关配置
 const markmapOptions = computed<Partial<IMarkmapOptions>>(() => ({
@@ -113,18 +113,197 @@ function renderMarkmap() {
   }
 }
 
+// 渲染工具栏
+function renderToolbar() {
+  if (!svgRef.value || !props.markdown || !markmapIns.value) return;
+
+  const toolbarIns = Toolbar.create(markmapIns.value);
+  toolbarIns.showBrand = false;
+  const { el } = toolbarIns;
+
+  // 生成一个唯一标识的ID值
+  el.id = `toolbar-${mindmapId.value}`;
+
+  // 设置工具栏基础样式
+  el.style.cursor = 'pointer';
+  el.style.position = 'absolute';
+  el.style.bottom = '0.5rem';
+  el.style.right = '0.5rem';
+  el.style.display = 'flex';
+  el.style.justifyContent = 'flex-end';
+  el.style.alignItems = 'center';
+  el.style.gap = '0.6rem';
+  el.style.padding = '0.6rem 0.8rem';
+  el.style.backgroundColor = 'var(--vp-c-bg)';
+  el.style.border = '1px solid var(--vp-c-divider)';
+  el.style.borderRadius = '2rem';
+  el.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
+  el.style.backdropFilter = 'blur(8px)';
+  el.style.transition = 'all 0.3s ease';
+  el.style.opacity = '0.85';
+  el.style.zIndex = '10';
+  el.style.userSelect = 'none';
+
+  // 为工具栏添加悬停效果
+  el.addEventListener('mouseenter', () => {
+    el.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
+    el.style.transform = 'translateY(-2px)';
+    el.style.opacity = '1';
+  });
+
+  el.addEventListener('mouseleave', () => {
+    el.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
+    el.style.transform = 'translateY(0)';
+    el.style.opacity = '0.85';
+  });
+
+  // 美化按钮样式
+  setTimeout(() => {
+    const buttons = el.querySelectorAll('button');
+    buttons.forEach((button: HTMLButtonElement) => {
+      button.style.borderRadius = '50%';
+      button.style.width = '2rem';
+      button.style.height = '2rem';
+      button.style.display = 'flex';
+      button.style.alignItems = 'center';
+      button.style.justifyContent = 'center';
+      button.style.fontSize = '1.2rem';
+      button.style.border = 'none';
+      button.style.backgroundColor = 'transparent';
+      button.style.color = 'var(--vp-c-text-1)';
+      button.style.cursor = 'pointer';
+      button.style.padding = '0';
+      button.style.margin = '0';
+      button.style.transition = 'all 0.2s ease';
+
+      // 按钮悬停效果
+      button.addEventListener('mouseenter', () => {
+        button.style.backgroundColor = 'var(--vp-c-brand-dimm)';
+        button.style.transform = 'scale(1.1)';
+        button.style.color = 'var(--vp-c-brand)';
+      });
+
+      button.addEventListener('mouseleave', () => {
+        button.style.backgroundColor = 'transparent';
+        button.style.transform = 'scale(1)';
+        button.style.color = 'var(--vp-c-text-1)';
+      });
+    });
+  }, 10);
+
+  toolbarIns.attach(markmapIns.value);
+
+  // 自定义默认按钮的图标
+  toolbarIns.register({
+    id: 'zoomIn',
+    title: '放大',
+    content: '🔍',
+    onClick: () => {
+      if (markmapIns.value) markmapIns.value.rescale(1.25);
+    },
+  });
+
+  toolbarIns.register({
+    id: 'zoomOut',
+    title: '缩小',
+    content: '🔎',
+    onClick: () => {
+      if (markmapIns.value) markmapIns.value.rescale(0.8);
+    },
+  });
+
+  toolbarIns.register({
+    id: 'fit',
+    title: '适应屏幕',
+    content: '🔲',
+    onClick: () => {
+      if (markmapIns.value) markmapIns.value.fit();
+    },
+  });
+
+  // 注册下载图片按钮
+  toolbarIns.register({
+    id: 'download',
+    title: '下载为PNG图片',
+    content: '📥',
+    onClick: () => downloadAsPng(),
+  });
+
+  // 设置工具栏按钮
+  toolbarIns.setItems(['zoomIn', 'zoomOut', 'fit', 'download']);
+  mindmapContainerRef.value?.append(el);
+}
+
+// 下载思维导图为PNG图片
+async function downloadAsPng() {
+  if (!markmapIns.value || !svgRef.value || !mindmapContainerRef.value) return;
+
+  // 保存当前状态
+  const toolbar = mindmapContainerRef.value.querySelector(
+    `#toolbar-${mindmapId.value}`,
+  ) as HTMLElement;
+
+  try {
+    // 1. 隐藏工具栏
+    if (toolbar) toolbar.style.display = 'none';
+
+    // 2. 适应屏幕
+    markmapIns.value.fit();
+
+    // 3. 下载图片
+    const result = await snapdom(mindmapContainerRef.value, {
+      scale: 2,
+      quality: 1,
+      backgroundColor: getComputedStyle(
+        document.documentElement,
+      ).getPropertyValue('--vp-c-bg-soft'),
+    });
+    await result.download({ format: 'png', filename: 'mindmap' });
+  } catch (e) {
+    console.error('下载图片失败:', e);
+    alert('下载图片失败，请检查浏览器安全设置或尝试其他浏览器');
+  } finally {
+    // 4. 恢复工具栏
+    if (toolbar) toolbar.style.display = 'flex';
+  }
+}
+
 // 处理容器尺寸变化，重新适配思维导图
 function handleResize() {
   if (markmapIns.value) {
     // 延迟执行，确保 DOM 已更新
     setTimeout(() => {
-      markmapIns.value.fit();
+      markmapIns.value?.fit();
     }, 100);
   }
 }
 
+// 监听 markdown 变化
+watch(
+  () => props.markdown,
+  () => {
+    renderMarkmap();
+  },
+);
+
+// 监听主题变化
+watch(
+  () => isDark.value,
+  () => {
+    if (markmapIns.value) {
+      // 更新配置并重新渲染
+      markmapIns.value.setOptions(markmapOptions.value);
+      markmapIns.value.renderData();
+    }
+  },
+);
+
+// 存储MutationObserver实例
+const darkModeObserver = ref<MutationObserver | null>(null);
+
 onMounted(() => {
   renderMarkmap();
+  renderToolbar();
 
   // 创建 ResizeObserver 监听容器尺寸变化
   if (window.ResizeObserver) {
@@ -175,9 +354,6 @@ onMounted(() => {
   }
 });
 
-// 存储MutationObserver实例
-const darkModeObserver = ref<MutationObserver | null>(null);
-
 onBeforeUnmount(() => {
   // 清理 ResizeObserver 和事件监听
   if (resizeObserver.value) {
@@ -209,30 +385,18 @@ onBeforeUnmount(() => {
     darkModeObserver.value.disconnect();
   }
 });
-
-// 监听 markdown 变化
-watch(
-  () => props.markdown,
-  () => {
-    renderMarkmap();
-  },
-);
-
-// 监听主题变化
-watch(
-  () => isDark.value,
-  () => {
-    if (markmapIns.value) {
-      // 更新配置并重新渲染
-      markmapIns.value.setOptions(markmapOptions.value);
-      markmapIns.value.renderData();
-    }
-  },
-);
 </script>
+
+<template>
+  <!-- 设置固定高度、宽度 100%、block 显示和主题适配的背景，使思维导图完全填充容器 -->
+  <div class="mindmap-container" ref="mindmapContainerRef">
+    <svg ref="svgRef" style="min-height: 400px"></svg>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .mindmap-container {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;

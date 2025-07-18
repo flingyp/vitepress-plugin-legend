@@ -53,9 +53,11 @@
   "dependencies": {
     "@flypeng/tool": "^5.7.2",
     "@vitejs/plugin-vue": "^6.0.0",
+    "@zumer/snapdom": "^1.9.5",
     "markdown-it": "^14.1.0",
     "markmap-lib": "^0.18.12",
     "markmap-render": "^0.18.10",
+    "markmap-toolbar": "^0.18.12",
     "markmap-view": "^0.18.12",
     "sass": "^1.89.2",
     "vite": "^7.0.5",
