@@ -1,34 +1,20 @@
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
+import MindMapRoot from './MindMapRoot.vue';
 
-// 定义组件属性
-const props = defineProps<{
+interface PreviewMarkmapPathProps {
   path: string;
-}>();
+}
+
+withDefaults(defineProps<PreviewMarkmapPathProps>(), {});
 
 const markdown = ref('');
-
-onMounted(async () => {
-  try {
-    // 根据提供的路径获取 Markdown 内容
-    const response = await fetch(props.path);
-    if (!response.ok) {
-      throw new Error(`Failed to load Markdown file: ${props.path}`);
-    }
-
-    markdown.value = await response.text();
-  } catch (error) {
-    console.error('Error loading Markdown file:', error);
-    markdown.value = `# 加载失败\n\n无法加载文件: ${props.path}`;
-  }
-});
 </script>
 
 <template>
   <div class="vitepress-markmap-preview">
     <ClientOnly>
-      <MindMapRoot v-if="markdown" type="render" :markdown="markdown" />
-      <div v-else class="loading">加载中...</div>
+      <MindMapRoot v-if="markdown" type="view" :markdown="markdown" />
     </ClientOnly>
   </div>
 </template>

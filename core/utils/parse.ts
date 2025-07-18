@@ -45,13 +45,13 @@ export function parseMermaid(md: MarkdownIt) {
  * @param md
  */
 export function parsePreviewMarkmap(md: MarkdownIt) {
-  // 添加自定义容器解析，用于处理 <ReviewMarkmap path="./xx.md" /> 标签
-  const customComponentRegex = /<ReviewMarkmap\s+path=['"](.*?)['"]\s*\/>/g;
+  // 添加自定义容器解析，用于处理 <PreviewMarkmapPath path="./xx.md" /> 标签
+  const customComponentRegex =
+    /<PreviewMarkmapPath\s+path=['"](.*?)['"]\s*\/>/g;
 
   // 添加对ReviewMarkmap组件的解析
   const originalRender = md.render;
   md.render = function (src, env) {
-    console.log('env:', env);
     let result = originalRender.call(this, src, env);
 
     // 替换所有<ReviewMarkmap>标签
@@ -79,10 +79,10 @@ export function parsePreviewMarkmap(md: MarkdownIt) {
           fileContent = `# 文件读取失败\n\n无法加载: ${filePath}`;
         }
 
-        // 将内容传递给MindMapRoot组件
+        // 将内容传递给 MindMapRoot 组件
         return `
           <ClientOnly>
-            <MindMapRoot type="render" markdown=${encodeURIComponent(fileContent)} />
+            <MindMapRoot markdown=${encodeURIComponent(fileContent)} />
           </ClientOnly>
         `;
       } catch (error) {

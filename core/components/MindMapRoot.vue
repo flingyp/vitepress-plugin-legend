@@ -20,7 +20,7 @@ import type { IMarkmapOptions } from 'markmap-view';
 
 interface MindMapRenderProps {
   type: 'view';
-  markdown?: string;
+  markdown: string;
 }
 
 const props = defineProps<MindMapRenderProps>();
