@@ -9,12 +9,6 @@ import path from 'path';
 export function parseMermaid(md: MarkdownIt) {
   const defaultFenceRender = md.renderer.rules.fence!;
   md.renderer.rules.fence = (tokens, idx, options, env, self) => {
-    // console.log('tokens:', tokens);
-    // console.log('idx:', idx);
-    // console.log('options:', options);
-    // console.log('env:', env);
-    // console.log('self:', self);
-    // token.content 包裹的内容
     const token = tokens[idx];
     const lang = token.info.trim() || 'text'; // 获取语言标记（如 ```js 中的 js）
 
@@ -40,23 +34,38 @@ export function parseMermaid(md: MarkdownIt) {
   };
 }
 
+// 从属性字符串中提取路径
+const extractPath = (attrsStr: string): string => {
+  const pathMatch = /path=['"](.*?)['"]/.exec(attrsStr);
+  return pathMatch ? pathMatch[1] : '';
+};
+
 /**
  * 读取指定MD文件内容，展示思维导图
+ * 支持两种写法：<PreviewMarkmapPath path="./xx.md" /> 和 <PreviewMarkmapPath path="./xx.md"></PreviewMarkmapPath>
  * @param md
  */
 export function parsePreviewMarkmap(md: MarkdownIt) {
-  // 添加自定义容器解析，用于处理 <PreviewMarkmapPath path="./xx.md" /> 标签
-  const customComponentRegex =
-    /<PreviewMarkmapPath\s+path=['"](.*?)['"]\s*\/>/g;
+  // 添加自定义容器解析，用于处理 <PreviewMarkmapPath> 标签
+  const customComponentRegex1 = /<PreviewMarkmapPath\s+(.*?)\s*\/>/g; // 自闭合标签
+  const customComponentRegex2 =
+    /<PreviewMarkmapPath\s+(.*?)><\/PreviewMarkmapPath>/g; // 双标签
 
   // 添加对ReviewMarkmap组件的解析
   const originalRender = md.render;
   md.render = function (src, env) {
     let result = originalRender.call(this, src, env);
 
-    // 替换所有<ReviewMarkmap>标签
-    result = result.replace(customComponentRegex, (match, filePath) => {
+    // 处理替换标签的函数
+    const processTag = (match: string, attrsStr: string) => {
       try {
+        // 从属性中提取路径
+        const filePath = extractPath(attrsStr);
+        if (!filePath) {
+          console.error('未找到有效的path属性:', attrsStr);
+          return `<div class="markmap-error">错误: 未指定有效的path属性</div>`;
+        }
+
         // 获取当前处理的md文件的目录，以便正确解析相对路径
         let basePath = '';
 
@@ -79,16 +88,32 @@ export function parsePreviewMarkmap(md: MarkdownIt) {
           fileContent = `# 文件读取失败\n\n无法加载: ${filePath}`;
         }
 
+        // 将原始属性字符串传递给组件，以支持更多参数
+        const propsStr = attrsStr.replace(
+          /path=['"](.*?)['"]/,
+          `path="${filePath}"`,
+        );
+
         // 将内容传递给 MindMapRoot 组件
         return `
           <ClientOnly>
-            <MindMapRoot markdown=${encodeURIComponent(fileContent)} />
+            <MindMapRoot markdown=${encodeURIComponent(fileContent)} ${propsStr} />
           </ClientOnly>
         `;
       } catch (error) {
         console.error('处理ReviewMarkmap组件时出错:', error);
-        return `<div class="markmap-error">加载思维导图失败: ${filePath}</div>`;
+        return `<div class="markmap-error">加载思维导图失败</div>`;
       }
+    };
+
+    // 替换所有自闭合的 <PreviewMarkmapPath /> 标签
+    result = result.replace(customComponentRegex1, (match, attrsStr) => {
+      return processTag(match, attrsStr);
+    });
+
+    // 替换所有双标签的 <PreviewMarkmapPath></PreviewMarkmapPath> 标签
+    result = result.replace(customComponentRegex2, (match, attrsStr) => {
+      return processTag(match, attrsStr);
     });
 
     return result;

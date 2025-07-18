@@ -79,7 +79,12 @@ markmap:
 4. 或者使用组件读取指定的 Markdown 文件内容并渲染为思维导图：
 
 ```markdown
+<!-- 自闭合标签写法 -->
 <PreviewMarkmapPath path="./path/to/your-file.md" />
+
+<!-- 或者使用双标签写法 -->
+
+<PreviewMarkmapPath path="./path/to/your-file.md"></PreviewMarkmapPath>
 ```
 
 路径可以是相对于当前 Markdown 文件的路径，插件会自动读取文件内容并将其转换为交互式思维导图。
@@ -109,6 +114,7 @@ markmap:
 
 - 请确保在 Markdown 文件中的 HTML 标签（如 `<tag>`）都已正确转义，以避免构建错误。建议使用反引号(`)包裹HTML标签，如 `` `<tag>` ``。
 - 在开发环境中(`pnpm docs:dev`)组件名称为`PreviewMarkmapPath`，但服务端渲染时会查找`<ReviewMarkmap>`标签并处理。
+- 组件标签支持两种写法：自闭合标签和双标签，功能完全相同，可以根据个人习惯选择。
 
 ## 支持的语法
 
@@ -120,6 +126,7 @@ markmap:
 
 - **组件方式**：
   - `<PreviewMarkmapPath path="./file.md" />`：读取指定 Markdown 文件内容并渲染为思维导图
+  - `<PreviewMarkmapPath path="./file.md"></PreviewMarkmapPath>`：双标签写法，功能同上
 
 ## 示例
 
