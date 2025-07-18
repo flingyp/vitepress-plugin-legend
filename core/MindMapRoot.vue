@@ -1,7 +1,7 @@
 <template>
   <!-- 设置固定高度、宽度 100%、block 显示和主题适配的背景，使思维导图完全填充容器 -->
   <div class="mindmap-container">
-    <svg ref="svgRef" style="min-height: 800px"></svg>
+    <svg ref="svgRef" style="min-height: 400px"></svg>
   </div>
 </template>
 

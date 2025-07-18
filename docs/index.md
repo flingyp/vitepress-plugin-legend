@@ -48,3 +48,7 @@ Note that if blocks and lists appear at the same level, the lists will be ignore
 ![](https://markmap.js.org/favicon.png)
 
 ```
+
+## 读取指定MD文件内容，展示思维导图
+
+<ReviewMarkmap path="./Vue.md" />
