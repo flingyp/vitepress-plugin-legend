@@ -1,8 +1,6 @@
 {
-  "name": "docs",
-  "description": "Markmap preview for docs",
   "type": "module",
-  "version": "0.0.0",
+  "packageManager": "pnpm@10.13.1",
   "author": "flingyp",
   "license": "MIT",
   "scripts": {
