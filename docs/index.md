@@ -51,4 +51,4 @@ Note that if blocks and lists appear at the same level, the lists will be ignore
 
 ## 读取指定MD文件内容，展示思维导图
 
-<ReviewMarkmap path="./Vue.md" />
+<PreviewMarkmapPath path="./Vue.md" />

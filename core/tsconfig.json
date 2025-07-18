@@ -17,6 +17,11 @@
     "types": ["node"],
     "lib": ["ESNext", "DOM"]
   },
-  "include": ["*.ts", "*.vue"],
+  "include": [
+    "*.ts",
+    "*.vue",
+    "components/MindMapRoot.vue",
+    "components/PreviewMarkmapPath.vue"
+  ],
   "exclude": ["node_modules", "core/dist"]
 }

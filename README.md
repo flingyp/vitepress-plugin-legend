@@ -7,7 +7,7 @@
 - 🧠 支持 Markdown 中的 mermaid 代码块自动渲染为思维导图
 - ⚡️ 即插即用，集成简单
 - 🎨 支持自适应主题（自动适配明/暗模式）
-- �� 兼容 Vitepress 最新版本
+- 📦 兼容 Vitepress 最新版本
 - 📄 支持读取指定 Markdown 文件并渲染为思维导图
 
 ## 安装
@@ -40,7 +40,25 @@ export default defineConfig({
 });
 ```
 
-2. 在 Markdown 文件中插入 mermaid 代码块：
+2. 在你的 Vitepress 配置文件中引入并注册全局组件：
+
+```ts
+// .vitepress/theme/index.ts
+import type { Theme } from 'vitepress';
+import DefaultTheme from 'vitepress/theme';
+import { initComponent } from 'vitepress-markmap-preview/component';
+import 'vitepress-markmap-preview/dist/index.css';
+
+export default {
+  extends: DefaultTheme,
+  enhanceApp({ app }) {
+    // 注册自定义全局组件
+    initComponent(app);
+  },
+} satisfies Theme;
+```
+
+3. 在 Markdown 文件中插入 mermaid 代码块：
 
 ````markdown
 ```mermaid
@@ -56,13 +74,18 @@ markmap:
 ```
 ````
 
-3. 或者使用组件读取指定的 Markdown 文件内容并渲染为思维导图：
+4. 或者使用组件读取指定的 Markdown 文件内容并渲染为思维导图：
 
 ```markdown
-<ReviewMarkmap path="./path/to/your-file.md" />
+<PreviewMarkmapPath path="./path/to/your-file.md" />
 ```
 
-路径可以是相对于当前 Markdown 文件的路径，插件会自动解析文件内容并将其转换为交互式思维导图。
+路径可以是相对于当前 Markdown 文件的路径，插件会自动读取文件内容并将其转换为交互式思维导图。
+
+**注意：**
+
+- 请确保在 Markdown 文件中的 HTML 标签（如 `<tag>`）都已正确转义，以避免构建错误。建议使用反引号(`)包裹HTML标签，如 `` `<tag>` ``。
+- 在开发环境中(`pnpm docs:dev`)组件名称为`PreviewMarkmapPath`，但服务端渲染时会查找`<ReviewMarkmap>`标签并处理。
 
 ## 支持的语法
 
@@ -73,7 +96,7 @@ markmap:
   - `mermaid-render`：将思维导图数据渲染为交互式 HTML
 
 - **组件方式**：
-  - `<ReviewMarkmap path="./file.md" />`：读取指定 Markdown 文件内容并渲染为思维导图
+  - `<PreviewMarkmapPath path="./file.md" />`：读取指定 Markdown 文件内容并渲染为思维导图
 
 ## 示例
 
