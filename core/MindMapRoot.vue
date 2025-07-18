@@ -1,7 +1,7 @@
 <template>
   <!-- 设置固定高度、宽度 100%、block 显示和主题适配的背景，使思维导图完全填充容器 -->
   <div class="mindmap-container">
-    <svg ref="svgRef" style="min-height: 300px"></svg>
+    <svg ref="svgRef" style="min-height: 800px"></svg>
   </div>
 </template>
 
@@ -231,7 +231,7 @@ watch(
 );
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .mindmap-container {
   display: flex;
   align-items: center;
@@ -244,15 +244,20 @@ watch(
   transition:
     background-color 0.5s,
     border-color 0.5s;
-}
 
-.mindmap-container svg {
-  width: 100%;
+  svg {
+    width: 100%;
+  }
 }
 
 /* 暗模式下的SVG文本颜色适配 */
 :deep(.markmap-node) {
   color: var(--vp-c-text-1);
+  font-weight: 500;
+}
+
+:deep(circle) {
+  fill: var(--vp-c-brand-1);
 }
 
 :deep(.markmap-node-text) {

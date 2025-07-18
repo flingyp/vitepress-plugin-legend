@@ -4,9 +4,9 @@
 
 ## 特性
 
-- 🧠 支持 Markdown 中的 markmap 代码块自动渲染为思维导图
+- 🧠 支持 Markdown 中的 mermaid 代码块自动渲染为思维导图
 - ⚡️ 即插即用，集成简单
-- 🎨 支持自定义样式和主题
+- 🎨 支持自适应主题（自动适配明/暗模式）
 - 📦 兼容 Vitepress 最新版本
 
 ## 安装
@@ -14,6 +14,8 @@
 ```bash
 pnpm add vitepress-markmap-preview -D
 # 或者使用 npm
+npm install vitepress-markmap-preview -D
+# 或者使用 yarn
 yarn add vitepress-markmap-preview -D
 ```
 
@@ -24,43 +26,47 @@ yarn add vitepress-markmap-preview -D
 ```ts
 // .vitepress/config.ts
 import { defineConfig } from 'vitepress';
-import { markmapPreview } from 'vitepress-markmap-preview';
+import { vitepressMarkmapPreview } from 'vitepress-markmap-preview';
 
 export default defineConfig({
   // ...其他配置
-  vite: {
-    plugins: [markmapPreview()],
+  markdown: {
+    config(md) {
+      // 使用插件
+      md.use(vitepressMarkmapPreview);
+    },
   },
 });
 ```
 
-2. 在 Markdown 文件中插入 markmap 代码块：
+2. 在 Markdown 文件中插入 mermaid 代码块：
 
 ````markdown
-```markmap
+```mermaid
+---
+title: markmap
+markmap:
+  colorFreezeLevel: 2
+---
 # 思维导图标题
-- 一级节点
-  - 二级节点
-    - 三级节点
+## 一级节点
+- 二级节点
+  - 三级节点
 ```
 ````
 
 保存后即可在页面中看到交互式思维导图。
 
-## 配置说明
+## 支持的语法
 
-插件支持以下可选配置：
+插件支持以下类型的代码块：
 
-```ts
-markmapPreview({
-  // theme: 'dark' | 'light', // 主题模式
-  // customCss: '',           // 自定义样式
-});
-```
+- `mermaid` 或 `mermaid-view`：渲染为思维导图视图
+- `mermaid-render`：将思维导图数据渲染为交互式 HTML
 
 ## 示例
 
-见 [docs](./docs/) 目录，或在你的 Vitepress 项目中参考上述用法。
+见 [docs](./docs/) 目录，或访问[在线演示](https://flingyp.github.io/vitepress-markmap-preview)。
 
 ## 贡献指南
 

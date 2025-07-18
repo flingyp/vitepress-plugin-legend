@@ -15,6 +15,10 @@ export default defineConfig({
         ],
     },
     markdown: {
+        theme: {
+            light: 'vitesse-light',
+            dark: 'vitesse-dark',
+        },
         config(md) {
             // 使用更多的 Markdown-it 插件！
             md.use(vitepressMarkmapPreview);
