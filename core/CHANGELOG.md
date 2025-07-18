@@ -1,5 +1,11 @@
 # vitepress-markmap-preview
 
+## 0.0.3
+
+### Patch Changes
+
+- fix(core): 修改 MindMapRoot 组件的属性类型为必填，更新 PreviewMarkmapPath 组件以适应新的属性定义，调整 Markdown 内容的处理逻辑
+
 ## 0.0.2
 
 ### Patch Changes
