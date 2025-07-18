@@ -30,13 +30,13 @@
   - 修饰符 .prevent .sync 等
 - 虚拟 DOM & Diff
 - 事件系统
-- 动画 <Transition> / <TransitionGroup>
+- 动画 `<Transition>` / `<TransitionGroup>`
 
 ## 3. 单文件组件 SFC
 
-- <template> 模板
-- <script setup> 组合式语法糖
-- <style scoped> / CSS Modules
+- `<template>` 模板
+- `<script setup>` 组合式语法糖
+- `<style scoped>` / CSS Modules
 - 预处理器 Sass / Less / Stylus
 
 ## 4. 周边生态
@@ -64,7 +64,7 @@
   - 性能提升 1.3~2x
   - Tree-shaking
   - Fragment / Teleport / Suspense
-- Vue 2.7 “Naruto” : 向后移植部分 Composition API
+- Vue 2.7 "Naruto" : 向后移植部分 Composition API
 
 ## 6. 常见模式
 
