@@ -1,4 +1,5 @@
 {
+  "name": "docs",
   "type": "module",
   "packageManager": "pnpm@10.13.1",
   "author": "flingyp",
