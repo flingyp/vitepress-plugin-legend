@@ -47,11 +47,11 @@ const extractPath = (attrsStr: string): string => {
  */
 export function parsePreviewMarkmap(md: MarkdownIt) {
   // 添加自定义容器解析，用于处理 <PreviewMarkmapPath> 标签
-  const customComponentRegex1 = /<PreviewMarkmapPath\s+(.*?)\s*\/>/g; // 自闭合标签
+  const customComponentRegex1 = /<PreviewMarkmapPath\s*(.*?)\s*\/>/g; // 自闭合标签，允许无属性
   const customComponentRegex2 =
-    /<PreviewMarkmapPath\s+(.*?)><\/PreviewMarkmapPath>/g; // 双标签
+    /<PreviewMarkmapPath\s*(.*?)><\/PreviewMarkmapPath>/g; // 双标签，允许无属性
 
-  // 添加对ReviewMarkmap组件的解析
+  // 添加对 PreviewMarkmapPath 组件的解析
   const originalRender = md.render;
   md.render = function (src, env) {
     let result = originalRender.call(this, src, env);
@@ -61,14 +61,10 @@ export function parsePreviewMarkmap(md: MarkdownIt) {
       try {
         // 从属性中提取路径
         const filePath = extractPath(attrsStr);
-        if (!filePath) {
-          console.error('未找到有效的path属性:', attrsStr);
-          return `<div class="markmap-error">错误: 未指定有效的path属性</div>`;
-        }
-
+        let fileContent = '';
+        let usedPath = filePath;
         // 获取当前处理的md文件的目录，以便正确解析相对路径
         let basePath = '';
-
         if (env && env.path) {
           basePath = path.dirname(env.path);
         } else if (process.cwd) {
@@ -76,22 +72,35 @@ export function parsePreviewMarkmap(md: MarkdownIt) {
           basePath = process.cwd();
         }
 
-        // 解析文件的完整路径
-        const fullPath = path.resolve(basePath, filePath);
-
-        // 读取文件内容
-        let fileContent = '';
-        try {
-          fileContent = fs.readFileSync(fullPath, 'utf-8');
-        } catch (err) {
-          console.error(`无法读取文件: ${fullPath}`, err);
-          fileContent = `# 文件读取失败\n\n无法加载: ${filePath}`;
+        if (!filePath) {
+          // 未传 path，默认读取当前 MD 文件内容
+          if (env && env.path) {
+            try {
+              fileContent = fs.readFileSync(env.path, 'utf-8');
+              console.log('fileContent:', fileContent);
+              usedPath = env.path;
+            } catch (err) {
+              console.error(`无法读取当前MD文件: ${env.path}`, err);
+              fileContent = `# 文件读取失败\n\n无法加载: 当前文档`;
+            }
+          } else {
+            fileContent = `# 文件读取失败\n\n未指定 path，且无法获取当前文档路径`;
+          }
+        } else {
+          // 解析文件的完整路径
+          const fullPath = path.resolve(basePath, filePath);
+          try {
+            fileContent = fs.readFileSync(fullPath, 'utf-8');
+          } catch (err) {
+            console.error(`无法读取文件: ${fullPath}`, err);
+            fileContent = `# 文件读取失败\n\n无法加载: ${filePath}`;
+          }
         }
 
         // 将原始属性字符串传递给组件，以支持更多参数
         const propsStr = attrsStr.replace(
-          /path=['"](.*?)['"]/,
-          `path="${filePath}"`,
+          /path=['"](.*?)['"]/, // 只替换 path 属性
+          `path="${usedPath || ''}"`,
         );
 
         // 将内容传递给 MindMapRoot 组件

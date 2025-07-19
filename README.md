@@ -85,9 +85,12 @@ markmap:
 <!-- 或者使用双标签写法 -->
 
 <PreviewMarkmapPath path="./path/to/your-file.md"></PreviewMarkmapPath>
+
+<!-- 不传递 path 参数，默认读取当前 MD 文件内容 -->
+<PreviewMarkmapPath />
 ```
 
-路径可以是相对于当前 Markdown 文件的路径，插件会自动读取文件内容并将其转换为交互式思维导图。
+路径可以是相对于当前 Markdown 文件的路径，插件会自动读取文件内容并将其转换为交互式思维导图。如果不传递 path 参数，则默认读取当前 Markdown 文件内容并渲染为思维导图。
 
 ## 功能特性
 
@@ -127,6 +130,7 @@ markmap:
 - **组件方式**：
   - `<PreviewMarkmapPath path="./file.md" />`：读取指定 Markdown 文件内容并渲染为思维导图
   - `<PreviewMarkmapPath path="./file.md"></PreviewMarkmapPath>`：双标签写法，功能同上
+  - `<PreviewMarkmapPath />`：不传递 path 参数时，默认读取当前 Markdown 文件内容并渲染为思维导图
 
 ## 示例
 
