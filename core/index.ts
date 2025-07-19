@@ -1,9 +1,10 @@
 import MarkdownIt from 'markdown-it';
-import { parseMermaid, parsePreviewMarkmap } from './utils/parse';
+import { parseMermaidCode } from './utils/parse-code';
+import { parseMarkmapComponent } from './utils/parse-component';
 
 export function vitepressMarkmapPreview(md: MarkdownIt) {
-  parseMermaid(md);
-  parsePreviewMarkmap(md);
+  parseMermaidCode(md);
+  parseMarkmapComponent(md);
 }
 
 export type { IMarkmapOptions } from 'markmap-view';
