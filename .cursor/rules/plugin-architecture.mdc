@@ -1,0 +1,67 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# 插件架构规则
+
+## 核心架构
+
+### 插件入口
+- 主入口：[core/index.ts](mdc:core/index.ts)
+- 导出 `vitepressMarkmapPreview` 函数
+- 集成 markdown-it 插件系统
+
+### 解析流程
+1. **代码块解析**: [core/utils/parse-code.ts](mdc:core/utils/parse-code.ts)
+   - 识别 `markmap` 代码块
+   - 解析 markdown 内容为思维导图数据
+   - 支持 mermaid 语法
+
+2. **组件解析**: [core/utils/parse-component.ts](mdc:core/utils/parse-component.ts)
+   - 识别 `<markmap>` 组件标签
+   - 解析组件属性和内容
+   - 生成 Vue 组件实例
+
+### 渲染组件
+
+#### MindMapRoot.vue
+- 位置：[core/components/MindMapRoot.vue](mdc:core/components/MindMapRoot.vue)
+- 功能：思维导图的主要渲染组件
+- 特性：
+  - 支持交互式操作
+  - 可配置样式和主题
+  - 响应式设计
+
+#### PreviewMarkmapPath.vue
+- 位置：[core/components/PreviewMarkmapPath.vue](mdc:core/components/PreviewMarkmapPath.vue)
+- 功能：预览指定路径的 markdown 文件
+- 特性：
+  - 动态加载文件内容
+  - 支持相对路径和绝对路径
+  - 自动解析为思维导图
+
+## 数据流
+
+### Markdown → 思维导图
+1. 解析 markdown 语法结构
+2. 转换为 markmap 数据格式
+3. 应用配置选项
+4. 渲染为交互式思维导图
+
+### 配置选项
+- 支持 markmap 的所有配置项
+- 通过 frontmatter 或组件属性配置
+- 支持主题、颜色、布局等自定义
+
+## 扩展性
+
+### 自定义组件
+- 可在 [core/components/](mdc:core/components) 添加新组件
+- 遵循 Vue 3 Composition API 规范
+- 支持 TypeScript 类型定义
+
+### 工具函数扩展
+- 在 [core/utils/](mdc:core/utils) 添加新的解析器
+- 保持模块化和可测试性
+- 遵循单一职责原则

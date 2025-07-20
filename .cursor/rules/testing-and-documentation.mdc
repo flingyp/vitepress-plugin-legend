@@ -1,0 +1,73 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# 测试和文档规则
+
+## 文档结构
+
+### 主要文档
+- **使用示例**: [docs/index.md](mdc:docs/index.md) - 插件基本用法和展示效果
+- **Vue 示例**: [docs/Vue.md](mdc:docs/Vue.md) - Vue 相关思维导图示例
+- **配置说明**: 参考 [core/package.json](mdc:core/package.json) 中的依赖和配置
+
+### 文档内容要求
+- 提供完整的使用示例
+- 包含配置选项说明
+- 展示各种 markmap 语法特性
+- 提供常见问题解答
+
+## 示例文件
+
+### 思维导图示例
+- 使用 mermaid 语法编写
+- 包含各种 markdown 元素
+- 展示插件的高级功能
+- 提供可复制的代码块
+
+### 组件示例
+- `<PreviewMarkmapPath>` 组件用法
+- 路径参数配置
+- 动态加载功能演示
+
+## 代码注释
+
+### TypeScript 文件
+- 为所有导出的函数和类型添加 JSDoc 注释
+- 说明参数类型和返回值
+- 提供使用示例
+
+### Vue 组件
+- 为 props 和 emits 添加类型定义
+- 使用注释说明组件功能
+- 提供 props 使用示例
+
+## 测试策略
+
+### 单元测试
+- 为工具函数编写测试
+- 测试 markdown 解析逻辑
+- 验证配置选项处理
+
+### 集成测试
+- 测试插件与 markdown-it 的集成
+- 验证 Vue 组件渲染
+- 测试文件路径解析功能
+
+### 手动测试
+- 在文档中验证示例效果
+- 测试不同 markdown 语法
+- 验证响应式设计
+
+## 维护指南
+
+### 版本更新
+- 更新 [core/CHANGELOG.md](mdc:core/CHANGELOG.md)
+- 同步更新文档示例
+- 验证向后兼容性
+
+### 问题排查
+- 检查 markdown-it 插件注册
+- 验证 Vue 组件导入
+- 确认依赖版本兼容性

@@ -1,5 +1,11 @@
 # vitepress-markmap-preview
 
+## 0.0.4
+
+### Patch Changes
+
+- feat(core): 更新 PreviewMarkmapPath 组件，支持默认读取当前 MD 文件内容并更新文档示例
+
 ## 0.0.3
 
 ### Patch Changes

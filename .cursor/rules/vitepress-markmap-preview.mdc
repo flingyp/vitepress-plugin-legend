@@ -1,14 +1,41 @@
 ---
-description: 
-globs: 
+description:
+globs:
 alwaysApply: true
 ---
 # vitepress-markmap-preview 插件规则
 
 本项目为 Vitepress 的思维导图预览插件，支持在 Markdown 中通过 markmap 代码块渲染交互式思维导图。
 
-- 主要入口：`[README.md](mdc:README.md)` 提供了插件的安装、使用和配置说明。
-- 插件核心代码位于 `core/index.ts` 目录。
-- 示例和用法可参考 `[example/](mdc:example)` 目录。
+## 项目结构
 
-如需了解插件集成方式、配置项或贡献指南，请优先查阅 [README.md](mdc:README.md)。
+- **核心插件代码**: [core/index.ts](mdc:core/index.ts) - 插件主入口文件
+- **工具函数**: [core/utils/](mdc:core/utils) - 包含代码解析和组件解析工具
+- **Vue 组件**: [core/components/](mdc:core/components) - 思维导图渲染组件
+- **文档示例**: [docs/](mdc:docs) - 插件使用示例和文档
+- **配置文件**: [package.json](mdc:package.json) - 项目依赖和脚本配置
+
+## 开发指南
+
+### 核心文件说明
+- [core/index.ts](mdc:core/index.ts) - 插件主入口，导出 `vitepressMarkmapPreview` 函数
+- [core/utils/parse-code.ts](mdc:core/utils/parse-code.ts) - 解析 markmap 代码块
+- [core/utils/parse-component.ts](mdc:core/utils/parse-component.ts) - 解析 markmap 组件
+- [core/components/MindMapRoot.vue](mdc:core/components/MindMapRoot.vue) - 思维导图根组件
+- [core/components/PreviewMarkmapPath.vue](mdc:core/components/PreviewMarkmapPath.vue) - 路径预览组件
+
+### 开发命令
+- `pnpm dev` - 启动开发服务器
+- `pnpm build` - 构建插件
+- `pnpm docs:dev` - 启动文档开发服务器
+- `pnpm lint` - 代码检查
+- `pnpm lint:fix` - 自动修复代码格式
+
+### 技术栈
+- TypeScript - 主要开发语言
+- Vue 3 - 组件框架
+- Markdown-it - Markdown 解析
+- Markmap - 思维导图渲染
+- Vite - 构建工具
+
+如需了解插件集成方式、配置项或贡献指南，请优先查阅 [docs/index.md](mdc:docs/index.md)。

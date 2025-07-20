@@ -1,0 +1,52 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# 开发工作流程规则
+
+## 代码规范
+
+### TypeScript 开发
+- 所有核心逻辑使用 TypeScript 编写
+- 严格遵循 [tsconfig.json](mdc:tsconfig.json) 配置
+- 使用类型注解，避免 `any` 类型
+
+### Vue 组件开发
+- 使用 Vue 3 Composition API
+- 组件文件命名采用 PascalCase
+- 组件位于 [core/components/](mdc:core/components) 目录
+
+### 代码质量
+- 使用 ESLint 进行代码检查：[eslint.config.mjs](mdc:eslint.config.mjs)
+- 使用 Prettier 进行代码格式化：[.prettierrc](mdc:.prettierrc)
+- 使用 Stylelint 进行样式检查：[stylelint.config.mjs](mdc:stylelint.config.mjs)
+
+## Git 工作流
+
+### 提交规范
+- 使用 Conventional Commits 规范
+- 通过 `pnpm commit` 进行规范化提交
+- 配置了 [.husky/](mdc:.husky) 钩子进行提交前检查
+
+### 版本管理
+- 使用 Changesets 进行版本管理：[.changeset/](mdc:.changeset)
+- 通过 `pnpm changeset` 创建版本变更
+- 通过 `pnpm release` 发布新版本
+
+## 构建和发布
+
+### 开发环境
+- 使用 `pnpm dev` 启动开发服务器
+- 使用 `pnpm docs:dev` 启动文档服务器
+- 实时热重载支持
+
+### 构建流程
+- 使用 Vite 进行构建：[core/vite.config.ts](mdc:core/vite.config.ts)
+- 构建产物输出到 [core/dist/](mdc:core/dist) 目录
+- 支持 TypeScript 类型声明文件生成
+
+### 发布流程
+- 自动运行 lint 检查
+- 构建所有包
+- 发布到 npm 仓库
