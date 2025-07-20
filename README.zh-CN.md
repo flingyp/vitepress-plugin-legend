@@ -48,6 +48,24 @@ export default defineConfig({
 });
 ```
 
+在 VitePress 中配置全局组件：
+
+```typescript
+// .vitepress/theme/index.ts
+import type { Theme } from 'vitepress';
+import DefaultTheme from 'vitepress/theme';
+import { initComponent } from 'vitepress-markmap-preview/component';
+import 'vitepress-markmap-preview/dist/index.css';
+
+export default {
+  extends: DefaultTheme,
+  enhanceApp({ app }) {
+    // 注册自定义全局组件
+    initComponent(app);
+  },
+} satisfies Theme;
+```
+
 2. **在 Markdown 中使用**
 
 #### 方法一：Mermaid 代码块
@@ -85,6 +103,7 @@ markmap:
 预览指定的 markdown 文件：
 
 ```markdown
+<!-- 支持相对路径和绝对路径 -->
 <PreviewMarkmapPath path="./path/to/file.md" />
 ```
 
@@ -92,53 +111,6 @@ markmap:
 
 ```markdown
 <PreviewMarkmapPath />
-```
-
-## 📖 示例
-
-### 基础思维导图
-
-```mermaid
----
-title: 项目结构
----
-
-## 前端
-
-- **React** - UI 框架
-- **TypeScript** - 类型安全
-- **Vite** - 构建工具
-
-## 后端
-
-- **Node.js** - 运行时
-- **Express** - Web 框架
-- **MongoDB** - 数据库
-```
-
-### 高级配置
-
-```mermaid
----
-title: 高级思维导图
-markmap:
-  colorFreezeLevel: 2
-  duration: 500
-  maxWidth: 300
-  nodeMinHeight: 16
-  paddingX: 8
-  paddingY: 5
-  spacingHorizontal: 80
-  spacingVertical: 5
----
-
-## 功能特性
-
-- 交互式导航
-- 缩放功能
-- 拖拽平移
-- 导出为 SVG/PNG
-- 自定义主题
 ```
 
 ## 🎛️ 配置

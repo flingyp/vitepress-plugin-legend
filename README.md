@@ -48,6 +48,24 @@ export default defineConfig({
 });
 ```
 
+In VitePress, configure global components:
+
+```typescript
+// .vitepress/theme/index.ts
+import type { Theme } from 'vitepress';
+import DefaultTheme from 'vitepress/theme';
+import { initComponent } from 'vitepress-markmap-preview/component';
+import 'vitepress-markmap-preview/dist/index.css';
+
+export default {
+  extends: DefaultTheme,
+  enhanceApp({ app }) {
+    // Register custom global components
+    initComponent(app);
+  },
+} satisfies Theme;
+```
+
 2. **Use in Markdown**
 
 #### Method 1: Mermaid Code Blocks
@@ -85,6 +103,7 @@ markmap:
 Preview a specific markdown file:
 
 ```markdown
+<!-- Support relative path and absolute path -->
 <PreviewMarkmapPath path="./path/to/file.md" />
 ```
 
@@ -92,53 +111,6 @@ Preview current file content:
 
 ```markdown
 <PreviewMarkmapPath />
-```
-
-## 📖 Examples
-
-### Basic Mind Map
-
-```mermaid
----
-title: Project Structure
----
-
-## Frontend
-
-- **React** - UI Framework
-- **TypeScript** - Type Safety
-- **Vite** - Build Tool
-
-## Backend
-
-- **Node.js** - Runtime
-- **Express** - Web Framework
-- **MongoDB** - Database
-```
-
-### Advanced Configuration
-
-```mermaid
----
-title: Advanced Mind Map
-markmap:
-  colorFreezeLevel: 2
-  duration: 500
-  maxWidth: 300
-  nodeMinHeight: 16
-  paddingX: 8
-  paddingY: 5
-  spacingHorizontal: 80
-  spacingVertical: 5
----
-
-## Features
-
-- Interactive navigation
-- Zoom in/out
-- Pan and drag
-- Export to SVG/PNG
-- Custom themes
 ```
 
 ## 🎛️ Configuration
