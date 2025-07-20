@@ -3,14 +3,14 @@ import { vitepressMarkmapPreview } from 'vitepress-markmap-preview';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-    base: '/vitepress-markmap-preview',
-    title: 'vitepress-markmap-preview',
-    description: 'Markmap preview for vitepress',
+    base: '/vitepress-plugin-legend',
+    title: 'vitepress-plugin-legend',
+    description: 'Legend for vitepress',
     themeConfig: {
         socialLinks: [
             {
                 icon: 'github',
-                link: 'https://github.com/flingyp/vitepress-markmap-preview',
+                link: 'https://github.com/flingyp/vitepress-plugin-legend',
             },
         ],
     },
@@ -21,7 +21,9 @@ export default defineConfig({
         },
         config(md) {
             // 使用更多的 Markdown-it 插件！
-            md.use(vitepressMarkmapPreview);
+            md.use(vitepressMarkmapPreview, {
+                showToolbar: true,
+            });
         },
     },
 });

@@ -16,9 +16,13 @@ import { snapdom } from '@zumer/snapdom';
 interface MindMapRenderProps {
   type: 'view';
   markdown: string;
+  showToolbar?: '0' | '1';
 }
 
-const props = defineProps<MindMapRenderProps>();
+const props = withDefaults(defineProps<MindMapRenderProps>(), {
+  type: 'view',
+  showToolbar: '0',
+});
 
 // 检测暗黑模式
 const isDark = computed(() => {
@@ -303,7 +307,10 @@ const darkModeObserver = ref<MutationObserver | null>(null);
 
 onMounted(() => {
   renderMarkmap();
-  renderToolbar();
+  console.log('props:', props);
+  if (Number(props.showToolbar) === 1) {
+    renderToolbar();
+  }
 
   // 创建 ResizeObserver 监听容器尺寸变化
   if (window.ResizeObserver) {

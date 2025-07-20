@@ -76,6 +76,7 @@ export default {
 title: 我的思维导图
 markmap:
   colorFreezeLevel: 2
+showToolbar: true
 ---
 
 ## 主要主题
@@ -98,6 +99,12 @@ markmap:
 ```
 ````
 
+> **显示工具栏选项**
+>
+> 你可以在代码块的 YAML frontmatter 中添加 `showToolbar` 字段来控制是否显示工具栏：
+>
+> - `showToolbar: true` 显示工具栏，`showToolbar: false` 隐藏工具栏。
+
 #### 方法二：组件标签
 
 预览指定的 markdown 文件：
@@ -106,6 +113,16 @@ markmap:
 <!-- 支持相对路径和绝对路径 -->
 <PreviewMarkmapPath path="./path/to/file.md" />
 ```
+
+> **显示工具栏选项**
+>
+> 在组件标签中添加 `showToolbar` 属性即可显示工具栏：
+>
+> ```markdown
+> <PreviewMarkmapPath path="./path/to/file.md" showToolbar />
+> ```
+>
+> 不加 `showToolbar` 属性则不显示工具栏。
 
 预览当前文件内容：
 

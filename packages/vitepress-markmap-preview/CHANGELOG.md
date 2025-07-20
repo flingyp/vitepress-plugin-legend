@@ -1,5 +1,11 @@
 # vitepress-markmap-preview
 
+## 0.0.5
+
+### Patch Changes
+
+- feat(toolbar): 新增工具栏显示选项，更新相关文档和组件以支持该功能
+
 ## 0.0.4
 
 ### Patch Changes

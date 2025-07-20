@@ -76,6 +76,7 @@ export default {
 title: My Mind Map
 markmap:
   colorFreezeLevel: 2
+showToolbar: true
 ---
 
 ## Main Topic
@@ -95,8 +96,15 @@ markmap:
 | Data  | Value  |
 
 ![Image](https://example.com/image.png)
+# Your mindmap content
 ```
 ````
+
+> **Show Toolbar Option**
+>
+> You can control whether to display the toolbar by adding a `showToolbar` field in the YAML frontmatter of the code block:
+>
+> - `showToolbar: true` will show the toolbar, `showToolbar: false` will hide it.
 
 #### Method 2: Component Tags
 
@@ -106,6 +114,16 @@ Preview a specific markdown file:
 <!-- Support relative path and absolute path -->
 <PreviewMarkmapPath path="./path/to/file.md" />
 ```
+
+> **Show Toolbar Option**
+>
+> Add the `showToolbar` attribute to the component to display the toolbar:
+>
+> ```markdown
+> <PreviewMarkmapPath path="./path/to/file.md" showToolbar />
+> ```
+>
+> Omit `showToolbar` to hide the toolbar.
 
 Preview current file content:
 

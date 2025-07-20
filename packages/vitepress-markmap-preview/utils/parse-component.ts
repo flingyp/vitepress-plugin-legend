@@ -1,6 +1,7 @@
 import MarkdownIt from 'markdown-it';
 import fs from 'fs';
 import path from 'path';
+import { VitepressMarkmapPreviewOptions } from 'index';
 
 // 添加自定义容器解析，用于处理 <PreviewMarkmapPath> 标签
 const customComponentRegex1 = /<PreviewMarkmapPath\s*(.*?)\s*\/>/g; // 自闭合标签，允许无属性
@@ -29,11 +30,18 @@ function escapeCustomVueTags(content: string) {
 }
 
 // 处理替换标签的函数
-function processTag(attrsStr: string, env: { path: string }) {
+function processTag(
+  attrsStr: string,
+  env: { path: string },
+  options: VitepressMarkmapPreviewOptions,
+) {
   try {
+    // 检查 attrsStr 是否包含 showToolbar 属性
+    const showToolbar =
+      /\bshowToolbar\b/i.test(attrsStr) || options.showToolbar;
+
     // 从属性中提取路径
     const filePath = extractPath(attrsStr);
-    let fileAbsolutePath = filePath;
     let fileContent = '';
     // 获取当前处理的md文件的目录，以便正确解析相对路径
     let basePath = '';
@@ -49,7 +57,6 @@ function processTag(attrsStr: string, env: { path: string }) {
       if (env && env.path) {
         try {
           fileContent = fs.readFileSync(env.path, 'utf-8');
-          fileAbsolutePath = env.path;
         } catch (err) {
           console.error(`无法读取当前MD文件: ${env.path}`, err);
           fileContent = `# 文件读取失败\n\n无法加载: 当前文档`;
@@ -71,16 +78,10 @@ function processTag(attrsStr: string, env: { path: string }) {
     // 文件内容传递自定义组件内容转换为字符串内容
     fileContent = escapeCustomVueTags(fileContent);
 
-    // 将原始属性字符串传递给组件，以支持更多参数
-    const propsStr = attrsStr.replace(
-      /path=['"](.*?)['"]/, // 只替换 path 属性
-      `path="${fileAbsolutePath || ''}"`,
-    );
-
     // 将内容传递给 MindMapRoot 组件
     return `
       <ClientOnly>
-        <MindMapRoot markdown=${encodeURIComponent(fileContent)} ${propsStr} />
+        <MindMapRoot markdown=${encodeURIComponent(fileContent)} showToolbar=${showToolbar ? 1 : 0} />
       </ClientOnly>
     `;
   } catch (error) {
@@ -94,7 +95,10 @@ function processTag(attrsStr: string, env: { path: string }) {
  * 支持两种写法：<PreviewMarkmapPath path="./xx.md" /> 和 <PreviewMarkmapPath path="./xx.md"></PreviewMarkmapPath>
  * @param md
  */
-export function parseMarkmapComponent(md: MarkdownIt) {
+export function parseMarkmapComponent(
+  md: MarkdownIt,
+  options: VitepressMarkmapPreviewOptions,
+) {
   // 添加对 PreviewMarkmapPath 组件的解析
   const originalRender = md.render;
   md.render = function (src, env) {
@@ -102,12 +106,12 @@ export function parseMarkmapComponent(md: MarkdownIt) {
 
     // 替换所有自闭合的 <PreviewMarkmapPath /> 标签
     result = result.replace(customComponentRegex1, (match, attrsStr) => {
-      return processTag(attrsStr, env);
+      return processTag(attrsStr, env, options);
     });
 
     // 替换所有双标签的 <PreviewMarkmapPath></PreviewMarkmapPath> 标签
     result = result.replace(customComponentRegex2, (match, attrsStr) => {
-      return processTag(attrsStr, env);
+      return processTag(attrsStr, env, options);
     });
 
     return result;
