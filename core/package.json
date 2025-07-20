@@ -56,7 +56,6 @@
     "@zumer/snapdom": "^1.9.5",
     "markdown-it": "^14.1.0",
     "markmap-lib": "^0.18.12",
-    "markmap-render": "^0.18.10",
     "markmap-toolbar": "^0.18.12",
     "markmap-view": "^0.18.12",
     "sass": "^1.89.2",

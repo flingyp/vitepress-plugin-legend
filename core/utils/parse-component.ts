@@ -8,13 +8,28 @@ const customComponentRegex2 =
   /<PreviewMarkmapPath\s*(.*?)><\/PreviewMarkmapPath>/g; // 双标签，允许无属性
 
 // 从属性字符串中提取路径
-const extractPath = (attrsStr: string): string => {
+function extractPath(attrsStr: string): string {
   const pathMatch = /path=['"](.*?)['"]/.exec(attrsStr);
   return pathMatch ? pathMatch[1] : '';
-};
+}
+
+// 1. 自闭合标签  <Foo ... />
+// 2. 双标签     <Foo ...>...</Foo>
+// 3. 支持换行、属性里有引号等情况
+const vueTagRE = /(<\/?[A-Z][a-zA-Z0-9]*(?:-[a-zA-Z0-9]+)*(?:\s[^>]*?)?\/?>)/gs;
+
+/**
+ * 将自定义的 Vue 标签转换为 `` 包裹的文本
+ * 处理问题：https://github.com/flingyp/vitepress-markmap-preview/issues/5
+ * @param content 需要转换的文本
+ * @returns 转换后的文本
+ */
+function escapeCustomVueTags(content: string) {
+  return content.replace(vueTagRE, '`$1`');
+}
 
 // 处理替换标签的函数
-const processTag = (attrsStr: string, env: { path: string }) => {
+function processTag(attrsStr: string, env: { path: string }) {
   try {
     // 从属性中提取路径
     const filePath = extractPath(attrsStr);
@@ -53,6 +68,9 @@ const processTag = (attrsStr: string, env: { path: string }) => {
       }
     }
 
+    // 文件内容传递自定义组件内容转换为字符串内容
+    fileContent = escapeCustomVueTags(fileContent);
+
     // 将原始属性字符串传递给组件，以支持更多参数
     const propsStr = attrsStr.replace(
       /path=['"](.*?)['"]/, // 只替换 path 属性
@@ -69,7 +87,7 @@ const processTag = (attrsStr: string, env: { path: string }) => {
     console.error('处理ReviewMarkmap组件时出错:', error);
     return `<div class="markmap-error">加载思维导图失败</div>`;
   }
-};
+}
 
 /**
  * 读取指定MD文件内容，展示思维导图
