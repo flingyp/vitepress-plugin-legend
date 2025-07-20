@@ -3,6 +3,7 @@
   "packageManager": "pnpm@10.13.1",
   "author": "flingyp",
   "scripts": {
+    "build": "pnpm run build:markmap",
     "dev:markmap": "pnpm --filter vitepress-markmap-preview dev",
     "build:markmap": "pnpm --filter vitepress-markmap-preview build",
     "docs:dev": "pnpm --filter docs dev",
