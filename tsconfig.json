@@ -13,14 +13,13 @@
     "isolatedModules": true,
     "declaration": true,
     "declarationMap": true,
-    "outDir": "./core/dist",
     "types": ["node"],
     "lib": ["ESNext", "DOM"]
   },
-  "include": ["*.ts", "*.vue", "docs/.vitepress/config.mts"],
+  "include": ["*.ts", "*.vue", "docs/.vitepress/config.mts", "packages/**/*"],
   "exclude": [
     "node_modules",
-    "core/dist",
+    "packages/**/dist",
     "docs/.vitepress/cache",
     "docs/.vitepress/dist"
   ]

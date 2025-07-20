@@ -3,8 +3,8 @@
   "packageManager": "pnpm@10.13.1",
   "author": "flingyp",
   "scripts": {
-    "dev": "pnpm --filter vitepress-markmap-preview dev",
-    "build": "pnpm --filter vitepress-markmap-preview build",
+    "dev:markmap": "pnpm --filter vitepress-markmap-preview dev",
+    "build:markmap": "pnpm --filter vitepress-markmap-preview build",
     "docs:dev": "pnpm --filter docs dev",
     "docs:build": "pnpm --filter docs build",
     "lint": "prettier . --write && eslint . && stylelint \"**/*.{css,scss,vue}\"",

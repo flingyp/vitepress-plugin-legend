@@ -1,7 +1,7 @@
 /** @type {import('stylelint').Config} */
 export default {
     extends: '@flypeng/stylelint-config',
-    ignoreFiles: ['core/dist/**/*'],
+    ignoreFiles: ['packages/**/dist/**/*.css'],
     rules: {
         'selector-pseudo-class-no-unknown': [
             true,

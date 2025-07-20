@@ -5,10 +5,11 @@ export default [
     ...flypeng(),
     {
         ignores: [
-            'core/dist',
+            'packages/**/dist',
             'docs/.vitepress/dist',
             'docs/.vitepress/cache',
             'README.md',
+            'README.zh-CN.md',
         ],
     },
 ];
