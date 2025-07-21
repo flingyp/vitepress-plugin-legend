@@ -307,7 +307,6 @@ const darkModeObserver = ref<MutationObserver | null>(null);
 
 onMounted(() => {
   renderMarkmap();
-  console.log('props:', props);
   if (Number(props.showToolbar) === 1) {
     renderToolbar();
   }

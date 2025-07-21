@@ -1,58 +1,15 @@
-# 在 Vitepress 中使用思维导图
+# VitePress Plugin Legend
 
-## 展示效果
+VitePress Plugin Legend 是一个为 VitePress 提供增强功能的插件集合，目前包含以下插件：
 
-```markmap
----
-title: markmap
-markmap:
-  colorFreezeLevel: 2
----
+## vitepress-markmap-preview
 
-## Links
+用于在 VitePress 中展示思维导图的插件。
 
-- [Website](https://markmap.js.org/)
-- [GitHub](https://github.com/gera2ld/markmap)
+- [查看文档](/markmap/)
 
-## Related Projects
+## vitepress-mermaid-preview
 
-- [coc-markmap](https://github.com/gera2ld/coc-markmap) for Neovim
-- [markmap-vscode](https://marketplace.visualstudio.com/items?itemName=gera2ld.markmap-vscode) for VSCode
-- [eaf-markmap](https://github.com/emacs-eaf/eaf-markmap) for Emacs
+用于在 VitePress 中展示 Mermaid 图表的插件。
 
-## Features
-
-Note that if blocks and lists appear at the same level, the lists will be ignored.
-
-### Lists
-
-- **strong** ~~del~~ *italic* ==highlight==
-- `inline code`
-- [x] checkbox
-- Katex: $x = {-b \pm \sqrt{b^2-4ac} \over 2a}$ <!-- markmap: fold -->
-  - [More Katex Examples](#?d=gist:af76a4c245b302206b16aec503dbe07b:katex.md)
-- Now we can wrap very very very very long text with the `maxWidth` option
-- Ordered list
-  1. item 1
-  2. item 2
-
-### Blocks
-
-
-
-| Products | Price |
-| -------- | ----- |
-| Apple    | 4     |
-| Banana   | 2     |
-
-![](https://markmap.js.org/favicon.png)
-
-```
-
-## 读取指定MD文件内容，展示思维导图
-
-<PreviewMarkmapPath path="./Vue.md" showToolbar />
-
-## 读取当前MD文件内容，展示思维导图
-
-<PreviewMarkmapPath showToolbar  />
+- [查看文档](/mermaid/)
