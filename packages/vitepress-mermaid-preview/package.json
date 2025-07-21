@@ -1,0 +1,64 @@
+{
+  "name": "vitepress-mermaid-preview",
+  "description": "Mermaid preview for vitepress",
+  "version": "0.0.0",
+  "type": "module",
+  "packageManager": "pnpm@10.13.1",
+  "author": "flingyp",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./component": {
+      "types": "./dist/component.d.ts",
+      "import": "./dist/component.js",
+      "require": "./dist/component.cjs"
+    },
+    "./dist/index.css": "./dist/vitepress-mermaid-preview.css"
+  },
+  "types": "./dist/index.d.ts",
+  "keywords": [
+    "typescript",
+    "libarary",
+    "template"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flingyp"
+  },
+  "devDependencies": {
+    "@flypeng/eslint-config": "^2.0.5",
+    "@microsoft/api-extractor": "^7.52.8",
+    "@types/markdown-it": "^14.1.2",
+    "@vue/language-core": "^3.0.1",
+    "cross-env": "^7.0.3",
+    "nodemon": "^3.1.10",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "unplugin-dts": "1.0.0-beta.0",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "@flypeng/tool": "^5.7.2",
+    "@vitejs/plugin-vue": "^6.0.0",
+    "@zumer/snapdom": "^1.9.5",
+    "markdown-it": "^14.1.0",
+    "mermaid": "^11.9.0",
+    "sass": "^1.89.2",
+    "vite": "^7.0.5",
+    "vue": "^3.5.17",
+    "vue-tsc": "^3.0.1"
+  }
+}

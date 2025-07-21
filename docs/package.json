@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "vitepress": "^1.6.3",
-    "vitepress-markmap-preview": "workspace:*"
+    "vitepress-markmap-preview": "workspace:*",
+    "vitepress-mermaid-preview": "workspace:*"
   }
 }

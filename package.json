@@ -3,9 +3,11 @@
   "packageManager": "pnpm@10.13.1",
   "author": "flingyp",
   "scripts": {
-    "build": "pnpm run build:markmap",
+    "build": "pnpm run build:markmap && pnpm run build:mermaid",
     "dev:markmap": "pnpm --filter vitepress-markmap-preview dev",
     "build:markmap": "pnpm --filter vitepress-markmap-preview build",
+    "dev:mermaid": "pnpm --filter vitepress-mermaid-preview dev",
+    "build:mermaid": "pnpm --filter vitepress-mermaid-preview build",
     "docs:dev": "pnpm --filter docs dev",
     "docs:build": "pnpm --filter docs build",
     "lint": "prettier . --write && eslint . && stylelint \"**/*.{css,scss,vue}\"",
