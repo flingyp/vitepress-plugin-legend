@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed, watch, onActivated } from 'vue';
 import mermaid from 'mermaid';
 
 interface MermaidChartProps {
@@ -7,20 +7,11 @@ interface MermaidChartProps {
 }
 
 const props = withDefaults(defineProps<MermaidChartProps>(), {
-  code: `---
-title: Frontmatter Example123
-displayMode: compact
-config:
-  theme: forest
-gantt:
-    useWidth: 400
-    compact: true
----
-gantt
-    section Waffle
-        Iron  : 1982, 3y
-        House : 1986, 3y
-`,
+  code: '',
+});
+
+const renderCode = computed(() => {
+  return decodeURIComponent(props.code);
 });
 
 const mermaidEl = ref<HTMLElement>();
@@ -52,7 +43,7 @@ onMounted(() => {
 
 <template>
   <pre class="mermaid">
-    {{ props.code }}
+    {{ renderCode }}
   </pre>
 </template>
 

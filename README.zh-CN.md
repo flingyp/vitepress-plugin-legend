@@ -71,7 +71,7 @@ export default {
 #### 方法一：Mermaid 代码块
 
 ````markdown
-```mermaid
+```markmap
 ---
 title: 我的思维导图
 markmap:

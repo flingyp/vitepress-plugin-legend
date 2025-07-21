@@ -1,5 +1,5 @@
 import MarkdownIt from 'markdown-it';
-import { parseMermaidCode } from './utils/parse-code';
+import { parseMarkmapCode } from './utils/parse-code';
 import { parseMarkmapComponent } from './utils/parse-component';
 
 export interface VitepressMarkmapPreviewOptions {
@@ -14,8 +14,7 @@ export function vitepressMarkmapPreview(
   md: MarkdownIt,
   options: VitepressMarkmapPreviewOptions = defaultOptions,
 ) {
-  console.log('options:', options);
-  parseMermaidCode(md, options);
+  parseMarkmapCode(md, options);
   parseMarkmapComponent(md, options);
 }
 

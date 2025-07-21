@@ -2,7 +2,7 @@
 
 ## 展示效果
 
-```mermaid
+```markmap
 ---
 title: markmap
 markmap:

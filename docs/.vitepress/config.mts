@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress';
 import { vitepressMarkmapPreview } from 'vitepress-markmap-preview';
+import { vitepressMermaidPreview } from 'vitepress-mermaid-preview';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -21,9 +22,8 @@ export default defineConfig({
         },
         config(md) {
             // 使用更多的 Markdown-it 插件！
-            md.use(vitepressMarkmapPreview, {
-                showToolbar: true,
-            });
+            md.use(vitepressMarkmapPreview, { showToolbar: true });
+            md.use(vitepressMermaidPreview);
         },
     },
 });

@@ -71,7 +71,7 @@ export default {
 #### Method 1: Mermaid Code Blocks
 
 ````markdown
-```mermaid
+```markmap
 ---
 title: My Mind Map
 markmap:
