@@ -6,14 +6,14 @@ A collection of VitePress plugins for Markdown diagram preview.
 
 ## 📦 Plugins
 
-| Package                                                           | Description                             |
-| ----------------------------------------------------------------- | --------------------------------------- |
-| [vitepress-markmap-preview](./packages/vitepress-markmap-preview) | Markdown mind map preview plugin        |
-| [vitepress-mermaid-preview](./packages/vitepress-mermaid-preview) | Markdown Mermaid diagram preview plugin |
+| Package                                                                                                                              | Description                             |
+| ------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------- |
+| [vitepress-markmap-preview](./packages/vitepress-markmap-preview) ![npm](https://img.shields.io/npm/v/vitepress-markmap-preview.svg) | Markdown mind map preview plugin        |
+| [vitepress-mermaid-preview](./packages/vitepress-mermaid-preview) ![npm](https://img.shields.io/npm/v/vitepress-mermaid-preview.svg) | Markdown Mermaid diagram preview plugin |
 
 ---
 
-## vitepress-markmap-preview
+## vitepress-markmap-preview ![npm](https://img.shields.io/npm/v/vitepress-markmap-preview.svg)
 
 - 🗺️ Interactive mind map preview for Markdown
 - 📝 Supports lists, tables, images, and more
@@ -25,7 +25,7 @@ A collection of VitePress plugins for Markdown diagram preview.
 
 ---
 
-## vitepress-mermaid-preview
+## vitepress-mermaid-preview ![npm](https://img.shields.io/npm/v/vitepress-mermaid-preview.svg)
 
 - 🏞️ Interactive Mermaid diagrams in Markdown
 - 📝 Supports flowcharts, sequence diagrams, etc.

@@ -6,14 +6,14 @@
 
 ## 📦 插件一览
 
-| 包名                                                              | 说明                            |
-| ----------------------------------------------------------------- | ------------------------------- |
-| [vitepress-markmap-preview](./packages/vitepress-markmap-preview) | Markdown 思维导图预览插件       |
-| [vitepress-mermaid-preview](./packages/vitepress-mermaid-preview) | Markdown Mermaid 流程图预览插件 |
+| 包名                                                                                                                                 | 说明                            |
+| ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------- |
+| [vitepress-markmap-preview](./packages/vitepress-markmap-preview) ![npm](https://img.shields.io/npm/v/vitepress-markmap-preview.svg) | Markdown 思维导图预览插件       |
+| [vitepress-mermaid-preview](./packages/vitepress-mermaid-preview) ![npm](https://img.shields.io/npm/v/vitepress-mermaid-preview.svg) | Markdown Mermaid 流程图预览插件 |
 
 ---
 
-## vitepress-markmap-preview
+## vitepress-markmap-preview ![npm](https://img.shields.io/npm/v/vitepress-markmap-preview.svg)
 
 - 🗺️ Markdown 思维导图交互式预览
 - 📝 支持列表、表格、图片等多种 Markdown 元素
@@ -25,7 +25,7 @@
 
 ---
 
-## vitepress-mermaid-preview
+## vitepress-mermaid-preview ![npm](https://img.shields.io/npm/v/vitepress-mermaid-preview.svg)
 
 - 🏞️ Markdown Mermaid 流程图/时序图交互式预览
 - 📝 支持多种 Mermaid 图表类型
