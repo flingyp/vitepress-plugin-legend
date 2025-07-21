@@ -1,1 +1,0 @@
-import{p as l}from"./theme.BsNZ-IC9.js";function r(c,t){var i,o,a;c.accDescr&&((i=t.setAccDescription)==null||i.call(t,c.accDescr)),c.accTitle&&((o=t.setAccTitle)==null||o.call(t,c.accTitle)),c.title&&((a=t.setDiagramTitle)==null||a.call(t,c.title))}l(r,"populateCommonDb");export{r as t};
