@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, computed, watch, onActivated } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import mermaid from 'mermaid';
 
 interface MermaidChartProps {
@@ -13,45 +13,100 @@ const props = withDefaults(defineProps<MermaidChartProps>(), {
 const renderCode = computed(() => {
   return decodeURIComponent(props.code);
 });
+const renderChartHtml = ref();
 
 const mermaidEl = ref<HTMLElement>();
 
-/* ---------- 渲染函数 ---------- */
-function render() {
-  // 每次渲染前把旧 svg 清掉
-  mermaidEl.value!.innerHTML = '';
-  mermaid.initialize({ startOnLoad: true });
-  bindClick();
+async function render() {
+  if (!mermaidEl.value) return;
+
+  mermaidEl.value.innerHTML = '';
+
+  // 根据当前主题设置 mermaid 主题
+  await mermaid.initialize({
+    startOnLoad: false,
+    theme: document.documentElement.classList.contains('dark')
+      ? 'dark'
+      : 'default',
+    securityLevel: 'loose', // 允许点击交互
+  });
+  const id = Math.random().toString(36).substring(2, 15);
+  const { svg } = await mermaid.render(
+    `mermaid-${id}`,
+    renderCode.value,
+    mermaidEl.value,
+  );
+  renderChartHtml.value = svg;
 }
 
-/* ---------- 节点点击事件（事件委托） ---------- */
-function bindClick() {
-  mermaidEl.value!.addEventListener('click', (e) => {
-    const node = (e.target as HTMLElement).closest('.node');
-    if (!node) return;
-    const text = node.querySelector('.label')?.textContent;
-    alert(`你点了节点：${text}`);
-  });
-}
+// 存储MutationObserver实例
+const darkModeObserver = ref<MutationObserver>();
 
 onMounted(() => {
-  if (mermaidEl.value) {
-    render();
+  // 初始渲染
+  render();
+
+  // 监听DOM变化，检测暗黑模式类的添加/移除
+  if (typeof window !== 'undefined' && window.MutationObserver) {
+    darkModeObserver.value = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (
+          mutation.attributeName === 'class' &&
+          mutation.target === document.documentElement
+        ) {
+          // 当HTML元素的类变化时，重新渲染图表
+          render();
+          break;
+        }
+      }
+    });
+
+    // 监听html标签的class属性变化
+    darkModeObserver.value.observe(document.documentElement, {
+      attributes: true,
+    });
+  }
+
+  // 监听系统主题变化
+  if (typeof window !== 'undefined' && window.matchMedia) {
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', () => {
+        render();
+      });
   }
 });
 </script>
 
 <template>
-  <pre class="mermaid">
-    {{ renderCode }}
-  </pre>
+  <div class="mermaid-container">
+    <div ref="mermaidEl" class="mermaid" v-html="renderChartHtml"></div>
+  </div>
 </template>
 
-<style scoped>
+<style lang="scss">
 .mermaid {
-  margin: 20px 0;
+  & > svg {
+    margin: 0 auto;
+  }
+}
+</style>
+
+<style lang="scss" scoped>
+.mermaid-container {
+  position: relative;
+  width: 100%;
+}
+
+.mermaid {
+  margin: 16px 0;
   padding: 12px;
   overflow: auto;
-  border: 1px dashed #ccc;
+  background-color: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  transition:
+    background-color 0.5s,
+    border-color 0.5s;
 }
 </style>
