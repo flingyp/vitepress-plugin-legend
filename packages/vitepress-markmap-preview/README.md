@@ -1,21 +1,8 @@
 # vitepress-markmap-preview
 
-A VitePress plugin that enables interactive mind map previews in Markdown using markmap.
+A plugin for displaying mind maps in VitePress using markmap.
 
-[![npm version](https://img.shields.io/npm/v/vitepress-markmap-preview.svg)](https://www.npmjs.com/package/vitepress-markmap-preview)
-[![license](https://img.shields.io/npm/l/vitepress-markmap-preview.svg)](https://github.com/flingyp/vitepress-markmap-preview/blob/main/LICENSE)
-
-## ✨ Features
-
-- 🗺️ Interactive mind map preview for Markdown
-- 📝 Supports lists, tables, images, and more
-- 🎨 Customizable themes and layout
-- 🔧 Easy integration with VitePress
-- 📁 File preview via component tag
-
-## 🚀 Quick Start
-
-### Installation
+## 🚀 Installation
 
 ```bash
 npm install vitepress-markmap-preview
@@ -25,9 +12,9 @@ yarn add vitepress-markmap-preview
 pnpm add vitepress-markmap-preview
 ```
 
-### Usage
+## ⚙️ Configuration
 
-1. **Configure VitePress**
+Add the plugin in `.vitepress/config.ts`:
 
 ```typescript
 // .vitepress/config.ts
@@ -43,7 +30,7 @@ export default defineConfig({
 });
 ```
 
-Register global components:
+Register the global component in `.vitepress/theme/index.ts`:
 
 ```typescript
 // .vitepress/theme/index.ts
@@ -60,56 +47,62 @@ export default {
 } satisfies Theme;
 ```
 
-2. **Use in Markdown**
+## 📖 Usage
 
-#### Method 1: Markmap Code Block
+### 📝 Basic Usage
 
-````markdown
+You can directly use markmap code blocks in Markdown to create mind maps:
+
 ```markmap
 ---
-title: My Mind Map
+title: markmap
 markmap:
   colorFreezeLevel: 2
-showToolbar: true
 ---
 
-## Main Topic
+## Links
 
-- **Bold Text** ~~Strikethrough~~ *Italic* ==Highlight==
+- [Website](https://markmap.js.org/)
+- [GitHub](https://github.com/gera2ld/markmap)
+
+## Features
+
+- **strong** ~~del~~ _italic_ ==highlight==
 - `inline code`
-- [x] checkbox
-- [Link](https://example.com)
-
-### Sub Topic
-
-1. Ordered list item 1
-2. Ordered list item 2
-
-| Table | Header |
-|-------|--------|
-| Data  | Value  |
-
-![Image](https://example.com/image.png)
+- Lists support
+- And more...
 ```
-````
 
-#### Method 2: Component Tag
+### 📂 Load from External File
 
-```markdown
-<PreviewMarkmapPath path="./path/to/file.md" />
-<PreviewMarkmapPath path="./path/to/file.md" showToolbar />
+Use the `PreviewMarkmapPath` component to load and display mind maps from a specified Markdown file:
+
+```vue
+<PreviewMarkmapPath path="./other.md" showToolbar />
+```
+
+> If you don't want to show the toolbar, simply omit the `showToolbar` prop.
+
+### 📄 Load Current File
+
+If the `path` prop is not specified, the current Markdown file will be used:
+
+```vue
 <PreviewMarkmapPath />
 ```
 
-### Component Props
+## ⚙️ Component Options
 
-| Prop   | Type     | Default | Description                                      |
-| ------ | -------- | ------- | ------------------------------------------------ |
-| `path` | `string` | -       | Path to markdown file (relative to current file) |
+### PreviewMarkmapPath Props
+
+| Prop        | Type    | Default | Description                       |
+| ----------- | ------- | ------- | --------------------------------- |
+| path        | string  | -       | Path to the Markdown file to load |
+| showToolbar | boolean | false   | Whether to show the toolbar       |
 
 ## 📄 License
 
-MIT
+- [MIT](https://github.com/flingyp/vitepress-plugin-legend/blob/main/LICENSE)
 
 ## 🙏 Acknowledgments
 

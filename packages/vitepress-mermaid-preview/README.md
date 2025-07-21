@@ -1,21 +1,11 @@
 # vitepress-mermaid-preview
 
-A VitePress plugin that enables interactive Mermaid diagram previews in Markdown.
+A plugin for displaying Mermaid diagrams in VitePress.
 
 [![npm version](https://img.shields.io/npm/v/vitepress-mermaid-preview.svg)](https://www.npmjs.com/package/vitepress-mermaid-preview)
 [![license](https://img.shields.io/npm/l/vitepress-mermaid-preview.svg)](https://github.com/flingyp/vitepress-mermaid-preview/blob/main/LICENSE)
 
-## ✨ Features
-
-- 🏞️ Interactive Mermaid diagrams in Markdown
-- 📝 Supports flowcharts, sequence diagrams, etc.
-- 🎨 Customizable themes and options
-- 🔧 Seamless integration with VitePress
-- 📁 File preview via component tag
-
-## 🚀 Quick Start
-
-### Installation
+## 🚀 Installation
 
 ```bash
 npm install vitepress-mermaid-preview
@@ -25,9 +15,9 @@ yarn add vitepress-mermaid-preview
 pnpm add vitepress-mermaid-preview
 ```
 
-### Usage
+## ⚙️ Configuration
 
-1. **Configure VitePress**
+Add the plugin in `.vitepress/config.ts`:
 
 ```typescript
 // .vitepress/config.ts
@@ -43,7 +33,7 @@ export default defineConfig({
 });
 ```
 
-Register global components (if needed):
+Register the global component in `.vitepress/theme/index.ts`:
 
 ```typescript
 // .vitepress/theme/index.ts
@@ -60,30 +50,36 @@ export default {
 } satisfies Theme;
 ```
 
-2. **Use in Markdown**
+## 📖 Usage
 
-#### Method 1: Mermaid Code Block
+### 📝 Basic Usage
 
-````markdown
+You can directly use Mermaid code blocks in Markdown to create diagrams:
+
 ```mermaid
-graph TD
-  A[Start] --> B{Decision}
-  B -- Yes --> C[Process 1]
-  B -- No  --> D[Process 2]
-  C --> E[End]
-  D --> E
+gantt
+    title A Gantt Diagram
+    dateFormat YYYY-MM-DD
+    section Section
+        A task          :a1, 2014-01-01, 30d
+        Another task    :after a1, 20d
+    section Another
+        Task in Another :2014-01-12, 12d
+        another task    :24d
 ```
-````
 
-#### Method 2: Component Tag
+### 📂 Load from File
 
-```markdown
-<PreviewMermaidPath path="./path/to/file.mmd" />
+Use the `PreviewMermaidPath` component to load and display Mermaid diagrams from a specified file:
+
+```vue
+<!-- It is recommended to use .mermaid or .mmd file extensions -->
+<PreviewMermaidPath path="./other.mmd" />
 ```
 
 ## 📄 License
 
-MIT
+- [MIT](https://github.com/flingyp/vitepress-plugin-legend/blob/main/LICENSE)
 
 ## 🙏 Acknowledgments
 
