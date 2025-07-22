@@ -6,42 +6,108 @@
 
 ```markmap
 ---
-title: markmap
+title: 前端技术栈
 markmap:
   colorFreezeLevel: 2
 ---
 
-## Links
+## 基础技术
 
-- [Website](https://markmap.js.org/)
-- [GitHub](https://github.com/gera2ld/markmap)
+- HTML
+  - 语义化标签
+  - 表单处理
+  - 无障碍访问
+- CSS
+  - 布局技术
+  - 响应式设计
+  - 动画效果
+- JavaScript
+  - ES6+ 语法
+  - 异步编程
+  - 模块化开发
 
-## Features
+## 框架与库
 
-- **strong** ~~del~~ *italic* ==highlight==
-- `inline code`
-- Lists support
-- And more...
+- Vue.js
+  - 组件化开发
+  - 响应式系统
+  - 生态系统
+- React
+  - JSX 语法
+  - Hooks
+  - 状态管理
+- Angular
+  - TypeScript
+  - 依赖注入
+  - 指令系统
+
+## 工程化工具
+
+- 构建工具
+  - Webpack
+  - Vite
+  - Rollup
+- 包管理
+  - npm
+  - yarn
+  - pnpm
+- 代码质量
+  - ESLint
+  - Prettier
+  - TypeScript
 ```
 
 ```text
 ---
-title: markmap
+title: 前端技术栈
 markmap:
   colorFreezeLevel: 2
 ---
 
-## Links
+## 基础技术
 
-- [Website](https://markmap.js.org/)
-- [GitHub](https://github.com/gera2ld/markmap)
+- HTML
+  - 语义化标签
+  - 表单处理
+  - 无障碍访问
+- CSS
+  - 布局技术
+  - 响应式设计
+  - 动画效果
+- JavaScript
+  - ES6+ 语法
+  - 异步编程
+  - 模块化开发
 
-## Features
+## 框架与库
 
-- **strong** ~~del~~ *italic* ==highlight==
-- `inline code`
-- Lists support
-- And more...
+- Vue.js
+  - 组件化开发
+  - 响应式系统
+  - 生态系统
+- React
+  - JSX 语法
+  - Hooks
+  - 状态管理
+- Angular
+  - TypeScript
+  - 依赖注入
+  - 指令系统
+
+## 工程化工具
+
+- 构建工具
+  - Webpack
+  - Vite
+  - Rollup
+- 包管理
+  - npm
+  - yarn
+  - pnpm
+- 代码质量
+  - ESLint
+  - Prettier
+  - TypeScript
 ```
 
 ## 组件形式

@@ -6,16 +6,32 @@
 
 ```mermaid
 sequenceDiagram
-    Alice->>John: Hello John, how are you?
-    John-->>Alice: Great!
-    Alice-)John: See you later!
+    participant 用户 as 用户
+    participant 前端 as 前端应用
+    participant 后端 as 后端服务
+    participant 数据库 as 数据库
+
+    用户->>前端: 登录请求
+    前端->>后端: 验证用户信息
+    后端->>数据库: 查询用户数据
+    数据库-->>后端: 返回用户信息
+    后端-->>前端: 返回认证结果
+    前端-->>用户: 显示登录状态
 ```
 
 ```text
 sequenceDiagram
-    Alice->>John: Hello John, how are you?
-    John-->>Alice: Great!
-    Alice-)John: See you later!
+    participant 用户 as 用户
+    participant 前端 as 前端应用
+    participant 后端 as 后端服务
+    participant 数据库 as 数据库
+
+    用户->>前端: 登录请求
+    前端->>后端: 验证用户信息
+    后端->>数据库: 查询用户数据
+    数据库-->>后端: 返回用户信息
+    后端-->>前端: 返回认证结果
+    前端-->>用户: 显示登录状态
 ```
 
 ## 组件形式

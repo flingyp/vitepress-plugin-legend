@@ -1,7 +1,9 @@
 ---
-title: Order example
+title: 电商系统数据模型
 ---
 erDiagram
-    CUSTOMER ||--o{ ORDER : places
-    ORDER ||--|{ LINE-ITEM : contains
-    CUSTOMER }|..|{ DELIVERY-ADDRESS : uses
+    用户 ||--o{ 订单 : 下单
+    订单 ||--|{ 订单项 : 包含
+    用户 }|..|{ 收货地址 : 使用
+    商品 ||--o{ 订单项 : 被购买
+    商品 }o--|| 商品分类 : 属于

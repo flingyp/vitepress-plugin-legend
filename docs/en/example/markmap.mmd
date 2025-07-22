@@ -1,0 +1,9 @@
+---
+title: E-commerce System Data Model
+---
+erDiagram
+    CUSTOMER ||--o{ ORDER : places
+    ORDER ||--|{ ORDER_ITEM : contains
+    CUSTOMER }|..|{ DELIVERY_ADDRESS : uses
+    PRODUCT ||--o{ ORDER_ITEM : purchased
+    PRODUCT }o--|| CATEGORY : belongs_to
