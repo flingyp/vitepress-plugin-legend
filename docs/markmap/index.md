@@ -1,4 +1,4 @@
-# 🗺️ vitepress-markmap-preview
+# vitepress-markmap-preview
 
 一个用于在 VitePress 中展示思维导图的插件。
 
@@ -51,27 +51,7 @@ export default {
 
 ### 📝 基本用法
 
-可以直接在 Markdown 中使用 markmap 代码块来创建思维导图：
-
-```markdown
----
-title: markmap
-markmap:
-  colorFreezeLevel: 2
----
-
-## Links
-
-- [Website](https://markmap.js.org/)
-- [GitHub](https://github.com/gera2ld/markmap)
-
-## Features
-
-- **strong** ~~del~~ _italic_ ==highlight==
-- `inline code`
-- Lists support
-- And more...
-```
+可以直接在 Markdown 中使用 `markmap` 代码块来创建思维导图：
 
 ```markmap
 ---
@@ -88,6 +68,26 @@ markmap:
 ## Features
 
 - **strong** ~~del~~ *italic* ==highlight==
+- `inline code`
+- Lists support
+- And more...
+```
+
+```text
+---
+title: markmap
+markmap:
+  colorFreezeLevel: 2
+---
+
+## Links
+
+- [Website](https://markmap.js.org/)
+- [GitHub](https://github.com/gera2ld/markmap)
+
+## Features
+
+- **strong** ~~del~~ _italic_ ==highlight==
 - `inline code`
 - Lists support
 - And more...
@@ -122,7 +122,7 @@ markmap:
 
 ## 📄 License
 
-- [MIT](https://github.com/flingyp/vitepress-plugin-legend/blob/main/LICENSE)
+[MIT License](https://github.com/flingyp/vitepress-plugin-legend/blob/main/LICENSE)
 
 ## 🙏 致谢
 

@@ -3,7 +3,7 @@
     "baseUrl": "./",
     "target": "ESNext",
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -13,10 +13,17 @@
     "isolatedModules": true,
     "declaration": true,
     "declarationMap": true,
+    "outDir": "./dist",
     "types": ["node"],
     "lib": ["ESNext", "DOM"]
   },
-  "include": ["*.ts", "*.vue", "docs/.vitepress/config.mts", "packages/**/*"],
+  "include": [
+    "*.ts",
+    "*.vue",
+    "docs/.vitepress/config.mts",
+    "packages/**/*",
+    "vite.config.ts"
+  ],
   "exclude": [
     "node_modules",
     "packages/**/dist",

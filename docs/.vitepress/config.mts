@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress';
-import { vitepressMarkmapPreview } from 'vitepress-markmap-preview';
-import { vitepressMermaidPreview } from 'vitepress-mermaid-preview';
+import { vitepressPluginLegend } from 'vitepress-plugin-legend';
+// import { vitepressMarkmapPreview } from 'vitepress-markmap-preview';
+// import { vitepressMermaidPreview } from 'vitepress-mermaid-preview';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -14,6 +15,37 @@ export default defineConfig({
                 link: 'https://github.com/flingyp/vitepress-plugin-legend',
             },
         ],
+        nav: [
+            {
+                text: 'Home',
+                link: '/',
+            },
+            {
+                text: 'Vitepress Markmap Preview',
+                link: '/markmap/',
+            },
+
+            {
+                text: 'Vitepress Mermaid Preview',
+                link: '/mermaid/',
+            },
+            {
+                text: 'Example',
+                link: '/example/markmap',
+            },
+        ],
+        sidebar: {
+            '/example/': [
+                {
+                    text: 'Markmap',
+                    link: '/example/markmap',
+                },
+                {
+                    text: 'Mermaid',
+                    link: '/example/mermaid',
+                },
+            ],
+        },
     },
     markdown: {
         theme: {
@@ -22,8 +54,15 @@ export default defineConfig({
         },
         config(md) {
             // 使用更多的 Markdown-it 插件！
-            md.use(vitepressMarkmapPreview, { showToolbar: true });
-            md.use(vitepressMermaidPreview);
+            vitepressPluginLegend(md, {
+                markmap: {
+                    showToolbar: false,
+                },
+                mermaid: true,
+            });
+
+            // md.use(vitepressMarkmapPreview, { showToolbar: true });
+            // md.use(vitepressMermaidPreview);
         },
     },
 });
