@@ -1,1 +1,0 @@
-import{C as a,b as e}from"./theme.7S-WhtVF.js";var d=a((t,n)=>{let o;return n==="sandbox"&&(o=e("#i"+t)),(n==="sandbox"?e(o.nodes()[0].contentDocument.body):e("body")).select(`[id="${t}"]`)},"getDiagramElement");export{d as a};

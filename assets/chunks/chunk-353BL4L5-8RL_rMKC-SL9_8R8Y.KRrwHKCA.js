@@ -1,0 +1,1 @@
+import{_ as l}from"./theme.BB_k4Az6.js";function r(i,c){var t,o,a;i.accDescr&&((t=c.setAccDescription)==null||t.call(c,i.accDescr)),i.accTitle&&((o=c.setAccTitle)==null||o.call(c,i.accTitle)),i.title&&((a=c.setDiagramTitle)==null||a.call(c,i.title))}l(r,"populateCommonDb");export{r as i};
