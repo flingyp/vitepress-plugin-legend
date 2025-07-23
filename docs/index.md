@@ -74,10 +74,12 @@ export default defineConfig({
     config(md) {
       vitepressPluginLegend(md, {
         markmap: {
-          showToolbar: true,
+          showToolbar: false, // 默认隐藏工具栏
           // 其他 markmap 选项
         },
-        mermaid: true, // 或 false 禁用
+        mermaid: {
+          showToolbar: false, // 默认隐藏工具栏
+        }, // 或 false 禁用
       });
     },
   },
@@ -171,12 +173,20 @@ interface VitepressMarkmapPreviewOptions {
 }
 ```
 
+### Mermaid 选项
+
+```typescript
+interface VitepressMermaidPreviewOptions {
+  showToolbar?: boolean;
+}
+```
+
 ### 插件选项
 
 ```typescript
 interface VitepressPluginLegendOptions {
   markmap?: VitepressMarkmapPreviewOptions | false;
-  mermaid?: boolean;
+  mermaid?: VitepressMermaidPreviewOptions | false;
 }
 ```
 

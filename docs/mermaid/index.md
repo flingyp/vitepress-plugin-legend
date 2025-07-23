@@ -14,7 +14,7 @@ pnpm add vitepress-mermaid-preview
 
 ## ⚙️ 配置
 
-在 `.vitepress/config.js` 中添加插件：
+在 `.vitepress/config.ts` 中添加插件：
 
 ```typescript
 // .vitepress/config.ts
@@ -24,7 +24,9 @@ import { vitepressMermaidPreview } from 'vitepress-mermaid-preview';
 export default defineConfig({
   markdown: {
     config: (md) => {
-      vitepressMermaidPreview(md);
+      vitepressMermaidPreview(md, {
+        showToolbar: false, // 全局设置：是否默认显示工具栏
+      });
     },
   },
 });
@@ -85,14 +87,44 @@ markmap:
 - And more...
 ```
 
+### 🔧 工具栏控制
+
+可以在代码块中使用 frontmatter 控制工具栏显示：
+
+```mermaid
+---
+showToolbar: true
+---
+sequenceDiagram
+    participant A
+    participant B
+    A->>B: Hello
+    B-->>A: Hi
+```
+
 ### 📂 读取文件
 
 使用 `PreviewMermaidPath` 组件可以读取指定的 Mermaid 文件内容并展示为图表：
 
 ```vue
-<!-- 建议使用 .mermaid 或 .mmd 文件扩展名 -->
+<!-- 基本用法（默认隐藏工具栏） -->
 <PreviewMermaidPath path="./other.mmd" />
+
+<!-- 显示工具栏 -->
+<PreviewMermaidPath path="./other.mmd" showToolbar />
+
+<!-- 读取当前文件内容 -->
+<PreviewMermaidPath showToolbar />
 ```
+
+## ⚙️ 配置选项
+
+### PreviewMermaidPath 组件属性
+
+| 属性名      | 类型    | 默认值 | 说明                      |
+| ----------- | ------- | ------ | ------------------------- |
+| path        | string  | -      | 要读取的 Mermaid 文件路径 |
+| showToolbar | boolean | false  | 是否显示工具栏            |
 
 ## 📄 License
 

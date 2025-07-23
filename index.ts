@@ -3,18 +3,23 @@ import {
   vitepressMarkmapPreview,
   type VitepressMarkmapPreviewOptions,
 } from 'vitepress-markmap-preview';
-import { vitepressMermaidPreview } from 'vitepress-mermaid-preview';
+import {
+  vitepressMermaidPreview,
+  type VitepressMermaidPreviewOptions,
+} from 'vitepress-mermaid-preview';
 
 export interface VitepressPluginLegendOptions {
   markmap?: VitepressMarkmapPreviewOptions | false;
-  mermaid?: boolean;
+  mermaid?: VitepressMermaidPreviewOptions | false;
 }
 
 const defaultOptions: VitepressPluginLegendOptions = {
   markmap: {
     showToolbar: false,
   },
-  mermaid: true,
+  mermaid: {
+    showToolbar: false,
+  },
 };
 
 /**
@@ -32,7 +37,7 @@ export function vitepressPluginLegend(
 
   // Initialize mermaid plugin if enabled
   if (options.mermaid !== false) {
-    vitepressMermaidPreview(md);
+    vitepressMermaidPreview(md, options.mermaid! || defaultOptions.mermaid!);
   }
 }
 
@@ -41,7 +46,10 @@ export {
   vitepressMarkmapPreview,
   type VitepressMarkmapPreviewOptions,
 } from './packages/vitepress-markmap-preview';
-export { vitepressMermaidPreview } from './packages/vitepress-mermaid-preview';
+export {
+  vitepressMermaidPreview,
+  type VitepressMermaidPreviewOptions,
+} from './packages/vitepress-mermaid-preview';
 
 // Re-export types
 export type { IMarkmapOptions } from 'markmap-view';

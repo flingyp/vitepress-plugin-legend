@@ -38,9 +38,18 @@ sequenceDiagram
 
 使用 `PreviewMermaidPath` 组件可以读取指定的 Mermaid 文件内容并展示为图表：
 
+> `showToolbar` 是可选参数，默认情况下不显示工具栏。添加 `showToolbar` 参数可显示工具栏。
+
+```vue
+<!-- 指定路径读取指定文件（支持相对路径和绝对路径） -->
+<PreviewMermaidPath path="./markmap.mmd" />
+```
+
 <PreviewMermaidPath path="./markmap.mmd" />
 
 ```vue
-<!-- 建议使用 .mermaid 或 .mmd 文件扩展名 -->
-<PreviewMermaidPath path="./other.mmd" />
+<!-- 显示工具栏 -->
+<PreviewMermaidPath path="./markmap.mmd" showToolbar />
 ```
+
+<PreviewMermaidPath path="./markmap.mmd" />

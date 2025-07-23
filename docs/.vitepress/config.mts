@@ -136,9 +136,11 @@ export default defineConfig({
             // 使用更多的 Markdown-it 插件！
             vitepressPluginLegend(md, {
                 markmap: {
-                    showToolbar: false,
+                    showToolbar: true,
                 },
-                mermaid: true,
+                mermaid: {
+                    showToolbar: true,
+                },
             });
 
             // md.use(vitepressMarkmapPreview, { showToolbar: true });

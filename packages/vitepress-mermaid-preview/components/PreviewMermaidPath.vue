@@ -4,9 +4,12 @@ import MermaidChart from './MermaidChart.vue';
 
 interface PreviewMermaidPathProps {
   path: string;
+  showToolbar?: boolean;
 }
 
-withDefaults(defineProps<PreviewMermaidPathProps>(), {});
+const props = withDefaults(defineProps<PreviewMermaidPathProps>(), {
+  showToolbar: false,
+});
 
 const mermaidCode = ref('');
 </script>
@@ -14,7 +17,11 @@ const mermaidCode = ref('');
 <template>
   <div class="vitepress-mermaid-preview">
     <ClientOnly>
-      <MermaidChart v-if="mermaidCode" :code="mermaidCode" />
+      <MermaidChart
+        v-if="mermaidCode"
+        :code="mermaidCode"
+        :showToolbar="props.showToolbar"
+      />
     </ClientOnly>
   </div>
 </template>

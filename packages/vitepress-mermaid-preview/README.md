@@ -27,7 +27,9 @@ import { vitepressMermaidPreview } from 'vitepress-mermaid-preview';
 export default defineConfig({
   markdown: {
     config: (md) => {
-      vitepressMermaidPreview(md);
+      vitepressMermaidPreview(md, {
+        showToolbar: false, // Global setting: whether to show toolbar by default
+      });
     },
   },
 });
@@ -68,14 +70,41 @@ gantt
         another task    :24d
 ```
 
+### 🔧 Toolbar Control
+
+You can control toolbar visibility using frontmatter in code blocks:
+
+```mermaid
+---
+showToolbar: true
+---
+sequenceDiagram
+    participant A
+    participant B
+    A->>B: Hello
+    B-->>A: Hi
+```
+
 ### 📂 Load from File
 
 Use the `PreviewMermaidPath` component to load and display Mermaid diagrams from a specified file:
 
 ```vue
-<!-- It is recommended to use .mermaid or .mmd file extensions -->
+<!-- Basic usage (toolbar hidden by default) -->
 <PreviewMermaidPath path="./other.mmd" />
+
+<!-- Show toolbar -->
+<PreviewMermaidPath path="./other.mmd" showToolbar />
 ```
+
+## ⚙️ Component Options
+
+### PreviewMermaidPath Props
+
+| Prop        | Type    | Default | Description                      |
+| ----------- | ------- | ------- | -------------------------------- |
+| path        | string  | -       | Path to the Mermaid file to load |
+| showToolbar | boolean | false   | Whether to show the toolbar      |
 
 ## 📄 License
 
