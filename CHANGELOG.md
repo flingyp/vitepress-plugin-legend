@@ -1,5 +1,14 @@
 # vitepress-plugin-legend
 
+## 1.0.2
+
+### Patch Changes
+
+- fix(packages): 修复 MindMapRoot 和 MermaidChart 组件中缺失引号问题
+- Updated dependencies
+  - vitepress-markmap-preview@0.0.8
+  - vitepress-mermaid-preview@0.0.3
+
 ## 1.0.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # vitepress-markmap-preview
 
+## 0.0.8
+
+### Patch Changes
+
+- fix(packages): 修复 MindMapRoot 和 MermaidChart 组件中缺失引号问题
+
 ## 0.0.7
 
 ### Patch Changes
