@@ -69,7 +69,7 @@ function processTag(
     // 将内容传递给 MermaidChart 组件
     return `
       <ClientOnly>
-        <MermaidChart code="${encodeURIComponent(fileContent)}" :showToolbar="${showToolbar}" />
+        <MermaidChart code="${encodeURIComponent(fileContent)}" showToolbar="${showToolbar}" />
       </ClientOnly>
     `;
   } catch (error) {

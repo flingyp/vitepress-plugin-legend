@@ -29,7 +29,7 @@ export function parseMarkmapCode(
       }
       return `
         <ClientOnly>
-          <MindMapRoot type="view" markdown=${encodeURIComponent(token.content)} showToolbar=${showToolbar ? 1 : 0} />
+          <MindMapRoot markdown="${encodeURIComponent(token.content)}" showToolbar="${showToolbar ? 1 : 0}" />
         </ClientOnly>
         `;
     }

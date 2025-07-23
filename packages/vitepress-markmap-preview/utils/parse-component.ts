@@ -81,7 +81,7 @@ function processTag(
     // 将内容传递给 MindMapRoot 组件
     return `
       <ClientOnly>
-        <MindMapRoot markdown=${encodeURIComponent(fileContent)} showToolbar=${showToolbar ? 1 : 0} />
+        <MindMapRoot markdown="${encodeURIComponent(fileContent)}" showToolbar="${showToolbar ? 1 : 0}"  />
       </ClientOnly>
     `;
   } catch (error) {
