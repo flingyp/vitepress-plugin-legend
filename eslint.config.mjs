@@ -4,6 +4,12 @@ import flypeng from '@flypeng/eslint-config';
 export default [
     ...flypeng(),
     {
+        files: ['packages/**/*.vue'],
+        rules: {
+            'vue/no-v-html': 'off',
+        },
+    },
+    {
         ignores: [
             'packages/**/dist',
             'docs/.vitepress/dist',

@@ -3,7 +3,7 @@ import { ref, onMounted, computed } from 'vue';
 import mermaid from 'mermaid';
 
 interface MermaidChartProps {
-  code: string;
+  code?: string;
 }
 
 const props = withDefaults(defineProps<MermaidChartProps>(), {

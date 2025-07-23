@@ -14,8 +14,8 @@ import { Toolbar } from 'markmap-toolbar';
 import { snapdom } from '@zumer/snapdom';
 
 interface MindMapRenderProps {
-  type: 'view';
   markdown: string;
+  type?: 'view';
   showToolbar?: '0' | '1';
 }
 
@@ -305,6 +305,14 @@ watch(
 // 存储MutationObserver实例
 const darkModeObserver = ref<MutationObserver | null>(null);
 
+// 当系统主题变化时，重新渲染思维导图
+function mediaThemeChange() {
+  if (markmapIns.value) {
+    markmapIns.value.setOptions(markmapOptions.value);
+    markmapIns.value.renderData();
+  }
+}
+
 onMounted(() => {
   renderMarkmap();
   if (Number(props.showToolbar) === 1) {
@@ -326,13 +334,7 @@ onMounted(() => {
   if (typeof window !== 'undefined' && window.matchMedia) {
     window
       .matchMedia('(prefers-color-scheme: dark)')
-      .addEventListener('change', () => {
-        // 当系统主题变化时，重新渲染思维导图
-        if (markmapIns.value) {
-          markmapIns.value.setOptions(markmapOptions.value);
-          markmapIns.value.renderData();
-        }
-      });
+      .addEventListener('change', mediaThemeChange);
   }
 
   // 监听DOM变化，检测暗黑模式类的添加/移除
@@ -372,18 +374,11 @@ onBeforeUnmount(() => {
     const darkModeMediaQuery = window.matchMedia(
       '(prefers-color-scheme: dark)',
     );
-    // 使用匿名函数，所以这里只能移除全部监听器
-    try {
-      // 现代浏览器
-      darkModeMediaQuery.removeEventListener('change', () => {});
-    } catch (e) {
-      // 旧版浏览器兼容
-      try {
-        darkModeMediaQuery.removeListener(() => {});
-      } catch (e2) {
-        // 忽略错误
-      }
-    }
+
+    // 现代浏览器
+    darkModeMediaQuery.removeEventListener('change', mediaThemeChange);
+    // 旧版浏览器兼容
+    darkModeMediaQuery.removeListener(() => {});
   }
 
   // 清理DOM观察器
@@ -395,7 +390,7 @@ onBeforeUnmount(() => {
 
 <template>
   <!-- 设置固定高度、宽度 100%、block 显示和主题适配的背景，使思维导图完全填充容器 -->
-  <div class="mindmap-container" ref="mindmapContainerRef">
+  <div ref="mindmapContainerRef" class="mindmap-container">
     <svg ref="svgRef" style="min-height: 400px"></svg>
   </div>
 </template>
