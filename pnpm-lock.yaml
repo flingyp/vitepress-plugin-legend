@@ -23,6 +23,9 @@ importers:
       vue:
         specifier: ^3.5.17
         version: 3.5.17(typescript@5.8.3)
+      vue-sonner:
+        specifier: ^2.0.2
+        version: 2.0.2
     devDependencies:
       '@changesets/cli':
         specifier: ^2.29.5
@@ -6893,6 +6896,9 @@ packages:
     engines: {node: ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: '>=6.0.0'
+
+  vue-sonner@2.0.2:
+    resolution: {integrity: sha512-cN6onnN6aBOZ56YWN8CMj6t4zqbz/XlenE+jx5z+mgduMMelFo6B6G+e2Q6hhxU9YFiV16MXG2MBPluZabyElQ==}
 
   vue-tsc@3.0.1:
     resolution: {integrity: sha512-UvMLQD0hAGL1g/NfEQelnSVB4H5gtf/gz2lJKjMMwWNOUmSNyWkejwJagAxEbSjtV5CPPJYslOtoSuqJ63mhdg==}
@@ -14684,6 +14690,8 @@ snapshots:
       semver: 7.7.2
     transitivePeerDependencies:
       - supports-color
+
+  vue-sonner@2.0.2: {}
 
   vue-tsc@3.0.1(typescript@5.8.3):
     dependencies:

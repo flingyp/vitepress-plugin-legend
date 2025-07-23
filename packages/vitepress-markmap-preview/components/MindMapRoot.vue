@@ -12,6 +12,10 @@ import { Markmap } from 'markmap-view';
 import type { IMarkmapOptions } from 'markmap-view';
 import { Toolbar } from 'markmap-toolbar';
 import { snapdom } from '@zumer/snapdom';
+import { useCopyContent } from '@flypeng/tool/browser';
+import { Toaster, toast } from 'vue-sonner';
+
+import 'vue-sonner/style.css';
 
 interface MindMapRenderProps {
   markdown: string;
@@ -219,22 +223,30 @@ function renderToolbar() {
   toolbarIns.register({
     id: 'fit',
     title: '适应屏幕',
-    content: '🔲',
+    content: '🔁',
     onClick: () => {
       if (markmapIns.value) markmapIns.value.fit();
     },
+  });
+
+  // 注册复制按钮
+  toolbarIns.register({
+    id: 'copy',
+    title: '复制Markdown内容',
+    content: '📋',
+    onClick: () => copyMarkdownToClipboard(),
   });
 
   // 注册下载图片按钮
   toolbarIns.register({
     id: 'download',
     title: '下载为PNG图片',
-    content: '📥',
+    content: '⬇️',
     onClick: () => downloadAsPng(),
   });
 
   // 设置工具栏按钮
-  toolbarIns.setItems(['zoomIn', 'zoomOut', 'fit', 'download']);
+  toolbarIns.setItems(['zoomIn', 'zoomOut', 'fit', 'copy', 'download']);
   mindmapContainerRef.value?.append(el);
 }
 
@@ -269,6 +281,23 @@ async function downloadAsPng() {
   } finally {
     // 4. 恢复工具栏
     if (toolbar) toolbar.style.display = 'flex';
+  }
+}
+
+// 复制Markdown内容到剪贴板
+async function copyMarkdownToClipboard() {
+  if (!props.markdown) return;
+
+  try {
+    // 解码Markdown内容
+    const markdownContent = decodeURIComponent(props.markdown);
+
+    useCopyContent(markdownContent);
+
+    toast.success('复制成功！');
+  } catch (error) {
+    console.error('复制失败:', error);
+    toast.error('复制失败，请重试');
   }
 }
 
@@ -393,6 +422,8 @@ onBeforeUnmount(() => {
   <div ref="mindmapContainerRef" class="mindmap-container">
     <svg ref="svgRef" style="min-height: 400px"></svg>
   </div>
+
+  <Toaster position="top-right" rich-colors />
 </template>
 
 <style lang="scss" scoped>
