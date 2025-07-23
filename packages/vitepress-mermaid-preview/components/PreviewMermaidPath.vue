@@ -20,7 +20,7 @@ const mermaidCode = ref('');
       <MermaidChart
         v-if="mermaidCode"
         :code="mermaidCode"
-        :showToolbar="props.showToolbar"
+        :show-toolbar="props.showToolbar"
       />
     </ClientOnly>
   </div>

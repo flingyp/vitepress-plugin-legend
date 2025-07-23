@@ -140,61 +140,54 @@ function renderToolbar() {
   el.style.display = 'flex';
   el.style.justifyContent = 'flex-end';
   el.style.alignItems = 'center';
-  el.style.gap = '0.6rem';
-  el.style.padding = '0.6rem 0.8rem';
+  el.style.gap = '0.2rem';
+  el.style.padding = '0.3rem';
   el.style.backgroundColor = 'var(--vp-c-bg)';
   el.style.border = '1px solid var(--vp-c-divider)';
-  el.style.borderRadius = '2rem';
+  el.style.borderRadius = '1.5rem';
   el.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
   el.style.backdropFilter = 'blur(8px)';
   el.style.transition = 'all 0.3s ease';
-  el.style.opacity = '0.85';
+  el.style.opacity = '0';
   el.style.zIndex = '10';
   el.style.userSelect = 'none';
 
   // 为工具栏添加悬停效果
   el.addEventListener('mouseenter', () => {
-    el.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
     el.style.transform = 'translateY(-2px)';
-    el.style.opacity = '1';
   });
 
   el.addEventListener('mouseleave', () => {
-    el.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
     el.style.transform = 'translateY(0)';
-    el.style.opacity = '0.85';
   });
 
   // 美化按钮样式
   setTimeout(() => {
-    const buttons = el.querySelectorAll('button');
-    buttons.forEach((button: HTMLButtonElement) => {
-      button.style.borderRadius = '50%';
-      button.style.width = '2rem';
-      button.style.height = '2rem';
-      button.style.display = 'flex';
-      button.style.alignItems = 'center';
-      button.style.justifyContent = 'center';
-      button.style.fontSize = '1.2rem';
-      button.style.border = 'none';
-      button.style.backgroundColor = 'transparent';
-      button.style.color = 'var(--vp-c-text-1)';
-      button.style.cursor = 'pointer';
-      button.style.padding = '0';
-      button.style.margin = '0';
-      button.style.transition = 'all 0.2s ease';
+    const toolbarItems = el.querySelectorAll('.mm-toolbar-item');
+    // @ts-expect-error 未知错误
+    toolbarItems.forEach((toolbar: HTMLDivElement) => {
+      toolbar.style.borderRadius = '50%';
+      toolbar.style.width = '2rem';
+      toolbar.style.height = '2rem';
+      toolbar.style.display = 'flex';
+      toolbar.style.alignItems = 'center';
+      toolbar.style.justifyContent = 'center';
+      toolbar.style.fontSize = '1.1rem';
+      toolbar.style.border = 'none';
+      toolbar.style.backgroundColor = 'transparent';
+      toolbar.style.color = 'var(--vp-c-text-1)';
+      toolbar.style.cursor = 'pointer';
+      toolbar.style.padding = '0';
+      toolbar.style.margin = '0';
+      toolbar.style.transition = 'all 0.2s ease';
 
       // 按钮悬停效果
-      button.addEventListener('mouseenter', () => {
-        button.style.backgroundColor = 'var(--vp-c-brand-dimm)';
-        button.style.transform = 'scale(1.1)';
-        button.style.color = 'var(--vp-c-brand)';
+      toolbar.addEventListener('mouseenter', () => {
+        toolbar.style.transform = 'scale(1.1)';
       });
 
-      button.addEventListener('mouseleave', () => {
-        button.style.backgroundColor = 'transparent';
-        button.style.transform = 'scale(1)';
-        button.style.color = 'var(--vp-c-text-1)';
+      toolbar.addEventListener('mouseleave', () => {
+        toolbar.style.transform = 'scale(1)';
       });
     });
   }, 10);
@@ -415,11 +408,32 @@ onBeforeUnmount(() => {
     darkModeObserver.value.disconnect();
   }
 });
+
+const mouseEnterEvent = () => {
+  const toolbar = window.document.querySelector(
+    `#toolbar-${mindmapId.value}`,
+  ) as HTMLElement;
+
+  toolbar.style.opacity = '1';
+};
+
+const mouseLeaveEvent = () => {
+  const toolbar = window.document.querySelector(
+    `#toolbar-${mindmapId.value}`,
+  ) as HTMLElement;
+
+  toolbar.style.opacity = '0';
+};
 </script>
 
 <template>
   <!-- 设置固定高度、宽度 100%、block 显示和主题适配的背景，使思维导图完全填充容器 -->
-  <div ref="mindmapContainerRef" class="mindmap-container">
+  <div
+    ref="mindmapContainerRef"
+    class="mindmap-container"
+    @mouseenter="mouseEnterEvent"
+    @mouseleave="mouseLeaveEvent"
+  >
     <svg ref="svgRef" style="min-height: 400px"></svg>
   </div>
 
