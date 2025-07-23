@@ -1,5 +1,11 @@
 # vitepress-markmap-preview
 
+## 0.0.7
+
+### Patch Changes
+
+- feat(packages): markmap：支持复制文本功能，mermaid：支持下载图片和复制MMermaid代码块功能
+
 ## 0.0.6
 
 ### Patch Changes
