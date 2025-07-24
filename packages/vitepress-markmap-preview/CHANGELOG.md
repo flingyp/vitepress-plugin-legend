@@ -1,5 +1,11 @@
 # vitepress-markmap-preview
 
+## 0.0.9
+
+### Patch Changes
+
+- feat(packages): 优化工具栏功能，支持全屏功能
+
 ## 0.0.8
 
 ### Patch Changes
