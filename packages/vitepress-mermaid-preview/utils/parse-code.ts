@@ -31,7 +31,7 @@ export function parseMermaidCode(
 
       return `
         <ClientOnly>
-          <MermaidChart code="${encodeURIComponent(token.content)}" showToolbar="${showToolbar}" />
+          <MermaidChart code="${encodeURIComponent(token.content)}" showToolbar="${showToolbar ? '1' : '0'}" />
         </ClientOnly>
       `;
     }

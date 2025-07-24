@@ -10,12 +10,11 @@ import {
 import { Transformer } from 'markmap-lib';
 import { Markmap } from 'markmap-view';
 import type { IMarkmapOptions } from 'markmap-view';
-import { Toolbar } from 'markmap-toolbar';
 import { snapdom } from '@zumer/snapdom';
 import { useCopyContent } from '@flypeng/tool/browser';
 import { Toaster, toast } from 'vue-sonner';
-
 import 'vue-sonner/style.css';
+import { UseFullscreen } from '@vueuse/components';
 
 interface MindMapRenderProps {
   markdown: string;
@@ -121,128 +120,6 @@ function renderMarkmap() {
   }
 }
 
-// 渲染工具栏
-function renderToolbar() {
-  if (!svgRef.value || !props.markdown || !markmapIns.value) return;
-
-  const toolbarIns = Toolbar.create(markmapIns.value);
-  toolbarIns.showBrand = false;
-  const { el } = toolbarIns;
-
-  // 生成一个唯一标识的ID值
-  el.id = `toolbar-${mindmapId.value}`;
-
-  // 设置工具栏基础样式
-  el.style.cursor = 'pointer';
-  el.style.position = 'absolute';
-  el.style.bottom = '0.5rem';
-  el.style.right = '0.5rem';
-  el.style.display = 'flex';
-  el.style.justifyContent = 'flex-end';
-  el.style.alignItems = 'center';
-  el.style.gap = '0.2rem';
-  el.style.padding = '0.3rem';
-  el.style.backgroundColor = 'var(--vp-c-bg)';
-  el.style.border = '1px solid var(--vp-c-divider)';
-  el.style.borderRadius = '1.5rem';
-  el.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
-  el.style.backdropFilter = 'blur(8px)';
-  el.style.transition = 'all 0.3s ease';
-  el.style.opacity = '0';
-  el.style.zIndex = '10';
-  el.style.userSelect = 'none';
-
-  // 为工具栏添加悬停效果
-  el.addEventListener('mouseenter', () => {
-    el.style.transform = 'translateY(-2px)';
-  });
-
-  el.addEventListener('mouseleave', () => {
-    el.style.transform = 'translateY(0)';
-  });
-
-  // 美化按钮样式
-  setTimeout(() => {
-    const toolbarItems = el.querySelectorAll('.mm-toolbar-item');
-    // @ts-expect-error 未知错误
-    toolbarItems.forEach((toolbar: HTMLDivElement) => {
-      toolbar.style.borderRadius = '50%';
-      toolbar.style.width = '2rem';
-      toolbar.style.height = '2rem';
-      toolbar.style.display = 'flex';
-      toolbar.style.alignItems = 'center';
-      toolbar.style.justifyContent = 'center';
-      toolbar.style.fontSize = '1.1rem';
-      toolbar.style.border = 'none';
-      toolbar.style.backgroundColor = 'transparent';
-      toolbar.style.color = 'var(--vp-c-text-1)';
-      toolbar.style.cursor = 'pointer';
-      toolbar.style.padding = '0';
-      toolbar.style.margin = '0';
-      toolbar.style.transition = 'all 0.2s ease';
-
-      // 按钮悬停效果
-      toolbar.addEventListener('mouseenter', () => {
-        toolbar.style.transform = 'scale(1.1)';
-      });
-
-      toolbar.addEventListener('mouseleave', () => {
-        toolbar.style.transform = 'scale(1)';
-      });
-    });
-  }, 10);
-
-  toolbarIns.attach(markmapIns.value);
-
-  // 自定义默认按钮的图标
-  toolbarIns.register({
-    id: 'zoomIn',
-    title: '放大',
-    content: '🔍',
-    onClick: () => {
-      if (markmapIns.value) markmapIns.value.rescale(1.25);
-    },
-  });
-
-  toolbarIns.register({
-    id: 'zoomOut',
-    title: '缩小',
-    content: '🔎',
-    onClick: () => {
-      if (markmapIns.value) markmapIns.value.rescale(0.8);
-    },
-  });
-
-  toolbarIns.register({
-    id: 'fit',
-    title: '适应屏幕',
-    content: '🔁',
-    onClick: () => {
-      if (markmapIns.value) markmapIns.value.fit();
-    },
-  });
-
-  // 注册复制按钮
-  toolbarIns.register({
-    id: 'copy',
-    title: '复制Markdown内容',
-    content: '📋',
-    onClick: () => copyMarkdownToClipboard(),
-  });
-
-  // 注册下载图片按钮
-  toolbarIns.register({
-    id: 'download',
-    title: '下载为PNG图片',
-    content: '⬇️',
-    onClick: () => downloadAsPng(),
-  });
-
-  // 设置工具栏按钮
-  toolbarIns.setItems(['zoomIn', 'zoomOut', 'fit', 'copy', 'download']);
-  mindmapContainerRef.value?.append(el);
-}
-
 // 下载思维导图为PNG图片
 async function downloadAsPng() {
   if (!markmapIns.value || !svgRef.value || !mindmapContainerRef.value) return;
@@ -275,6 +152,18 @@ async function downloadAsPng() {
     // 4. 恢复工具栏
     if (toolbar) toolbar.style.display = 'flex';
   }
+}
+
+function zoomIn() {
+  if (markmapIns.value) markmapIns.value.rescale(1.25);
+}
+
+function zoomOut() {
+  if (markmapIns.value) markmapIns.value.rescale(0.8);
+}
+
+function fit() {
+  if (markmapIns.value) markmapIns.value.fit();
 }
 
 // 复制Markdown内容到剪贴板
@@ -337,9 +226,6 @@ function mediaThemeChange() {
 
 onMounted(() => {
   renderMarkmap();
-  if (Number(props.showToolbar) === 1) {
-    renderToolbar();
-  }
 
   // 创建 ResizeObserver 监听容器尺寸变化
   if (window.ResizeObserver) {
@@ -409,7 +295,7 @@ onBeforeUnmount(() => {
   }
 });
 
-const mouseEnterEvent = () => {
+const mouseEnter = () => {
   const toolbar = window.document.querySelector(
     `#toolbar-${mindmapId.value}`,
   ) as HTMLElement;
@@ -417,7 +303,7 @@ const mouseEnterEvent = () => {
   toolbar.style.opacity = '1';
 };
 
-const mouseLeaveEvent = () => {
+const mouseLeave = () => {
   const toolbar = window.document.querySelector(
     `#toolbar-${mindmapId.value}`,
   ) as HTMLElement;
@@ -428,14 +314,40 @@ const mouseLeaveEvent = () => {
 
 <template>
   <!-- 设置固定高度、宽度 100%、block 显示和主题适配的背景，使思维导图完全填充容器 -->
-  <div
-    ref="mindmapContainerRef"
-    class="mindmap-container"
-    @mouseenter="mouseEnterEvent"
-    @mouseleave="mouseLeaveEvent"
-  >
-    <svg ref="svgRef" style="min-height: 400px"></svg>
-  </div>
+  <UseFullscreen v-slot="{ toggle, isFullscreen }">
+    <div
+      ref="mindmapContainerRef"
+      class="mindmap-container"
+      @mouseenter="mouseEnter"
+      @mouseleave="mouseLeave"
+    >
+      <svg ref="svgRef" style="min-height: 400px"></svg>
+
+      <!-- 工具栏 -->
+      <div
+        v-show="Number(props.showToolbar) === 1"
+        :id="`toolbar-${mindmapId}`"
+        class="toolbar"
+      >
+        <button class="btn" title="放大" @click="zoomIn">🔍</button>
+        <button class="btn" title="缩小" @click="zoomOut">🔎</button>
+        <button class="btn" title="适应屏幕" @click="fit">🔁</button>
+        <button
+          class="btn"
+          title="复制Markdown内容"
+          @click="copyMarkdownToClipboard"
+        >
+          📋
+        </button>
+        <button class="btn" title="下载为PNG图片" @click="downloadAsPng">
+          ⬇️
+        </button>
+        <button class="btn" title="全屏" @click="toggle">
+          {{ isFullscreen ? '🔲' : '🔳' }}
+        </button>
+      </div>
+    </div>
+  </UseFullscreen>
 
   <Toaster position="top-right" rich-colors />
 </template>
@@ -447,6 +359,7 @@ const mouseLeaveEvent = () => {
   align-items: center;
   justify-content: center;
   width: 100%;
+  height: 100%;
   padding: 12px;
   background-color: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
@@ -455,8 +368,12 @@ const mouseLeaveEvent = () => {
     background-color 0.5s,
     border-color 0.5s;
 
-  svg {
+  & > svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
+    height: 100%;
   }
 }
 
@@ -478,5 +395,54 @@ const mouseLeaveEvent = () => {
 :deep(.markmap-link) {
   transition: stroke 0.5s;
   stroke: var(--vp-c-divider);
+}
+
+.toolbar {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  z-index: 10;
+  display: flex;
+  gap: 0.2rem;
+  padding: 0.3rem;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 1.5rem;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+  opacity: 0;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
+    transform: translateY(-2px);
+    opacity: 1;
+  }
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  color: var(--vp-c-text-1);
+  font-size: 1.1rem;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: var(--vp-c-brand);
+    background: var(--vp-c-brand-dimm);
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
 }
 </style>

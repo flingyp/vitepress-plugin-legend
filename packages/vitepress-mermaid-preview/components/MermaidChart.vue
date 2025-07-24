@@ -5,29 +5,31 @@ import { snapdom } from '@zumer/snapdom';
 import { useCopyContent } from '@flypeng/tool/browser';
 import { Toaster, toast } from 'vue-sonner';
 import 'vue-sonner/style.css';
+import { UseFullscreen } from '@vueuse/components';
 
 interface MermaidChartProps {
   code?: string;
-  showToolbar?: boolean;
+  showToolbar?: '0' | '1';
 }
 
 const props = withDefaults(defineProps<MermaidChartProps>(), {
   code: '',
-  showToolbar: false,
+  showToolbar: '0',
 });
+
+console.log('props:', props);
 
 const renderCode = computed(() => {
   return decodeURIComponent(props.code);
 });
 const renderChartHtml = ref();
-const mermaidEl = ref<HTMLElement>();
+const mermaidRef = ref<HTMLElement>();
 const containerRef = ref<HTMLElement>();
-const showToolbarState = ref(false);
 
 async function render() {
-  if (!mermaidEl.value) return;
+  if (!mermaidRef.value) return;
 
-  mermaidEl.value.innerHTML = '';
+  mermaidRef.value.innerHTML = '';
 
   // 根据当前主题设置 mermaid 主题
   await mermaid.initialize({
@@ -41,7 +43,7 @@ async function render() {
   const { svg } = await mermaid.render(
     `mermaid-${id}`,
     renderCode.value,
-    mermaidEl.value,
+    mermaidRef.value,
   );
   renderChartHtml.value = svg;
 }
@@ -49,9 +51,6 @@ async function render() {
 // 下载Mermaid图表为PNG
 async function downloadChart() {
   if (!containerRef.value) return;
-
-  // 隐藏工具栏
-  showToolbarState.value = false;
 
   try {
     // 使用 snapdom 截图
@@ -68,11 +67,6 @@ async function downloadChart() {
   } catch (error) {
     console.error('下载失败:', error);
     toast.error('下载失败，请重试');
-  } finally {
-    // 恢复工具栏显示状态
-    setTimeout(() => {
-      showToolbarState.value = true;
-    }, 100);
   }
 }
 
@@ -129,21 +123,23 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
-    ref="containerRef"
-    class="mermaid-container"
-    @mouseenter="showToolbarState = true"
-    @mouseleave="showToolbarState = false"
-  >
-    <div ref="mermaidEl" class="mermaid" v-html="renderChartHtml"></div>
+  <div class="mermaid-container">
+    <UseFullscreen v-slot="{ toggle, isFullscreen }">
+      <div ref="mermaidRef" class="mermaid" v-html="renderChartHtml"></div>
 
-    <!-- 工具栏 -->
-    <div v-show="props.showToolbar" class="mermaid-toolbar">
-      <button class="toolbar-btn" title="复制代码" @click="copyCode">📋</button>
-      <button class="toolbar-btn" title="下载图表" @click="downloadChart">
-        ⬇️
-      </button>
-    </div>
+      <!-- 工具栏 -->
+      <div v-show="Number(props.showToolbar) === 1" class="mermaid-toolbar">
+        <button class="toolbar-btn" title="复制代码" @click="copyCode">
+          📋
+        </button>
+        <button class="toolbar-btn" title="下载图表" @click="downloadChart">
+          ⬇️
+        </button>
+        <button class="toolbar-btn" title="全屏" @click="toggle">
+          {{ isFullscreen ? '🔲' : '🔳' }}
+        </button>
+      </div>
+    </UseFullscreen>
   </div>
 
   <Toaster position="top-right" rich-colors />
@@ -152,6 +148,8 @@ onMounted(() => {
 <style lang="scss">
 .mermaid {
   & > svg {
+    width: 100%;
+    height: 100%;
     margin: 0 auto;
   }
 }
@@ -160,7 +158,6 @@ onMounted(() => {
 <style lang="scss" scoped>
 .mermaid-container {
   position: relative;
-  width: 100%;
 
   &:hover .mermaid-toolbar {
     opacity: 1;
@@ -168,6 +165,8 @@ onMounted(() => {
 }
 
 .mermaid {
+  width: 100%;
+  height: 100%;
   margin: 16px 0;
   padding: 12px;
   overflow: auto;

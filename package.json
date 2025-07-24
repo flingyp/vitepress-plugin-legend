@@ -52,14 +52,16 @@
     "release": "pnpm run build && pnpm publish -r --access public"
   },
   "dependencies": {
+    "@flypeng/tool": "^5.7.2",
+    "@vueuse/components": "^13.5.0",
+    "@vueuse/core": "^13.5.0",
+    "@zumer/snapdom": "^1.9.5",
     "markdown-it": "^14.1.0",
     "markmap-view": "^0.18.12",
     "vitepress-markmap-preview": "workspace:*",
     "vitepress-mermaid-preview": "workspace:*",
     "vue": "^3.5.17",
-    "vue-sonner": "^2.0.2",
-    "@zumer/snapdom": "^1.9.5",
-    "@flypeng/tool": "^5.7.2"
+    "vue-sonner": "^2.0.2"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.5",
