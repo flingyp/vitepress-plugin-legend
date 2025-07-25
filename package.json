@@ -46,7 +46,7 @@
     "docs:build": "pnpm --filter docs build",
     "lint": "prettier . --write && eslint . && stylelint \"**/*.{css,scss,vue}\"",
     "lint:fix": "prettier . --write && eslint . --fix && stylelint --fix \"**/*.{css,scss,sass,vue}\"",
-    "prepare": "husky install",
+    "prepare": "husky",
     "commit": "git-cz",
     "changeset": "npx changeset && npx changeset version",
     "release": "pnpm run build && pnpm publish -r --access public"
@@ -88,8 +88,8 @@
     "vite": "^7.0.5"
   },
   "lint-staged": {
-    "core/**/*.ts": [
-      "pnpm run lint"
+    "*.{js,ts,vue}": [
+      "pnpm run lint:fix"
     ]
   },
   "release-it": {

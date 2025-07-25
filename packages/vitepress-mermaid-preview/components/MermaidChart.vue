@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
 import mermaid from 'mermaid';
-import { snapdom } from '@zumer/snapdom';
 import { useCopyContent } from '@flypeng/tool/browser';
+import { snapdom } from '@zumer/snapdom';
+import { useMutationObserver } from '@vueuse/core';
+import { UseFullscreen } from '@vueuse/components';
 import { Toaster, toast } from 'vue-sonner';
 import 'vue-sonner/style.css';
-import { UseFullscreen } from '@vueuse/components';
 
 interface MermaidChartProps {
   code?: string;
@@ -83,9 +84,20 @@ async function copyCode() {
   }
 }
 
+// 监听 mermaidRef 的 class 属性变化，如果发生变化，则重新渲染图表
+useMutationObserver(
+  mermaidRef,
+  () => {
+    render();
+  },
+  {
+    attributes: true, // 监听属性
+    attributeFilter: ['class'], // 只关心这几个
+  },
+);
+
 // 存储MutationObserver实例
 const darkModeObserver = ref<MutationObserver>();
-
 onMounted(() => {
   // 初始渲染
   render();
@@ -125,8 +137,11 @@ onMounted(() => {
 <template>
   <div class="mermaid-container">
     <UseFullscreen v-slot="{ toggle, isFullscreen }">
-      <div ref="mermaidRef" class="mermaid" v-html="renderChartHtml"></div>
-
+      <div
+        ref="mermaidRef"
+        :class="['mermaid', isFullscreen && 'mermaid-fullscreen']"
+        v-html="renderChartHtml"
+      ></div>
       <!-- 工具栏 -->
       <div v-show="Number(props.showToolbar) === 1" class="mermaid-toolbar">
         <button class="toolbar-btn" title="复制代码" @click="copyCode">
@@ -152,6 +167,17 @@ onMounted(() => {
     height: 100%;
     margin: 0 auto;
   }
+}
+
+.mermaid-fullscreen {
+  position: fixed;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background: var(--vp-c-bg-soft);
+  inset: 0;
 }
 </style>
 
