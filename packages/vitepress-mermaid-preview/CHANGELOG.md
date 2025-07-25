@@ -1,5 +1,11 @@
 # vitepress-mermaid-preview
 
+## 0.0.5
+
+### Patch Changes
+
+- feat(mermaid): 优化 MermaidChart 组件，添加 MutationObserver 以监听类属性变化并支持全屏显示
+
 ## 0.0.4
 
 ### Patch Changes

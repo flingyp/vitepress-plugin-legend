@@ -1,5 +1,13 @@
 # vitepress-plugin-legend
 
+## 1.0.4
+
+### Patch Changes
+
+- feat(mermaid): 优化 MermaidChart 组件，添加 MutationObserver 以监听类属性变化并支持全屏显示
+- Updated dependencies
+  - vitepress-mermaid-preview@0.0.5
+
 ## 1.0.3
 
 ### Patch Changes
