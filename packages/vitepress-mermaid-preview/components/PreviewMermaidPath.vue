@@ -4,11 +4,11 @@ import MermaidChart from './MermaidChart.vue';
 
 interface PreviewMermaidPathProps {
   path: string;
-  showToolbar?: boolean;
+  showToolbar?: '0' | '1';
 }
 
 const props = withDefaults(defineProps<PreviewMermaidPathProps>(), {
-  showToolbar: false,
+  showToolbar: '0',
 });
 
 const mermaidCode = ref('');

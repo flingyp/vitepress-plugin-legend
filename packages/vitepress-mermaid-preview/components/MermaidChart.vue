@@ -18,8 +18,6 @@ const props = withDefaults(defineProps<MermaidChartProps>(), {
   showToolbar: '0',
 });
 
-console.log('props:', props);
-
 const renderCode = computed(() => {
   return decodeURIComponent(props.code);
 });
@@ -164,20 +162,11 @@ onMounted(() => {
 .mermaid {
   & > svg {
     width: 100%;
+    max-width: 100% !important;
     height: 100%;
     margin: 0 auto;
+    overflow: hidden;
   }
-}
-
-.mermaid-fullscreen {
-  position: fixed;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  height: 100vh;
-  background: var(--vp-c-bg-soft);
-  inset: 0;
 }
 </style>
 
@@ -251,5 +240,16 @@ onMounted(() => {
   &:active {
     transform: scale(0.95);
   }
+}
+
+.mermaid-fullscreen {
+  position: fixed;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background: var(--vp-c-bg-soft);
+  inset: 0;
 }
 </style>
