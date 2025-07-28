@@ -1,5 +1,13 @@
 # vitepress-plugin-legend
 
+## 1.0.5
+
+### Patch Changes
+
+- style(mermaid): 调整样式以支持全屏显示 & 更新 MermaidChart 组件
+- Updated dependencies
+  - vitepress-mermaid-preview@0.0.6
+
 ## 1.0.4
 
 ### Patch Changes

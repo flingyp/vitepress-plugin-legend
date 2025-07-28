@@ -1,5 +1,11 @@
 # vitepress-mermaid-preview
 
+## 0.0.6
+
+### Patch Changes
+
+- style(mermaid): 调整样式以支持全屏显示 & 更新 MermaidChart 组件
+
 ## 0.0.5
 
 ### Patch Changes
