@@ -1,8 +1,18 @@
-# vitepress-mermaid-preview
+# VitePress Mermaid Preview
+
+![npm](https://img.shields.io/npm/v/vitepress-mermaid-preview)
 
 一个用于在 VitePress 中展示 Mermaid 图表的插件。
 
-## 🚀 安装
+## ✨ 特性
+
+- 🗺️ **Mermaid 集成**: 在 Markdown 中直接渲染 Mermaid 图例
+- 🎨 **可定制**: 支持 mermaid 的所有配置选项
+- 🔧 **简单设置**: 一键安装，快速配置
+- 📁 **组件支持**: 提供 Vue 组件用于思维导图渲染
+- 🚀 **TypeScript**: 完整的 TypeScript 支持和类型定义
+
+## 📦 安装
 
 ```bash
 npm install vitepress-mermaid-preview
@@ -12,7 +22,7 @@ yarn add vitepress-mermaid-preview
 pnpm add vitepress-mermaid-preview
 ```
 
-## ⚙️ 配置
+## 🚀 快速开始
 
 在 `.vitepress/config.ts` 中添加插件：
 
@@ -124,7 +134,7 @@ sequenceDiagram
 | 属性名      | 类型    | 默认值 | 说明                      |
 | ----------- | ------- | ------ | ------------------------- |
 | path        | string  | -      | 要读取的 Mermaid 文件路径 |
-| showToolbar | boolean | false  | 是否显示工具栏            |
+| showToolbar | boolean | -      | 是否有工具栏              |
 
 ## 📄 License
 

@@ -1,8 +1,18 @@
-# vitepress-mermaid-preview
+# VitePress Mermaid Preview
+
+![npm](https://img.shields.io/npm/v/vitepress-mermaid-preview)
 
 A plugin for displaying Mermaid charts in VitePress.
 
-## 🚀 Installation
+## ✨ Features
+
+- 🗺️ **Mermaid Integration**: Directly render interactive mind maps in Markdown
+- 🎨 **Customizable**: Support all mermaid configuration options
+- 🔧 **Easy Setup**: One-click installation, quick configuration
+- 📁 **Component Support**: Provide Vue components for mermaid rendering
+- 🚀 **TypeScript**: Full TypeScript support with type definitions
+
+## 📦 Installation
 
 ```bash
 npm install vitepress-mermaid-preview
@@ -12,7 +22,7 @@ yarn add vitepress-mermaid-preview
 pnpm add vitepress-mermaid-preview
 ```
 
-## ⚙️ Configuration
+## 🚀 Quick Start
 
 Add the plugin in `.vitepress/config.js`:
 
@@ -90,9 +100,24 @@ markmap:
 Use the `PreviewMermaidPath` component to read specified Mermaid file content and display it as a chart:
 
 ```vue
-<!-- Recommend using .mermaid or .mmd file extensions -->
+<!-- Basic usage (default hide toolbar) -->
 <PreviewMermaidPath path="./other.mmd" />
+
+<!-- Show toolbar -->
+<PreviewMermaidPath path="./other.mmd" showToolbar />
+
+<!-- Read current file content -->
+<PreviewMermaidPath showToolbar />
 ```
+
+## ⚙️ Config Options
+
+### PreviewMermaidPath Component Properties
+
+| Property Name | Type   | Default | Description                          |
+| ------------- | ------ | ------- | ------------------------------------ |
+| path          | string | -       | The path of the Mermaid file to read |
+| showToolbar   | string | -       | Whether to show the toolbar          |
 
 ## 📄 License
 
