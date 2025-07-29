@@ -1,5 +1,11 @@
 # vitepress-markmap-preview
 
+## 0.0.10
+
+### Patch Changes
+
+- refactor(packages): 删除 PreviewMarkmapPath、PreviewMermaidPath 组件，更新配置说明
+
 ## 0.0.9
 
 ### Patch Changes

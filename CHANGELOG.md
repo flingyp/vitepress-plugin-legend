@@ -1,5 +1,14 @@
 # vitepress-plugin-legend
 
+## 1.0.6
+
+### Patch Changes
+
+- refactor(packages): 删除 PreviewMarkmapPath、PreviewMermaidPath 组件，更新配置说明
+- Updated dependencies
+  - vitepress-markmap-preview@0.0.10
+  - vitepress-mermaid-preview@0.0.7
+
 ## 1.0.5
 
 ### Patch Changes
