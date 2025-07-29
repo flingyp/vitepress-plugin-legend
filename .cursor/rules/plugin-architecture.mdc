@@ -33,14 +33,6 @@ alwaysApply: true
   - 可配置样式和主题
   - 响应式设计
 
-#### PreviewMarkmapPath.vue
-- 位置：[core/components/PreviewMarkmapPath.vue](mdc:core/components/PreviewMarkmapPath.vue)
-- 功能：预览指定路径的 markdown 文件
-- 特性：
-  - 动态加载文件内容
-  - 支持相对路径和绝对路径
-  - 自动解析为思维导图
-
 ## 数据流
 
 ### Markdown → 思维导图

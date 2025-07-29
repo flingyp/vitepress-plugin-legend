@@ -1,6 +1,8 @@
 # vitepress-markmap-preview
 
-A plugin for displaying mind maps in VitePress using markmap.
+![npm](https://img.shields.io/npm/v/vitepress-markmap-preview.svg)
+
+A VitePress plugin for previewing Markmap mind maps in Markdown.
 
 ## 🚀 Installation
 

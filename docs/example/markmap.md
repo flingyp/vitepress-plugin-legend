@@ -5,14 +5,8 @@
 使用 `markmap` 代码块形式，插入 Markdown 文件内容：
 
 ```markmap
----
-title: 前端技术栈
-markmap:
-  colorFreezeLevel: 2
----
-
+# 前端技术栈
 ## 基础技术
-
 - HTML
   - 语义化标签
   - 表单处理
@@ -25,9 +19,7 @@ markmap:
   - ES6+ 语法
   - 异步编程
   - 模块化开发
-
 ## 框架与库
-
 - Vue.js
   - 组件化开发
   - 响应式系统
@@ -40,9 +32,7 @@ markmap:
   - TypeScript
   - 依赖注入
   - 指令系统
-
 ## 工程化工具
-
 - 构建工具
   - Webpack
   - Vite

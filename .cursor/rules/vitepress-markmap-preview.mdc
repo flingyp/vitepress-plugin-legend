@@ -22,7 +22,6 @@ alwaysApply: true
 - [core/utils/parse-code.ts](mdc:core/utils/parse-code.ts) - 解析 markmap 代码块
 - [core/utils/parse-component.ts](mdc:core/utils/parse-component.ts) - 解析 markmap 组件
 - [core/components/MindMapRoot.vue](mdc:core/components/MindMapRoot.vue) - 思维导图根组件
-- [core/components/PreviewMarkmapPath.vue](mdc:core/components/PreviewMarkmapPath.vue) - 路径预览组件
 
 ### 开发命令
 - `pnpm dev` - 启动开发服务器

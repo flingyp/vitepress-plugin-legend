@@ -1,20 +1,32 @@
-# vitepress-markmap-preview
+# VitePress Markmap Preview
 
-一个用于在 VitePress 中展示思维导图的插件。
+![npm](https://img.shields.io/npm/v/vitepress-markmap-preview.svg)
 
-## 🚀 安装
+一个 VitePress 插件，用于在 Markdown 中预览 Markmap 思维导图。
+
+## ✨ 特性
+
+- 🗺️ **Markmap 集成**: 在 Markdown 中直接渲染交互式思维导图
+- 🎨 **可定制**: 支持 markmap 的所有配置选项
+- 🔧 **简单设置**: 一键安装，快速配置
+- 📁 **组件支持**: 提供 Vue 组件用于思维导图渲染
+- 🚀 **TypeScript**: 完整的 TypeScript 支持和类型定义
+
+## 📦 安装
 
 ```bash
 npm install vitepress-markmap-preview
-# or
-yarn add vitepress-markmap-preview
-# or
+# 或
 pnpm add vitepress-markmap-preview
+# 或
+yarn add vitepress-markmap-preview
 ```
 
-## ⚙️ 配置
+## 🚀 快速开始
 
-### 🛠️ 在 `.vitepress/config.ts` 中添加插件
+### 步骤 1：配置 VitePress
+
+在 VitePress 配置中添加插件：
 
 ```typescript
 // .vitepress/config.ts
@@ -23,14 +35,16 @@ import { vitepressMarkmapPreview } from 'vitepress-markmap-preview';
 
 export default defineConfig({
   markdown: {
-    config: (md) => {
+    config(md) {
       vitepressMarkmapPreview(md);
     },
   },
 });
 ```
 
-### 🛠️ 在 `.vitepress/theme/index.ts` 中注册全局组件
+### 步骤 2：注册组件
+
+在主题中注册 Vue 组件：
 
 ```typescript
 // .vitepress/theme/index.ts

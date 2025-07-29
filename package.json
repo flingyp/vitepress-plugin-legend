@@ -44,7 +44,7 @@
     "build:mermaid": "pnpm --filter vitepress-mermaid-preview build",
     "docs:dev": "pnpm --filter docs dev",
     "docs:build": "pnpm --filter docs build",
-    "lint": "prettier . --write && eslint . && stylelint \"**/*.{css,scss,vue}\"",
+    "lint": "prettier . --write && eslint . && stylelint \"**/*.{css,scss,sass,vue}\"",
     "lint:fix": "prettier . --write && eslint . --fix && stylelint --fix \"**/*.{css,scss,sass,vue}\"",
     "prepare": "husky",
     "commit": "git-cz",
@@ -89,7 +89,11 @@
   },
   "lint-staged": {
     "*.{js,ts,vue}": [
-      "pnpm run lint:fix"
+      "npx prettier . --write",
+      "npx eslint . --fix"
+    ],
+    "*.{css,scss,sass,vue}": [
+      "npx stylelint --fix"
     ]
   },
   "release-it": {

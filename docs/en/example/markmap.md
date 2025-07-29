@@ -5,14 +5,8 @@
 Use `markmap` code block format to insert Markdown file content:
 
 ```markmap
----
-title: Software Development Lifecycle
-markmap:
-  colorFreezeLevel: 2
----
-
+# Software Development Lifecycle
 ## Planning Phase
-
 - Requirements Analysis
   - Functional Requirements
   - Non-functional Requirements
@@ -21,9 +15,7 @@ markmap:
   - Timeline Estimation
   - Resource Allocation
   - Risk Assessment
-
 ## Development Phase
-
 - Frontend Development
   - UI/UX Design
   - Component Development
@@ -36,9 +28,7 @@ markmap:
   - Unit Testing
   - Integration Testing
   - End-to-End Testing
-
 ## Deployment & Maintenance
-
 - CI/CD Pipeline
   - Automated Testing
   - Build Process

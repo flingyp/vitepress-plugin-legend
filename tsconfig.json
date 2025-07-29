@@ -18,16 +18,10 @@
     "lib": ["ESNext", "DOM"]
   },
   "include": [
-    "*.ts",
-    "*.vue",
+    "index.ts",
+    "component.ts",
     "docs/.vitepress/config.mts",
-    "packages/**/*",
     "vite.config.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "packages/**/dist",
-    "docs/.vitepress/cache",
-    "docs/.vitepress/dist"
-  ]
+  "exclude": ["node_modules", "docs/.vitepress/cache", "docs/.vitepress/dist"]
 }

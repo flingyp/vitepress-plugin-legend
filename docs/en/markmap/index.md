@@ -1,20 +1,32 @@
-# vitepress-markmap-preview
+# VitePress Markmap Preview
 
-A plugin for displaying mind maps in VitePress.
+![npm](https://img.shields.io/npm/v/vitepress-markmap-preview.svg)
 
-## 🚀 Installation
+A VitePress plugin for previewing Markmap mind maps in Markdown.
+
+## ✨ Features
+
+- 🗺️ **Markmap Integration**: Directly render interactive mind maps in Markdown
+- 🎨 **Customizable**: Support all markmap configuration options
+- 🔧 **Easy Setup**: One-click installation, quick configuration
+- 📁 **Component Support**: Provide Vue components for mind map rendering
+- 🚀 **TypeScript**: Full TypeScript support with type definitions
+
+## 📦 Installation
 
 ```bash
 npm install vitepress-markmap-preview
 # or
-yarn add vitepress-markmap-preview
-# or
 pnpm add vitepress-markmap-preview
+# or
+yarn add vitepress-markmap-preview
 ```
 
-## ⚙️ Configuration
+## 🚀 Quick Start
 
-### 🛠️ Add plugin in `.vitepress/config.ts`
+### Step 1: Configure VitePress
+
+Add the plugin to your VitePress configuration:
 
 ```typescript
 // .vitepress/config.ts
@@ -23,14 +35,16 @@ import { vitepressMarkmapPreview } from 'vitepress-markmap-preview';
 
 export default defineConfig({
   markdown: {
-    config: (md) => {
+    config(md) {
       vitepressMarkmapPreview(md);
     },
   },
 });
 ```
 
-### 🛠️ Register global component in `.vitepress/theme/index.ts`
+### Step 2: Register Components
+
+Register Vue components in your theme:
 
 ```typescript
 // .vitepress/theme/index.ts
