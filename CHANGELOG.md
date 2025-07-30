@@ -1,5 +1,13 @@
 # vitepress-plugin-legend
 
+## 1.0.7
+
+### Patch Changes
+
+- feat(mermaid): 为 MermaidChart 组件添加拖拽和缩放功能，更新样式以支持交互操作
+- Updated dependencies
+  - vitepress-mermaid-preview@0.0.8
+
 ## 1.0.6
 
 ### Patch Changes

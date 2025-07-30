@@ -1,5 +1,11 @@
 # vitepress-mermaid-preview
 
+## 0.0.8
+
+### Patch Changes
+
+- feat(mermaid): 为 MermaidChart 组件添加拖拽和缩放功能，更新样式以支持交互操作
+
 ## 0.0.7
 
 ### Patch Changes
