@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, nextTick } from 'vue';
 import mermaid from 'mermaid';
 import { useCopyContent } from '@flypeng/tool/browser';
 import { snapdom } from '@zumer/snapdom';
@@ -25,6 +25,42 @@ const renderChartHtml = ref();
 const mermaidRef = ref<HTMLElement>();
 const containerRef = ref<HTMLElement>();
 
+const dragOffset = ref({ x: 0, y: 0 }); // 当前平移
+const dragStart = ref({ x: 0, y: 0 }); // 鼠标按下时的坐标
+const isDragging = ref(false);
+
+function updateSvgTransform() {
+  const svgEl = mermaidRef.value?.querySelector('svg');
+  if (svgEl) {
+    svgEl.style.transform = `translate(${dragOffset.value.x}px, ${dragOffset.value.y}px) scale(${zoomLevel.value})`;
+  }
+}
+
+function onSvgMouseDown(e: MouseEvent) {
+  isDragging.value = true;
+  dragStart.value = { x: e.clientX, y: e.clientY };
+  document.body.style.userSelect = 'none';
+  const { x, y } = dragOffset.value;
+
+  function onMouseMove(ev: MouseEvent) {
+    if (!isDragging.value) return;
+    const dx = ev.clientX - dragStart.value.x;
+    const dy = ev.clientY - dragStart.value.y;
+    dragOffset.value = { x: x + dx, y: y + dy };
+    updateSvgTransform();
+  }
+
+  function onMouseUp() {
+    isDragging.value = false;
+    document.body.style.userSelect = '';
+    window.removeEventListener('mousemove', onMouseMove);
+    window.removeEventListener('mouseup', onMouseUp);
+  }
+
+  window.addEventListener('mousemove', onMouseMove);
+  window.addEventListener('mouseup', onMouseUp);
+}
+
 async function render() {
   if (!mermaidRef.value) return;
 
@@ -45,6 +81,16 @@ async function render() {
     mermaidRef.value,
   );
   renderChartHtml.value = svg;
+
+  // 渲染后绑定拖拽事件
+  nextTick(() => {
+    const svgEl = mermaidRef.value?.querySelector('svg');
+    if (svgEl) {
+      svgEl.style.cursor = 'grab';
+      svgEl.onmousedown = onSvgMouseDown;
+      updateSvgTransform();
+    }
+  });
 }
 
 // 下载Mermaid图表为PNG
@@ -69,6 +115,26 @@ async function downloadChart() {
   }
 }
 
+const zoomLevel = ref(1);
+// 放大
+function zoomIn() {
+  zoomLevel.value *= 1.1;
+  updateSvgTransform();
+}
+
+// 缩小
+function zoomOut() {
+  zoomLevel.value /= 1.1;
+  updateSvgTransform();
+}
+
+// 适应屏幕
+function fit() {
+  zoomLevel.value = 1;
+  dragOffset.value = { x: 0, y: 0 };
+  updateSvgTransform();
+}
+
 // 复制Mermaid代码到剪贴板
 async function copyCode() {
   if (!renderCode.value) return;
@@ -85,8 +151,9 @@ async function copyCode() {
 // 监听 mermaidRef 的 class 属性变化，如果发生变化，则重新渲染图表
 useMutationObserver(
   mermaidRef,
-  () => {
-    render();
+  async () => {
+    await render();
+    fit();
   },
   {
     attributes: true, // 监听属性
@@ -129,6 +196,13 @@ onMounted(() => {
         render();
       });
   }
+
+  // 监听页面大小变化
+  if (typeof window !== 'undefined') {
+    window.addEventListener('resize', () => {
+      fit();
+    });
+  }
 });
 </script>
 
@@ -139,9 +213,12 @@ onMounted(() => {
         ref="mermaidRef"
         :class="['mermaid', isFullscreen && 'mermaid-fullscreen']"
         v-html="renderChartHtml"
-      ></div>
+      />
       <!-- 工具栏 -->
       <div v-show="Number(props.showToolbar) === 1" class="mermaid-toolbar">
+        <button class="toolbar-btn" title="放大" @click="zoomIn">🔍</button>
+        <button class="toolbar-btn" title="缩小" @click="zoomOut">🔎</button>
+        <button class="toolbar-btn" title="适应屏幕" @click="fit">🔁</button>
         <button class="toolbar-btn" title="复制代码" @click="copyCode">
           📋
         </button>
@@ -166,6 +243,9 @@ onMounted(() => {
     height: 100%;
     margin: 0 auto;
     overflow: hidden;
+    /* stylelint-disable */
+    transform: scale(v-bind(zoomLevel));
+    transition: transform 0.3s ease;
   }
 }
 </style>
@@ -244,7 +324,6 @@ onMounted(() => {
 
 .mermaid-fullscreen {
   position: fixed;
-  z-index: 9999;
   display: flex;
   flex-direction: column;
   width: 100vw;
