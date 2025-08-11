@@ -17,6 +17,6 @@
     "types": ["node"],
     "lib": ["ESNext", "DOM"]
   },
-  "include": ["*.ts", "*.vue", "./components/MindMapRoot.vue"],
+  "include": ["*.ts", "*.vue", "components/MarkmapRoot.vue"],
   "exclude": ["node_modules", "dist"]
 }

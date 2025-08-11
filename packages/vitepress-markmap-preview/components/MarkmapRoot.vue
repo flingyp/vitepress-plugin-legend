@@ -16,15 +16,17 @@ import { Toaster, toast } from 'vue-sonner';
 import 'vue-sonner/style.css';
 import { UseFullscreen } from '@vueuse/components';
 
-interface MindMapRenderProps {
+interface MarkmapRenderProps {
   markdown: string;
   type?: 'view';
   showToolbar?: '0' | '1';
+  config?: string;
 }
 
-const props = withDefaults(defineProps<MindMapRenderProps>(), {
+const props = withDefaults(defineProps<MarkmapRenderProps>(), {
   type: 'view',
   showToolbar: '0',
+  config: '',
 });
 
 // 检测暗黑模式
@@ -47,37 +49,56 @@ const isDark = computed(() => {
   return false;
 });
 
-const mindmapContainerRef = ref<HTMLElement>();
+const markmapContainerRef = ref<HTMLElement>();
 const svgRef = ref();
 const markmapIns = shallowRef<Markmap>();
 const resizeObserver = ref<ResizeObserver>();
 
-const mindmapId = ref<string>(
-  `mindmap-${Math.random().toString(36).substring(2, 15)}`,
+const markmapId = ref<string>(
+  `markmap-${Math.random().toString(36).substring(2, 15)}`,
 );
 
+// 解析用户配置
+const userConfig = computed(() => {
+  if (!props.config) return {};
+  try {
+    return JSON.parse(decodeURIComponent(props.config));
+  } catch (error) {
+    console.warn('解析用户配置失败:', error);
+    return {};
+  }
+});
+
 // 计算暗黑模式相关配置
-const markmapOptions = computed<Partial<IMarkmapOptions>>(() => ({
-  // autoFit: true,
-  // fitRatio: 1,
-  // initialExpandLevel: 3,
-  // maxInitialScale: 1,
-  // pan: false,
-  // scrollForPan: false,
-  // toggleRecursively: true,
-  // zoom: true,
-  // paddingX: 2,
-  // spacingHorizontal: 5,
-  // spacingVertical: 5,
-  // duration: 200,
-  // maxWidth: 600,
-  color: (node: any) => {
-    // 针对暗黑模式调整节点颜色
-    return isDark.value
-      ? getColorByDepth(node.depth, true)
-      : getColorByDepth(node.depth, false);
-  },
-}));
+const markmapOptions = computed<Partial<IMarkmapOptions>>(() => {
+  const baseOptions: Partial<IMarkmapOptions> = {
+    // autoFit: true,
+    // fitRatio: 1,
+    // initialExpandLevel: 2,
+    // maxInitialScale: 1,
+    // pan: false,
+    // scrollForPan: false,
+    // toggleRecursively: true,
+    // zoom: true,
+    // paddingX: 2,
+    // spacingHorizontal: 5,
+    // spacingVertical: 5,
+    // duration: 200,
+    // maxWidth: 600,
+    color: (node: any) => {
+      // 针对暗黑模式调整节点颜色
+      return isDark.value
+        ? getColorByDepth(node.depth, true)
+        : getColorByDepth(node.depth, false);
+    },
+  };
+
+  // 合并用户配置，用户配置优先级更高
+  return {
+    ...baseOptions,
+    ...userConfig.value,
+  };
+});
 
 // 根据节点深度获取颜色
 function getColorByDepth(depth: number, isDarkMode: boolean) {
@@ -122,11 +143,11 @@ function renderMarkmap() {
 
 // 下载思维导图为PNG图片
 async function downloadAsPng() {
-  if (!markmapIns.value || !svgRef.value || !mindmapContainerRef.value) return;
+  if (!markmapIns.value || !svgRef.value || !markmapContainerRef.value) return;
 
   // 保存当前状态
-  const toolbar = mindmapContainerRef.value.querySelector(
-    `#toolbar-${mindmapId.value}`,
+  const toolbar = markmapContainerRef.value.querySelector(
+    `#toolbar-${markmapId.value}`,
   ) as HTMLElement;
 
   try {
@@ -137,14 +158,14 @@ async function downloadAsPng() {
     markmapIns.value.fit();
 
     // 3. 下载图片
-    const result = await snapdom(mindmapContainerRef.value, {
+    const result = await snapdom(markmapContainerRef.value, {
       scale: 2,
       quality: 1,
       backgroundColor: getComputedStyle(
         document.documentElement,
       ).getPropertyValue('--vp-c-bg-soft'),
     });
-    await result.download({ format: 'png', filename: 'mindmap' });
+    await result.download({ format: 'png', filename: 'markmap' });
   } catch (e) {
     console.error('下载图片失败:', e);
     alert('下载图片失败，请检查浏览器安全设置或尝试其他浏览器');
@@ -297,7 +318,7 @@ onBeforeUnmount(() => {
 
 const mouseEnter = () => {
   const toolbar = window.document.querySelector(
-    `#toolbar-${mindmapId.value}`,
+    `#toolbar-${markmapId.value}`,
   ) as HTMLElement;
 
   toolbar.style.opacity = '1';
@@ -305,7 +326,7 @@ const mouseEnter = () => {
 
 const mouseLeave = () => {
   const toolbar = window.document.querySelector(
-    `#toolbar-${mindmapId.value}`,
+    `#toolbar-${markmapId.value}`,
   ) as HTMLElement;
 
   toolbar.style.opacity = '0';
@@ -316,8 +337,8 @@ const mouseLeave = () => {
   <!-- 设置固定高度、宽度 100%、block 显示和主题适配的背景，使思维导图完全填充容器 -->
   <UseFullscreen v-slot="{ toggle, isFullscreen }">
     <div
-      ref="mindmapContainerRef"
-      class="mindmap-container"
+      ref="markmapContainerRef"
+      class="markmap-container"
       @mouseenter="mouseEnter"
       @mouseleave="mouseLeave"
     >
@@ -326,7 +347,7 @@ const mouseLeave = () => {
       <!-- 工具栏 -->
       <div
         v-show="Number(props.showToolbar) === 1"
-        :id="`toolbar-${mindmapId}`"
+        :id="`toolbar-${markmapId}`"
         class="toolbar"
       >
         <button class="btn" title="放大" @click="zoomIn">🔍</button>
@@ -353,7 +374,7 @@ const mouseLeave = () => {
 </template>
 
 <style lang="scss" scoped>
-.mindmap-container {
+.markmap-container {
   position: relative;
   display: flex;
   align-items: center;

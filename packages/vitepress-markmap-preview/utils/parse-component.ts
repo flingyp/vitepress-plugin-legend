@@ -2,6 +2,7 @@ import MarkdownIt from 'markdown-it';
 import fs from 'fs';
 import path from 'path';
 import { VitepressMarkmapPreviewOptions } from 'index';
+import { parseMarkmapConfig, removeFrontmatter } from './parse-config';
 
 // 添加自定义容器解析，用于处理 <PreviewMarkmapPath> 标签
 const customComponentRegex1 = /<PreviewMarkmapPath\s*(.*?)\s*\/>/g; // 自闭合标签，允许无属性
@@ -75,13 +76,27 @@ function processTag(
       }
     }
 
+    // 解析配置
+    const config = parseMarkmapConfig(fileContent);
+    const finalShowToolbar = config.showToolbar ?? showToolbar;
+
+    // 移除 frontmatter，获取纯 markdown 内容
+    const markdownContent = removeFrontmatter(fileContent);
+
     // 文件内容传递自定义组件内容转换为字符串内容
-    fileContent = escapeCustomVueTags(fileContent);
+    const processedContent = escapeCustomVueTags(markdownContent);
+
+    // 将配置序列化为 JSON 字符串传递给组件
+    const configJson = JSON.stringify(config.markmap || {});
 
     // 将内容传递给 MindMapRoot 组件
     return `
       <ClientOnly>
-        <MindMapRoot markdown="${encodeURIComponent(fileContent)}" showToolbar="${showToolbar ? 1 : 0}"  />
+        <MarkmapRoot
+          markdown="${encodeURIComponent(processedContent)}"
+          showToolbar="${finalShowToolbar ? 1 : 0}"
+          config="${encodeURIComponent(configJson)}"
+        />
       </ClientOnly>
     `;
   } catch (error) {

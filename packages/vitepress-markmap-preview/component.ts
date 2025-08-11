@@ -1,6 +1,6 @@
 import { App } from 'vue';
-import { default as MindMapRoot } from './components/MindMapRoot.vue';
+import { default as MarkmapRoot } from './components/MarkmapRoot.vue';
 
 export function initComponent(app: App) {
-  app.component('MindMapRoot', MindMapRoot);
+  app.component('MarkmapRoot', MarkmapRoot);
 }

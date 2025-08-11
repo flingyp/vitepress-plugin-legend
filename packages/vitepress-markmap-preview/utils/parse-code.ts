@@ -1,5 +1,6 @@
 import { VitepressMarkmapPreviewOptions } from 'index';
 import MarkdownIt from 'markdown-it';
+import { parseMarkmapConfig, removeFrontmatter } from './parse-config';
 
 /**
  * 读取指定 `markmap` 的代码内容，展示思维导图
@@ -16,20 +17,23 @@ export function parseMarkmapCode(
 
     // 从转换后的数据渲染一个 Markmap 视图
     if (lang === 'markmap') {
-      // 提取 frontmatter
-      let showToolbar = options.showToolbar !== false;
-      const frontmatterMatch = token.content.match(/^---\s*([\s\S]*?)\s*---/);
-      if (frontmatterMatch) {
-        const showToolbarMatch = frontmatterMatch[1].match(
-          /showToolbar:\s*(true|false)/i,
-        );
-        if (showToolbarMatch) {
-          showToolbar = showToolbarMatch[1] === 'true';
-        }
-      }
+      // 解析配置
+      const config = parseMarkmapConfig(token.content);
+      const showToolbar = config.showToolbar ?? options.showToolbar !== false;
+
+      // 移除 frontmatter，获取纯 markdown 内容
+      const markdownContent = removeFrontmatter(token.content);
+
+      // 将配置序列化为 JSON 字符串传递给组件
+      const configJson = JSON.stringify(config.markmap || {});
+
       return `
         <ClientOnly>
-          <MindMapRoot markdown="${encodeURIComponent(token.content)}" showToolbar="${showToolbar ? 1 : 0}" />
+          <MarkmapRoot
+            markdown="${encodeURIComponent(markdownContent)}"
+            showToolbar="${showToolbar ? 1 : 0}"
+            config="${encodeURIComponent(configJson)}"
+          />
         </ClientOnly>
         `;
     }
