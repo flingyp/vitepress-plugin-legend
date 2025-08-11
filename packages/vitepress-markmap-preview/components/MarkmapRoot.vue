@@ -8,8 +8,8 @@ import {
   computed,
 } from 'vue';
 import { Transformer } from 'markmap-lib';
-import { Markmap } from 'markmap-view';
-import type { IMarkmapOptions } from 'markmap-view';
+import { Markmap, deriveOptions } from 'markmap-view';
+import type { IMarkmapJSONOptions, IMarkmapOptions } from 'markmap-view';
 import { snapdom } from '@zumer/snapdom';
 import { useCopyContent } from '@flypeng/tool/browser';
 import { Toaster, toast } from 'vue-sonner';
@@ -71,57 +71,15 @@ const userConfig = computed(() => {
 
 // 计算暗黑模式相关配置
 const markmapOptions = computed<Partial<IMarkmapOptions>>(() => {
-  const baseOptions: Partial<IMarkmapOptions> = {
-    // autoFit: true,
-    // fitRatio: 1,
-    // initialExpandLevel: 2,
-    // maxInitialScale: 1,
-    // pan: false,
-    // scrollForPan: false,
-    // toggleRecursively: true,
-    // zoom: true,
-    // paddingX: 2,
-    // spacingHorizontal: 5,
-    // spacingVertical: 5,
-    // duration: 200,
-    // maxWidth: 600,
-    color: (node: any) => {
-      // 针对暗黑模式调整节点颜色
-      return isDark.value
-        ? getColorByDepth(node.depth, true)
-        : getColorByDepth(node.depth, false);
-    },
+  const options: Partial<IMarkmapJSONOptions> = {
+    initialExpandLevel: -1,
   };
 
   // 合并用户配置，用户配置优先级更高
-  return {
-    ...baseOptions,
-    ...userConfig.value,
-  };
+  Object.assign(options, userConfig.value);
+
+  return deriveOptions(options);
 });
-
-// 根据节点深度获取颜色
-function getColorByDepth(depth: number, isDarkMode: boolean) {
-  // 暗黑模式下使用更明亮的颜色，亮模式下使用更深的颜色
-  const lightModeColors = [
-    '#2ecc71', // 绿色
-    '#3498db', // 蓝色
-    '#9b59b6', // 紫色
-    '#e67e22', // 橙色
-    '#e74c3c', // 红色
-  ];
-
-  const darkModeColors = [
-    '#2ecc71', // 亮绿色
-    '#3498db', // 亮蓝色
-    '#9b59b6', // 亮紫色
-    '#f39c12', // 亮橙色
-    '#e74c3c', // 亮红色
-  ];
-
-  const colors = isDarkMode ? darkModeColors : lightModeColors;
-  return colors[depth % colors.length];
-}
 
 // 渲染思维导图
 function renderMarkmap() {
