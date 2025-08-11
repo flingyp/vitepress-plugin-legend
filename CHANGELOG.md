@@ -1,5 +1,16 @@
 # vitepress-plugin-legend
 
+## 1.1.0
+
+### Minor Changes
+
+- feat(markmap): 添加 Markmap 配置解析功能
+
+### Patch Changes
+
+- Updated dependencies
+  - vitepress-markmap-preview@0.1.0
+
 ## 1.0.7
 
 ### Patch Changes

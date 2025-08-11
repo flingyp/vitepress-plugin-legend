@@ -1,5 +1,11 @@
 # vitepress-markmap-preview
 
+## 0.1.0
+
+### Minor Changes
+
+- feat(markmap): 添加 Markmap 配置解析功能
+
 ## 0.0.10
 
 ### Patch Changes
