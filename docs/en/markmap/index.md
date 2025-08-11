@@ -233,7 +233,7 @@ markmap:
 
 ## 📚 More Examples
 
-Check out the [Configuration Examples](/config-examples.md) for more detailed usage examples and configuration instructions.
+Check out the [Configuration Examples](./configuration.md) for more detailed usage examples and configuration instructions.
 
 ## 📄 License
 

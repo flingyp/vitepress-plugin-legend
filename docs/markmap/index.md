@@ -233,7 +233,7 @@ markmap:
 
 ## 📚 更多示例
 
-查看 [配置示例文档](/config-examples.md) 获取更多详细的使用示例和配置说明。
+查看 [配置示例文档](./configuration.md) 获取更多详细的使用示例和配置说明。
 
 ## 📄 License
 
