@@ -6,11 +6,12 @@ A VitePress plugin for previewing Markmap mind maps in Markdown.
 
 ## ✨ Features
 
-- 🗺️ **Markmap Integration**: Directly render interactive mind maps in Markdown
+- 🗺️ **Markmap Integration**: Render interactive mind maps directly in Markdown
 - 🎨 **Customizable**: Support all markmap configuration options
-- 🔧 **Easy Setup**: One-click installation, quick configuration
+- 🔧 **Easy Setup**: One-click installation and quick configuration
 - 📁 **Component Support**: Provide Vue components for mind map rendering
-- 🚀 **TypeScript**: Full TypeScript support with type definitions
+- 🚀 **TypeScript**: Complete TypeScript support and type definitions
+- ⚙️ **Flexible Configuration**: Support custom configuration via frontmatter syntax
 
 ## 📦 Installation
 
@@ -68,11 +69,7 @@ export default {
 You can directly use `markmap` code blocks in Markdown to create mind maps:
 
 ```markmap
----
-title: markmap
-markmap:
-  colorFreezeLevel: 2
----
+# Markmap
 
 ## Links
 
@@ -87,24 +84,34 @@ markmap:
 - And more...
 ```
 
-```text
+### ⚙️ Custom Configuration
+
+Support custom markmap configuration options via frontmatter syntax:
+
+```markmap
 ---
-title: markmap
+showToolbar: true
 markmap:
-  colorFreezeLevel: 2
+  color: ["#2ecc71", "#3498db", "#9b59b6", "#e67e22", "#e74c3c"]
+  initialExpandLevel: 2
+  maxWidth: 400
+  duration: 300
+  zoom: true
+  pan: true
 ---
 
-## Links
-
-- [Website](https://markmap.js.org/)
-- [GitHub](https://github.com/gera2ld/markmap)
-
-## Features
-
-- **strong** ~~del~~ _italic_ ==highlight==
-- `inline code`
-- Lists support
-- And more...
+# Project Structure
+## Frontend
+### React
+#### Components
+#### State Management
+### Vue
+#### Components
+#### State Management
+## Backend
+### Node.js
+#### Express
+#### Koa
 ```
 
 ### 📂 Reading External Files
@@ -115,11 +122,11 @@ Use the `PreviewMarkmapPath` component to read specified Markdown file content a
 <PreviewMarkmapPath path="./other.md" showToolbar />
 ```
 
-> To hide the toolbar, simply omit the `showToolbar` attribute.
+> If you don't want to show the toolbar, simply omit the `showToolbar` attribute.
 
 ### 📄 Reading Current File
 
-When no path attribute is specified, it will read the content of the current Markdown file:
+When no path attribute is specified, it will read the current Markdown file content:
 
 ```vue
 <PreviewMarkmapPath />
@@ -129,10 +136,104 @@ When no path attribute is specified, it will read the content of the current Mar
 
 ### 🧩 PreviewMarkmapPath Component Properties
 
-| Property    | Type    | Default | Description                   |
-| ----------- | ------- | ------- | ----------------------------- |
-| path        | string  | -       | Path to Markdown file to read |
-| showToolbar | boolean | false   | Whether to show toolbar       |
+| Property    | Type    | Default | Description                       |
+| ----------- | ------- | ------- | --------------------------------- |
+| path        | string  | -       | Path to the Markdown file to read |
+| showToolbar | boolean | false   | Whether to show the toolbar       |
+
+### 🎨 Markmap Configuration Options
+
+Support the following options via the `markmap` field in frontmatter:
+
+#### Basic Options
+
+| Option               | Type     | Default             | Description                                         |
+| -------------------- | -------- | ------------------- | --------------------------------------------------- |
+| `showToolbar`        | boolean  | true                | Whether to show the toolbar                         |
+| `color`              | string[] | d3.schemeCategory10 | Array of node colors                                |
+| `initialExpandLevel` | number   | -1                  | Initial expansion level, -1 means expand all levels |
+| `maxWidth`           | number   | 0                   | Maximum width of nodes, 0 means no limit            |
+| `duration`           | number   | 500                 | Animation duration (milliseconds)                   |
+
+#### Layout Options
+
+| Option              | Type   | Default | Description        |
+| ------------------- | ------ | ------- | ------------------ |
+| `spacingHorizontal` | number | 80      | Horizontal spacing |
+| `spacingVertical`   | number | 5       | Vertical spacing   |
+| `paddingX`          | number | 2       | X-axis padding     |
+
+#### Interaction Options
+
+| Option     | Type    | Default | Description                                |
+| ---------- | ------- | ------- | ------------------------------------------ |
+| `zoom`     | boolean | true    | Whether to allow zooming                   |
+| `pan`      | boolean | true    | Whether to allow panning                   |
+| `autoFit`  | boolean | false   | Whether to automatically fit the container |
+| `fitRatio` | number  | 1       | Fit ratio                                  |
+
+#### Advanced Options
+
+| Option              | Type    | Default | Description                   |
+| ------------------- | ------- | ------- | ----------------------------- |
+| `colorFreezeLevel`  | number  | 0       | Color freeze level            |
+| `toggleRecursively` | boolean | false   | Whether to toggle recursively |
+| `scrollForPan`      | boolean | false   | Whether to scroll for panning |
+| `maxInitialScale`   | number  | 1       | Maximum initial scale         |
+| `lineWidth`         | number  | 1       | Width of lines between nodes  |
+
+### 🔧 Configuration Examples
+
+#### Basic Configuration Example
+
+```yaml
+---
+showToolbar: true
+markmap:
+  color: ['#2ecc71', '#3498db', '#9b59b6']
+  initialExpandLevel: 2
+  maxWidth: 400
+  duration: 300
+---
+```
+
+#### Advanced Configuration Example
+
+```yaml
+---
+showToolbar: false
+markmap:
+  color: ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57']
+  initialExpandLevel: -1
+  maxWidth: 600
+  duration: 500
+  spacingHorizontal: 100
+  spacingVertical: 10
+  zoom: true
+  pan: true
+  colorFreezeLevel: 2
+  lineWidth: 2
+---
+```
+
+#### Dark Mode Adaptation Configuration
+
+```yaml
+---
+showToolbar: true
+markmap:
+  color: ['#2ecc71', '#3498db', '#9b59b6', '#f39c12', '#e74c3c']
+  initialExpandLevel: 1
+  maxWidth: 500
+  duration: 400
+  spacingHorizontal: 80
+  spacingVertical: 5
+---
+```
+
+## 📚 More Examples
+
+Check out the [Configuration Examples](/config-examples.md) for more detailed usage examples and configuration instructions.
 
 ## 📄 License
 
@@ -140,7 +241,7 @@ When no path attribute is specified, it will read the content of the current Mar
 
 ## 🙏 Acknowledgments
 
-- [mermaid](https://github.com/mermaid-js/mermaid)
+- [markmap](https://github.com/gera2ld/markmap)
 - [VitePress](https://vitepress.dev/)
 - [markdown-it](https://github.com/markdown-it/markdown-it)
 

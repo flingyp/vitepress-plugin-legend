@@ -42,6 +42,16 @@ export default defineConfig({
                             link: '/example/mermaid',
                         },
                     ],
+                    '/markmap/': [
+                        {
+                            text: 'Markmap 预览插件',
+                            link: '/markmap/',
+                        },
+                        {
+                            text: '配置指南',
+                            link: '/markmap/configuration',
+                        },
+                    ],
                 },
                 outline: {
                     label: '页面导航',
@@ -96,6 +106,16 @@ export default defineConfig({
                         {
                             text: 'Mermaid',
                             link: '/en/example/mermaid',
+                        },
+                    ],
+                    '/en/markmap/': [
+                        {
+                            text: 'Markmap Preview',
+                            link: '/en/markmap/',
+                        },
+                        {
+                            text: 'Configuration Guide',
+                            link: '/en/markmap/configuration',
                         },
                     ],
                 },
