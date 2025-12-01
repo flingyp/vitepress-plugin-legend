@@ -1,5 +1,11 @@
 # vitepress-mermaid-preview
 
+## 0.0.9
+
+### Patch Changes
+
+- fix(MermaidChart): 点击下载图表没有反应
+
 ## 0.0.8
 
 ### Patch Changes

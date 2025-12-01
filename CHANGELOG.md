@@ -1,5 +1,13 @@
 # vitepress-plugin-legend
 
+## 1.1.1
+
+### Patch Changes
+
+- fix(MermaidChart): 点击下载图表没有反应
+- Updated dependencies
+  - vitepress-mermaid-preview@0.0.9
+
 ## 1.1.0
 
 ### Minor Changes
