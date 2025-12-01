@@ -23,7 +23,6 @@ const renderCode = computed(() => {
 });
 const renderChartHtml = ref();
 const mermaidRef = ref<HTMLElement>();
-const containerRef = ref<HTMLElement>();
 
 const dragOffset = ref({ x: 0, y: 0 }); // 当前平移
 const dragStart = ref({ x: 0, y: 0 }); // 鼠标按下时的坐标
@@ -95,17 +94,18 @@ async function render() {
 
 // 下载Mermaid图表为PNG
 async function downloadChart() {
-  if (!containerRef.value) return;
+  if (!mermaidRef.value) return;
 
   try {
     // 使用 snapdom 截图
-    const result = await snapdom(containerRef.value, {
+    const result = await snapdom(mermaidRef.value, {
       scale: 2,
       quality: 1,
       backgroundColor: getComputedStyle(
         document.documentElement,
       ).getPropertyValue('--vp-c-bg-soft'),
     });
+    console.log('result:', result);
 
     await result.download({ format: 'png', filename: 'mermaid-chart' });
     toast.success('图表下载成功！');
