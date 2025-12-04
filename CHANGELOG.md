@@ -1,5 +1,13 @@
 # vitepress-plugin-legend
 
+## 1.2.1
+
+### Patch Changes
+
+- fix(MermaidChart): adjust height for better display and ensure SVG content fits in fullscreen mode
+- Updated dependencies
+  - vitepress-mermaid-preview@0.1.1
+
 ## 1.2.0
 
 ### Minor Changes
