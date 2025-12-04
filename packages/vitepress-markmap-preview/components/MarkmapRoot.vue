@@ -13,6 +13,7 @@ import type { IMarkmapJSONOptions, IMarkmapOptions } from 'markmap-view';
 import { snapdom } from '@zumer/snapdom';
 import { useCopyContent } from '@flypeng/tool/browser';
 import { Toaster, toast } from 'vue-sonner';
+import { Icon } from '@iconify/vue';
 import 'vue-sonner/style.css';
 import { UseFullscreen } from '@vueuse/components';
 
@@ -308,21 +309,33 @@ const mouseLeave = () => {
         :id="`toolbar-${markmapId}`"
         class="toolbar"
       >
-        <button class="btn" title="放大" @click="zoomIn">🔍</button>
-        <button class="btn" title="缩小" @click="zoomOut">🔎</button>
-        <button class="btn" title="适应屏幕" @click="fit">🔁</button>
+        <button class="toolbar-btn" title="放大" @click="zoomIn">
+          <Icon icon="lucide:zoom-in" />
+        </button>
+        <button class="toolbar-btn" title="缩小" @click="zoomOut">
+          <Icon icon="lucide:zoom-out" />
+        </button>
+        <button class="toolbar-btn" title="适应屏幕" @click="fit">
+          <Icon icon="lucide:maximize-2" />
+        </button>
         <button
-          class="btn"
+          class="toolbar-btn"
           title="复制Markdown内容"
           @click="copyMarkdownToClipboard"
         >
-          📋
+          <Icon icon="lucide:copy" />
         </button>
-        <button class="btn" title="下载为PNG图片" @click="downloadAsPng">
-          ⬇️
+        <button
+          class="toolbar-btn"
+          title="下载为PNG图片"
+          @click="downloadAsPng"
+        >
+          <Icon icon="lucide:download" />
         </button>
-        <button class="btn" title="全屏" @click="toggle">
-          {{ isFullscreen ? '🔲' : '🔳' }}
+        <button class="toolbar-btn" title="全屏" @click="toggle">
+          <Icon
+            :icon="isFullscreen ? 'lucide:minimize-2' : 'lucide:maximize'"
+          />
         </button>
       </div>
     </div>
@@ -362,10 +375,6 @@ const mouseLeave = () => {
   font-weight: 500;
 }
 
-:deep(circle) {
-  fill: var(--vp-c-brand-1);
-}
-
 :deep(.markmap-node-text) {
   transition: fill 0.5s;
   fill: var(--vp-c-text-1);
@@ -399,24 +408,25 @@ const mouseLeave = () => {
   }
 }
 
-.btn {
+.toolbar-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 2rem;
   height: 2rem;
   padding: 0;
-  color: var(--vp-c-text-1);
   font-size: 1.1rem;
-  background: transparent;
   border: none;
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.3s ease;
 
+  :deep(svg) {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
   &:hover {
-    color: var(--vp-c-brand);
-    background: var(--vp-c-brand-dimm);
     transform: scale(1.1);
   }
 

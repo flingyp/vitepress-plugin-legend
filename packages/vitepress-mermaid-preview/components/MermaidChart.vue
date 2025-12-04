@@ -6,6 +6,7 @@ import { snapdom } from '@zumer/snapdom';
 import { useMutationObserver } from '@vueuse/core';
 import { UseFullscreen } from '@vueuse/components';
 import { Toaster, toast } from 'vue-sonner';
+import { Icon } from '@iconify/vue';
 import 'vue-sonner/style.css';
 
 interface MermaidChartProps {
@@ -216,17 +217,25 @@ onMounted(() => {
       />
       <!-- 工具栏 -->
       <div v-show="Number(props.showToolbar) === 1" class="mermaid-toolbar">
-        <button class="toolbar-btn" title="放大" @click="zoomIn">🔍</button>
-        <button class="toolbar-btn" title="缩小" @click="zoomOut">🔎</button>
-        <button class="toolbar-btn" title="适应屏幕" @click="fit">🔁</button>
+        <button class="toolbar-btn" title="放大" @click="zoomIn">
+          <Icon icon="lucide:zoom-in" />
+        </button>
+        <button class="toolbar-btn" title="缩小" @click="zoomOut">
+          <Icon icon="lucide:zoom-out" />
+        </button>
+        <button class="toolbar-btn" title="适应屏幕" @click="fit">
+          <Icon icon="lucide:maximize-2" />
+        </button>
         <button class="toolbar-btn" title="复制代码" @click="copyCode">
-          📋
+          <Icon icon="lucide:copy" />
         </button>
         <button class="toolbar-btn" title="下载图表" @click="downloadChart">
-          ⬇️
+          <Icon icon="lucide:download" />
         </button>
         <button class="toolbar-btn" title="全屏" @click="toggle">
-          {{ isFullscreen ? '🔲' : '🔳' }}
+          <Icon
+            :icon="isFullscreen ? 'lucide:minimize-2' : 'lucide:maximize'"
+          />
         </button>
       </div>
     </UseFullscreen>
@@ -303,17 +312,18 @@ onMounted(() => {
   width: 2rem;
   height: 2rem;
   padding: 0;
-  color: var(--vp-c-text-1);
   font-size: 1.1rem;
-  background: transparent;
   border: none;
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.3s ease;
 
+  :deep(svg) {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
   &:hover {
-    color: var(--vp-c-brand);
-    background: var(--vp-c-brand-dimm);
     transform: scale(1.1);
   }
 
