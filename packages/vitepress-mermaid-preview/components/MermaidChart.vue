@@ -270,7 +270,7 @@ onMounted(() => {
 
 .mermaid {
   width: 100%;
-  height: 100%;
+  height: 300px;
   margin: 16px 0;
   padding: 12px;
   overflow: auto;
@@ -340,5 +340,10 @@ onMounted(() => {
   height: 100vh;
   background: var(--vp-c-bg-soft);
   inset: 0;
+
+  /* 在全屏模式下确保svg内容高度为100% */
+  & > svg {
+    height: 100% !important;
+  }
 }
 </style>
