@@ -1,5 +1,17 @@
 # vitepress-plugin-legend
 
+## 1.2.0
+
+### Minor Changes
+
+- feat(iconify): add @iconify/vue for icon support in Markmap and MermaidChart components
+
+### Patch Changes
+
+- Updated dependencies
+  - vitepress-markmap-preview@0.2.0
+  - vitepress-mermaid-preview@0.1.0
+
 ## 1.1.1
 
 ### Patch Changes
