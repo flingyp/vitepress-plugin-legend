@@ -1,5 +1,16 @@
 # vitepress-plugin-legend
 
+## 1.3.0
+
+### Major Changes
+
+- feat(infographic): add AntV Infographic integration plugin
+
+### Patch Changes
+
+- Updated dependencies
+  - vitepress-infographic-preview@1.0.0
+
 ## 1.2.1
 
 ### Patch Changes
