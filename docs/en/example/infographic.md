@@ -48,54 +48,42 @@ data
 ### Binary Comparison
 
 ```infographic
-infographic compare-binary-pitch
+infographic compare-binary-horizontal-badge-card-vs
 data
   title Solution Comparison
-  left
-    label Solution A
-    desc Traditional Approach
-    items
-      - label Pros
-        items
-          - label Mature and stable
-          - label Easy to maintain
-      - label Cons
-        items
-          - label Low efficiency
-          - label Poor scalability
-  right
-    label Solution B
-    desc Modern Approach
-    items
-      - label Pros
-        items
-          - label High efficiency
-          - label Strong scalability
-      - label Cons
-        items
-          - label High learning curve
-          - label Immature ecosystem
+  compares
+    - label Solution A
+      desc Traditional Approach
+      children
+        - label Pros: Mature and stable, Easy to maintain
+        - label Cons: Low efficiency, Poor scalability
+    - label Solution B
+      desc Modern Approach
+      children
+        - label Pros: High efficiency, Strong scalability
+        - label Cons: High learning curve, Immature ecosystem
 ```
 
 ### Quadrant Chart
 
 ```infographic
-infographic quadrant-simple
+infographic compare-quadrant-quarter-simple-card
 data
   title Tech Matrix
-  items
+  desc Classified by maturity and popularity
+  compares
     - label Q1
       desc Mature Tech
-      position: top-right
+      icon star
     - label Q2
       desc Emerging Tech
-      position: top-left
+      icon rocket
     - label Q3
       desc Outdated Tech
-      position: bottom-left
+      icon down
     - label Q4
       desc Growing Tech
-      position: bottom-right
+      icon diamond
 ```
 
 ## Loading from External Files

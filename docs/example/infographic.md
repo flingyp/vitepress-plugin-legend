@@ -48,54 +48,42 @@ data
 ### 二元对比
 
 ```infographic
-infographic compare-binary-pitch
+infographic compare-binary-horizontal-badge-card-vs
 data
   title 方案对比
-  left
-    label 方案 A
-    desc 传统方式
-    items
-      - label 优点
-        items
-          - label 成熟稳定
-          - label 易于维护
-      - label 缺点
-        items
-          - label 开发效率低
-          - label 扩展性差
-  right
-    label 方案 B
-    desc 现代方式
-    items
-      - label 优点
-        items
-          - label 开发效率高
-          - label 扩展性强
-      - label 缺点
-        items
-          - label 学习成本高
-          - label 生态不成熟
+  compares
+    - label 方案 A
+      desc 传统方式
+      children
+        - label 优点：成熟稳定、易于维护
+        - label 缺点：开发效率低、扩展性差
+    - label 方案 B
+      desc 现代方式
+      children
+        - label 优点：开发效率高、扩展性强
+        - label 缺点：学习成本高、生态不成熟
 ```
 
 ### 象限图
 
 ```infographic
-infographic quadrant-simple
+infographic compare-quadrant-quarter-simple-card
 data
   title 技术矩阵
-  items
+  desc 按成熟度和流行度分类
+  compares
     - label 第一象限
       desc 成熟技术
-      position: top-right
+      icon star
     - label 第二象限
       desc 新兴技术
-      position: top-left
+      icon rocket
     - label 第三象限
       desc 过时技术
-      position: bottom-left
+      icon down
     - label 第四象限
       desc 成长技术
-      position: bottom-right
+      icon diamond
 ```
 
 ## 从外部文件加载
