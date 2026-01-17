@@ -19,7 +19,9 @@ const props = withDefaults(defineProps<InfographicChartProps>(), {
 });
 
 const renderCode = computed(() => {
-  return decodeURIComponent(props.code);
+  let code = decodeURIComponent(props.code);
+  code = code.replace(/^---\s*[\s\S]*?\s*---\s*/g, '');
+  return code;
 });
 
 const containerRef = ref<HTMLElement>();
