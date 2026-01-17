@@ -251,6 +251,9 @@ onBeforeUnmount(() => {
 }
 
 .infographic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   min-height: 400px;
   max-height: 600px;
@@ -267,7 +270,6 @@ onBeforeUnmount(() => {
   :deep(svg) {
     width: 100%;
     height: 100%;
-    margin: 0 auto;
     transform: scale(v-bind(zoomlevel));
     transition: transform 0.3s ease;
   }
@@ -275,10 +277,15 @@ onBeforeUnmount(() => {
 
 .infographic-fullscreen {
   position: fixed;
+  z-index: 9999;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100vw;
   height: 100vh;
+  max-height: 100vh;
+  margin: 0;
+  padding: 0;
   background: var(--vp-c-bg-soft);
   inset: 0;
 
