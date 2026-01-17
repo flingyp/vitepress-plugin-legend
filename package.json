@@ -32,12 +32,16 @@
     "mermaid",
     "diagram",
     "preview",
-    "markdown"
+    "markdown",
+    "infographic",
+    "antv"
   ],
   "scripts": {
     "dev": "vite build --watch",
     "build": "pnpm run build:packages && vite build",
-    "build:packages": "pnpm run build:markmap && pnpm run build:mermaid",
+    "build:packages": "pnpm run build:infographic && pnpm run build:markmap && pnpm run build:mermaid",
+    "dev:infographic": "pnpm --filter vitepress-infographic-preview dev",
+    "build:infographic": "pnpm --filter vitepress-infographic-preview build",
     "dev:markmap": "pnpm --filter vitepress-markmap-preview dev",
     "build:markmap": "pnpm --filter vitepress-markmap-preview build",
     "dev:mermaid": "pnpm --filter vitepress-mermaid-preview dev",
@@ -59,6 +63,7 @@
     "@zumer/snapdom": "^1.9.5",
     "markdown-it": "^14.1.0",
     "markmap-view": "^0.18.12",
+    "vitepress-infographic-preview": "workspace:*",
     "vitepress-markmap-preview": "workspace:*",
     "vitepress-mermaid-preview": "workspace:*",
     "vue": "^3.5.17",

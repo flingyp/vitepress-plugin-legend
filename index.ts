@@ -7,10 +7,15 @@ import {
   vitepressMermaidPreview,
   type VitepressMermaidPreviewOptions,
 } from 'vitepress-mermaid-preview';
+import {
+  vitepressInfographicPreview,
+  type VitepressInfographicPreviewOptions,
+} from 'vitepress-infographic-preview';
 
 export interface VitepressPluginLegendOptions {
   markmap?: VitepressMarkmapPreviewOptions | false;
   mermaid?: VitepressMermaidPreviewOptions | false;
+  infographic?: VitepressInfographicPreviewOptions | false;
 }
 
 const defaultOptions: VitepressPluginLegendOptions = {
@@ -20,24 +25,32 @@ const defaultOptions: VitepressPluginLegendOptions = {
   mermaid: {
     showToolbar: false,
   },
+  infographic: {
+    showToolbar: false,
+  },
 };
 
 /**
  * VitePress Plugin Legend - A collection of VitePress plugins for Markdown diagram preview
- * Integrates both markmap and mermaid preview functionality
+ * Integrates markmap, mermaid, and infographic preview functionality
  */
 export function vitepressPluginLegend(
   md: MarkdownIt,
   options: VitepressPluginLegendOptions = defaultOptions,
 ) {
-  // Initialize markmap plugin if enabled
   if (options.markmap !== false) {
     vitepressMarkmapPreview(md, options.markmap! || defaultOptions.markmap!);
   }
 
-  // Initialize mermaid plugin if enabled
   if (options.mermaid !== false) {
     vitepressMermaidPreview(md, options.mermaid! || defaultOptions.mermaid!);
+  }
+
+  if (options.infographic !== false) {
+    vitepressInfographicPreview(
+      md,
+      options.infographic! || defaultOptions.infographic!,
+    );
   }
 }
 
@@ -50,6 +63,10 @@ export {
   vitepressMermaidPreview,
   type VitepressMermaidPreviewOptions,
 } from './packages/vitepress-mermaid-preview';
+export {
+  vitepressInfographicPreview,
+  type VitepressInfographicPreviewOptions,
+} from './packages/vitepress-infographic-preview';
 
 // Re-export types
 export type { IMarkmapOptions } from 'markmap-view';

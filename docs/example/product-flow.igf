@@ -1,0 +1,14 @@
+infographic list-row-simple-horizontal-arrow
+data
+  title 产品开发流程
+  items
+    - label 需求分析
+      desc 收集和分析用户需求
+    - label 方案设计
+      desc 设计产品解决方案
+    - label 开发实现
+      desc 编写代码实现功能
+    - label 测试验证
+      desc 进行测试和修复问题
+    - label 发布上线
+      desc 部署到生产环境

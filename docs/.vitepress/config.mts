@@ -27,6 +27,10 @@ export default defineConfig({
                         link: '/mermaid/',
                     },
                     {
+                        text: 'Infographic 预览插件',
+                        link: '/infographic/',
+                    },
+                    {
                         text: '示例',
                         link: '/example/markmap',
                     },
@@ -41,6 +45,10 @@ export default defineConfig({
                             text: 'Mermaid',
                             link: '/example/mermaid',
                         },
+                        {
+                            text: 'Infographic',
+                            link: '/example/infographic',
+                        },
                     ],
                     '/markmap/': [
                         {
@@ -50,6 +58,26 @@ export default defineConfig({
                         {
                             text: '配置指南',
                             link: '/markmap/configuration',
+                        },
+                    ],
+                    '/mermaid/': [
+                        {
+                            text: 'Mermaid 预览插件',
+                            link: '/mermaid/',
+                        },
+                        {
+                            text: '配置指南',
+                            link: '/mermaid/configuration',
+                        },
+                    ],
+                    '/infographic/': [
+                        {
+                            text: 'Infographic 预览插件',
+                            link: '/infographic/',
+                        },
+                        {
+                            text: '配置指南',
+                            link: '/infographic/configuration',
                         },
                     ],
                 },
@@ -93,6 +121,10 @@ export default defineConfig({
                         link: '/en/mermaid/',
                     },
                     {
+                        text: 'Infographic Preview',
+                        link: '/en/infographic/',
+                    },
+                    {
                         text: 'Example',
                         link: '/en/example/markmap',
                     },
@@ -107,6 +139,10 @@ export default defineConfig({
                             text: 'Mermaid',
                             link: '/en/example/mermaid',
                         },
+                        {
+                            text: 'Infographic',
+                            link: '/en/example/infographic',
+                        },
                     ],
                     '/en/markmap/': [
                         {
@@ -116,6 +152,26 @@ export default defineConfig({
                         {
                             text: 'Configuration Guide',
                             link: '/en/markmap/configuration',
+                        },
+                    ],
+                    '/en/mermaid/': [
+                        {
+                            text: 'Mermaid Preview',
+                            link: '/en/mermaid/',
+                        },
+                        {
+                            text: 'Configuration Guide',
+                            link: '/en/mermaid/configuration',
+                        },
+                    ],
+                    '/en/infographic/': [
+                        {
+                            text: 'Infographic Preview',
+                            link: '/en/infographic/',
+                        },
+                        {
+                            text: 'Configuration Guide',
+                            link: '/en/infographic/configuration',
                         },
                     ],
                 },
@@ -153,7 +209,6 @@ export default defineConfig({
             dark: 'vitesse-dark',
         },
         config(md) {
-            // 使用更多的 Markdown-it 插件！
             vitepressPluginLegend(md, {
                 markmap: {
                     showToolbar: true,
@@ -161,10 +216,10 @@ export default defineConfig({
                 mermaid: {
                     showToolbar: true,
                 },
+                infographic: {
+                    showToolbar: true,
+                },
             });
-
-            // md.use(vitepressMarkmapPreview, { showToolbar: true });
-            // md.use(vitepressMermaidPreview);
         },
     },
 });
