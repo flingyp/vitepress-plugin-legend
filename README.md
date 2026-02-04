@@ -10,9 +10,10 @@ A comprehensive VitePress plugin that integrates both Markmap and Mermaid diagra
 
 - 🗺️ **Markmap Integration**: Interactive mind map preview for Markdown
 - 🏞️ **Mermaid Integration**: Interactive diagrams (flowcharts, sequence diagrams, etc.)
-- 🎨 **Customizable**: Flexible configuration options for both plugins
+- 📊 **Infographic Integration**: AntV Infographic charts for data visualization
+- 🎨 **Customizable**: Flexible configuration options for all plugins
 - 🔧 **Easy Setup**: Single plugin installation with unified configuration
-- 📁 **Component Support**: Vue components for both Markmap and Mermaid
+- 📁 **Component Support**: Vue components for Markmap, Mermaid, and Infographic
 - 🚀 **TypeScript**: Full TypeScript support with type definitions
 
 ## 📦 Installation
@@ -54,7 +55,10 @@ Register the Vue components in your theme:
 import type { Theme } from 'vitepress';
 import DefaultTheme from 'vitepress/theme';
 import { initComponent } from 'vitepress-plugin-legend/component';
-import 'vitepress-plugin-legend/dist/index.css';
+// 分别导入各个子包的 CSS
+import 'vitepress-markmap-preview/dist/index.css';
+import 'vitepress-mermaid-preview/dist/index.css';
+import 'vitepress-infographic-preview/dist/index.css';
 
 export default {
   extends: DefaultTheme,
@@ -80,6 +84,10 @@ export default defineConfig({
           // Other markmap options
         },
         mermaid: true, // or false to disable
+        infographic: {
+          showToolbar: false,
+          // Other infographic options
+        },
       });
     },
   },
@@ -96,6 +104,7 @@ import { defineConfig } from 'vitepress';
 import {
   vitepressMarkmapPreview,
   vitepressMermaidPreview,
+  vitepressInfographicPreview,
 } from 'vitepress-plugin-legend';
 
 export default defineConfig({
@@ -103,6 +112,7 @@ export default defineConfig({
     config(md) {
       vitepressMarkmapPreview(md, { showToolbar: true });
       vitepressMermaidPreview(md);
+      vitepressInfographicPreview(md, { showToolbar: false });
     },
   },
 });
@@ -115,6 +125,7 @@ import DefaultTheme from 'vitepress/theme';
 import {
   initMarkmapComponent,
   initMermaidComponent,
+  initInfographicComponent,
 } from 'vitepress-plugin-legend/component';
 
 export default {
@@ -122,6 +133,7 @@ export default {
   enhanceApp({ app }) {
     initMarkmapComponent(app);
     initMermaidComponent(app);
+    initInfographicComponent(app);
   },
 } satisfies Theme;
 ```
@@ -162,6 +174,33 @@ graph TD
 <PreviewMermaidPath path="./other.mmd" />
 ````
 
+### Infographic
+
+Create AntV Infographic charts:
+
+````markdown
+```infographic
+infographic list-row-simple-horizontal-arrow
+data
+  title Example Flow
+  items
+    - label Step 1
+      desc Start
+    - label Step 2
+      desc In Progress
+    - label Step 3
+      desc Completed
+```
+````
+
+Load from file:
+
+```markdown
+<PreviewInfographicPath path="./chart.igf" />
+
+<PreviewInfographicPath path="./chart.igf" showToolbar />
+```
+
 ## ⚙️ Configuration Options
 
 ### Markmap Options
@@ -173,12 +212,21 @@ interface VitepressMarkmapPreviewOptions {
 }
 ```
 
+### Infographic Options
+
+```typescript
+interface VitepressInfographicPreviewOptions {
+  showToolbar?: boolean;
+}
+```
+
 ### Plugin Options
 
 ```typescript
 interface VitepressPluginLegendOptions {
   markmap?: VitepressMarkmapPreviewOptions | false;
   mermaid?: boolean;
+  infographic?: VitepressInfographicPreviewOptions | false;
 }
 ```
 
@@ -186,10 +234,11 @@ interface VitepressPluginLegendOptions {
 
 This plugin integrates the following packages:
 
-| Package                                                           | Description                             | Version                                                            |
-| ----------------------------------------------------------------- | --------------------------------------- | ------------------------------------------------------------------ |
-| [vitepress-markmap-preview](./packages/vitepress-markmap-preview) | Markdown mind map preview plugin        | ![npm](https://img.shields.io/npm/v/vitepress-markmap-preview.svg) |
-| [vitepress-mermaid-preview](./packages/vitepress-mermaid-preview) | Markdown Mermaid diagram preview plugin | ![npm](https://img.shields.io/npm/v/vitepress-mermaid-preview.svg) |
+| Package                                                                   | Description                             | Version                                                                |
+| ------------------------------------------------------------------------- | --------------------------------------- | ---------------------------------------------------------------------- |
+| [vitepress-markmap-preview](./packages/vitepress-markmap-preview)         | Markdown mind map preview plugin        | ![npm](https://img.shields.io/npm/v/vitepress-markmap-preview.svg)     |
+| [vitepress-mermaid-preview](./packages/vitepress-mermaid-preview)         | Markdown Mermaid diagram preview plugin | ![npm](https://img.shields.io/npm/v/vitepress-mermaid-preview.svg)     |
+| [vitepress-infographic-preview](./packages/vitepress-infographic-preview) | AntV Infographic charts preview plugin  | ![npm](https://img.shields.io/npm/v/vitepress-infographic-preview.svg) |
 
 ## 🤝 Contributing
 
