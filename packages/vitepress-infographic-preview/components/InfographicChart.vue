@@ -28,6 +28,8 @@ const containerRef = ref<HTMLElement>();
 let infographic: Infographic | null = null;
 const isLoading = ref(false);
 const errorMessage = ref('');
+const minZoom = 0.2;
+const maxZoom = 4;
 
 const darkModeObserver = ref<MutationObserver>();
 
@@ -103,6 +105,9 @@ async function downloadChart() {
 }
 
 const zoomLevel = ref(1);
+function clampZoom(level: number) {
+  return Math.min(maxZoom, Math.max(minZoom, level));
+}
 
 function updateTransform() {
   const svgEl = containerRef.value?.querySelector('svg');
@@ -112,17 +117,32 @@ function updateTransform() {
 }
 
 function zoomIn() {
-  zoomLevel.value *= 1.1;
+  zoomLevel.value = clampZoom(zoomLevel.value * 1.1);
   updateTransform();
 }
 
 function zoomOut() {
-  zoomLevel.value /= 1.1;
+  zoomLevel.value = clampZoom(zoomLevel.value / 1.1);
   updateTransform();
 }
 
 function fit() {
   zoomLevel.value = 1;
+  updateTransform();
+}
+
+function onWheelZoom(e: WheelEvent) {
+  if (!containerRef.value) return;
+  e.preventDefault();
+  const containerRect = containerRef.value.getBoundingClientRect();
+  const originX = e.clientX - containerRect.left;
+  const originY = e.clientY - containerRect.top;
+  const svgEl = containerRef.value.querySelector('svg');
+  if (svgEl) {
+    svgEl.style.transformOrigin = `${originX}px ${originY}px`;
+  }
+  const factor = e.deltaY < 0 ? 1.1 : 1 / 1.1;
+  zoomLevel.value = clampZoom(zoomLevel.value * factor);
   updateTransform();
 }
 
@@ -149,6 +169,9 @@ function checkTheme() {
 
 onMounted(() => {
   renderChart();
+  containerRef.value?.addEventListener('wheel', onWheelZoom, {
+    passive: false,
+  });
 
   window.addEventListener('resize', fit);
 
@@ -178,6 +201,7 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
+  containerRef.value?.removeEventListener('wheel', onWheelZoom);
   if (infographic) {
     infographic.destroy();
     infographic = null;
