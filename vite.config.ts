@@ -17,6 +17,7 @@ export default defineConfig({
       entry: {
         index: resolve(__dirname, 'index.ts'),
         component: resolve(__dirname, 'component.ts'),
+        styles: resolve(__dirname, 'styles.ts'),
       },
       name: 'VitepressPluginLegend',
       formats: ['es', 'cjs'],

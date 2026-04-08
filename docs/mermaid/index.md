@@ -77,25 +77,6 @@ gantt
         another task    :24d
 ```
 
-```text
----
-title: markmap
-markmap:
-  colorFreezeLevel: 2
----
-
-## Links
-
-- [Website](https://markmap.js.org/)
-- [GitHub](https://github.com/gera2ld/markmap)
-
-## Features
-
-- **strong** ~~del~~ _italic_ ==highlight==
-- `inline code`
-- Lists support
-- And more...
-```
 
 ### 🔧 工具栏控制
 
