@@ -1,5 +1,17 @@
 # vitepress-plugin-legend
 
+## 1.4.0
+
+### Minor Changes
+
+- feat: 为 Infographic 和 Mermaid 图表实现缩放功能
+
+### Patch Changes
+
+- Updated dependencies
+  - vitepress-infographic-preview@1.1.0
+  - vitepress-mermaid-preview@0.2.0
+
 ## 1.3.0
 
 ### Major Changes

@@ -1,5 +1,11 @@
 # vitepress-mermaid-preview
 
+## 0.2.0
+
+### Minor Changes
+
+- feat: 为 Infographic 和 Mermaid 图表实现缩放功能
+
 ## 0.1.1
 
 ### Patch Changes
