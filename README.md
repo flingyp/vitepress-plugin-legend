@@ -56,10 +56,8 @@ Register the Vue components in your theme:
 import type { Theme } from 'vitepress';
 import DefaultTheme from 'vitepress/theme';
 import { initComponent } from 'vitepress-plugin-legend/component';
-// Import CSS from each sub-package
-import 'vitepress-markmap-preview/dist/vitepress-markmap-preview.css';
-import 'vitepress-mermaid-preview/dist/vitepress-mermaid-preview.css';
-import 'vitepress-infographic-preview/dist/vitepress-infographic-preview.css';
+// Import CSS
+import 'vitepress-plugin-legend/dist/index.css';
 
 export default {
   extends: DefaultTheme,

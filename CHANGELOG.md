@@ -1,5 +1,11 @@
 # vitepress-plugin-legend
 
+## 1.4.1
+
+### Patch Changes
+
+- feat(build): 新增 `styles` 入口并统一导出 Markmap、Mermaid、Infographic 的样式文件，便于一键引入插件样式
+
 ## 1.4.0
 
 ### Minor Changes
