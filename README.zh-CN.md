@@ -56,10 +56,8 @@ export default defineConfig({
 import type { Theme } from 'vitepress';
 import DefaultTheme from 'vitepress/theme';
 import { initComponent } from 'vitepress-plugin-legend/component';
-// 分别导入各个子包的 CSS
-import 'vitepress-markmap-preview/dist/vitepress-markmap-preview.css';
-import 'vitepress-mermaid-preview/dist/vitepress-mermaid-preview.css';
-import 'vitepress-infographic-preview/dist/vitepress-infographic-preview.css';
+// 导入 CSS
+import 'vitepress-plugin-legend/dist/index.css';
 
 export default {
   extends: DefaultTheme,
