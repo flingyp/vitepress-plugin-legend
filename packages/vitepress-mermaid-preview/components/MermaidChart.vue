@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, computed, nextTick } from 'vue';
+import { ref, onMounted, onBeforeUnmount, computed, nextTick } from 'vue';
 import mermaid from 'mermaid';
 import { useCopyContent } from '@flypeng/tool/browser';
 import { snapdom } from '@zumer/snapdom';
@@ -24,6 +24,8 @@ const renderCode = computed(() => {
 });
 const renderChartHtml = ref();
 const mermaidRef = ref<HTMLElement>();
+const minZoom = 0.2;
+const maxZoom = 4;
 
 const dragOffset = ref({ x: 0, y: 0 }); // 当前平移
 const dragStart = ref({ x: 0, y: 0 }); // 鼠标按下时的坐标
@@ -117,15 +119,18 @@ async function downloadChart() {
 }
 
 const zoomLevel = ref(1);
+function clampZoom(level: number) {
+  return Math.min(maxZoom, Math.max(minZoom, level));
+}
 // 放大
 function zoomIn() {
-  zoomLevel.value *= 1.1;
+  zoomLevel.value = clampZoom(zoomLevel.value * 1.1);
   updateSvgTransform();
 }
 
 // 缩小
 function zoomOut() {
-  zoomLevel.value /= 1.1;
+  zoomLevel.value = clampZoom(zoomLevel.value / 1.1);
   updateSvgTransform();
 }
 
@@ -133,6 +138,21 @@ function zoomOut() {
 function fit() {
   zoomLevel.value = 1;
   dragOffset.value = { x: 0, y: 0 };
+  updateSvgTransform();
+}
+
+function onWheelZoom(e: WheelEvent) {
+  if (!mermaidRef.value) return;
+  e.preventDefault();
+  const containerRect = mermaidRef.value.getBoundingClientRect();
+  const originX = e.clientX - containerRect.left;
+  const originY = e.clientY - containerRect.top;
+  const svgEl = mermaidRef.value.querySelector('svg');
+  if (svgEl) {
+    svgEl.style.transformOrigin = `${originX}px ${originY}px`;
+  }
+  const factor = e.deltaY < 0 ? 1.1 : 1 / 1.1;
+  zoomLevel.value = clampZoom(zoomLevel.value * factor);
   updateSvgTransform();
 }
 
@@ -167,6 +187,7 @@ const darkModeObserver = ref<MutationObserver>();
 onMounted(() => {
   // 初始渲染
   render();
+  mermaidRef.value?.addEventListener('wheel', onWheelZoom, { passive: false });
 
   // 监听DOM变化，检测暗黑模式类的添加/移除
   if (typeof window !== 'undefined' && window.MutationObserver) {
@@ -204,6 +225,10 @@ onMounted(() => {
       fit();
     });
   }
+});
+
+onBeforeUnmount(() => {
+  mermaidRef.value?.removeEventListener('wheel', onWheelZoom);
 });
 </script>
 
