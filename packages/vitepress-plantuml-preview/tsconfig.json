@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "./dist",
+    "types": ["node"],
+    "lib": ["ESNext", "DOM"]
+  },
+  "include": [
+    "*.ts",
+    "*.vue",
+    "*.d.ts",
+    "./utils/**/*.ts",
+    "./components/PlantumlChart.vue"
+  ],
+  "exclude": ["node_modules", "dist"]
+}

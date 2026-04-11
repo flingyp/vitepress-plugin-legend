@@ -1,5 +1,19 @@
 # vitepress-plugin-legend
 
+## 1.5.0
+
+### Minor Changes
+
+- feat(plantuml): 集成 PlantUML 预览，支持通过 PlantUML 服务器渲染 `plantuml` 代码块；总包新增 `plantuml` 配置项，可与 Markmap、Mermaid、Infographic 一并启用或单独关闭
+
+### Patch Changes
+
+- Updated dependencies
+  - vitepress-infographic-preview@1.1.1
+  - vitepress-markmap-preview@0.2.1
+  - vitepress-mermaid-preview@0.2.1
+  - vitepress-plantuml-preview@0.2.1
+
 ## 1.4.2
 
 ### Patch Changes

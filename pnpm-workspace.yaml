@@ -3,6 +3,7 @@ packages:
   - "packages/vitepress-infographic-preview"
   - "packages/vitepress-markmap-preview"
   - "packages/vitepress-mermaid-preview"
+  - "packages/vitepress-plantuml-preview"
   - "docs"
   - "."
 

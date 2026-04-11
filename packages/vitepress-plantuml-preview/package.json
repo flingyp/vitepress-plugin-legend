@@ -1,0 +1,63 @@
+{
+  "name": "vitepress-plantuml-preview",
+  "description": "PlantUML preview for VitePress (PlantUML server)",
+  "version": "0.2.1",
+  "type": "module",
+  "packageManager": "pnpm@10.13.1",
+  "author": "flingyp",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./component": {
+      "types": "./dist/component.d.ts",
+      "import": "./dist/component.js",
+      "require": "./dist/component.cjs"
+    },
+    "./dist/index.css": "./dist/vitepress-plantuml-preview.css"
+  },
+  "types": "./dist/index.d.ts",
+  "keywords": [
+    "vitepress",
+    "plantuml",
+    "puml",
+    "markdown"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flingyp"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
+    "@vue/language-core": "^3.0.1",
+    "typescript": "^5.8.3",
+    "unplugin-dts": "1.0.0-beta.0"
+  },
+  "dependencies": {
+    "@flypeng/tool": "^5.7.2",
+    "@vitejs/plugin-vue": "^6.0.0",
+    "@vueuse/components": "^13.5.0",
+    "@vueuse/core": "^13.5.0",
+    "@zumer/snapdom": "^1.9.5",
+    "markdown-it": "^14.1.0",
+    "pako": "^2.1.0",
+    "sass": "^1.89.2",
+    "vite": "^7.0.5",
+    "vue": "^3.5.17",
+    "vue-sonner": "^2.0.2",
+    "vue-tsc": "^3.0.1",
+    "@iconify/vue": "^5.0.0"
+  }
+}
