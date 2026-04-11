@@ -129,6 +129,8 @@ theme light
 
 ## 配置选项
 
+完整说明见 [配置指南](./configuration.md)。
+
 ### vitepressInfographicPreview 选项
 
 | 选项        | 类型    | 默认值 | 描述               |

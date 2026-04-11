@@ -12,8 +12,10 @@
   "devDependencies": {
     "vite": "^7.0.5",
     "vitepress": "^1.6.3",
+    "vitepress-infographic-preview": "workspace:*",
     "vitepress-markmap-preview": "workspace:*",
     "vitepress-mermaid-preview": "workspace:*",
+    "vitepress-plantuml-preview": "workspace:*",
     "vitepress-plugin-legend": "workspace:*"
   }
 }

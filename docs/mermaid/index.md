@@ -108,14 +108,9 @@ sequenceDiagram
 <PreviewMermaidPath showToolbar />
 ```
 
-## ⚙️ 配置选项
+## ⚙️ 配置
 
-### PreviewMermaidPath 组件属性
-
-| 属性名      | 类型    | 默认值 | 说明                      |
-| ----------- | ------- | ------ | ------------------------- |
-| path        | string  | -      | 要读取的 Mermaid 文件路径 |
-| showToolbar | boolean | -      | 是否有工具栏              |
+详见 [配置指南](./configuration.md)（含插件选项、代码块 frontmatter、`PreviewMermaidPath` 组件属性等）。
 
 ## 📄 License
 
