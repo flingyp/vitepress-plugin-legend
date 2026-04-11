@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
+import { ref, onMounted, onBeforeUnmount, computed, nextTick } from 'vue';
 import { Infographic } from '@antv/infographic';
 import { useCopyContent } from '@flypeng/tool/browser';
 import { snapdom } from '@zumer/snapdom';
@@ -31,7 +31,55 @@ const errorMessage = ref('');
 const minZoom = 0.2;
 const maxZoom = 4;
 
+const zoomLevel = ref(1);
+const dragOffset = ref({ x: 0, y: 0 });
+const dragStart = ref({ x: 0, y: 0 });
+const isDragging = ref(false);
+
 const darkModeObserver = ref<MutationObserver>();
+
+function updateTransform() {
+  const svgEl = containerRef.value?.querySelector('svg');
+  if (svgEl) {
+    svgEl.style.transform = `translate(${dragOffset.value.x}px, ${dragOffset.value.y}px) scale(${zoomLevel.value})`;
+  }
+}
+
+function onSvgMouseDown(e: MouseEvent) {
+  isDragging.value = true;
+  dragStart.value = { x: e.clientX, y: e.clientY };
+  document.body.style.userSelect = 'none';
+  const { x, y } = dragOffset.value;
+
+  function onMouseMove(ev: MouseEvent) {
+    if (!isDragging.value) return;
+    const dx = ev.clientX - dragStart.value.x;
+    const dy = ev.clientY - dragStart.value.y;
+    dragOffset.value = { x: x + dx, y: y + dy };
+    updateTransform();
+  }
+
+  function onMouseUp() {
+    isDragging.value = false;
+    document.body.style.userSelect = '';
+    window.removeEventListener('mousemove', onMouseMove);
+    window.removeEventListener('mouseup', onMouseUp);
+  }
+
+  window.addEventListener('mousemove', onMouseMove);
+  window.addEventListener('mouseup', onMouseUp);
+}
+
+function bindSvgPan() {
+  nextTick(() => {
+    const svgEl = containerRef.value?.querySelector('svg');
+    if (svgEl) {
+      svgEl.style.cursor = 'grab';
+      svgEl.onmousedown = onSvgMouseDown;
+      updateTransform();
+    }
+  });
+}
 
 async function renderChart() {
   if (!containerRef.value || !renderCode.value) return;
@@ -64,6 +112,7 @@ async function renderChart() {
 
     infographic.on('rendered', () => {
       isLoading.value = false;
+      bindSvgPan();
     });
 
     infographic.render(renderCode.value);
@@ -104,16 +153,8 @@ async function downloadChart() {
   }
 }
 
-const zoomLevel = ref(1);
 function clampZoom(level: number) {
   return Math.min(maxZoom, Math.max(minZoom, level));
-}
-
-function updateTransform() {
-  const svgEl = containerRef.value?.querySelector('svg');
-  if (svgEl) {
-    svgEl.style.transform = `scale(${zoomLevel.value})`;
-  }
 }
 
 function zoomIn() {
@@ -128,6 +169,7 @@ function zoomOut() {
 
 function fit() {
   zoomLevel.value = 1;
+  dragOffset.value = { x: 0, y: 0 };
   updateTransform();
 }
 
@@ -294,7 +336,6 @@ onBeforeUnmount(() => {
   :deep(svg) {
     width: 100%;
     height: 100%;
-    transform: scale(v-bind(zoomlevel));
     transition: transform 0.3s ease;
   }
 }

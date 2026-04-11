@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [
     vue(),
     dts({
-      bundleTypes: true,
+      bundleTypes: false,
       tsconfigPath: './tsconfig.json',
     }),
   ],
