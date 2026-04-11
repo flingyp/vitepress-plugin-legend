@@ -1,5 +1,11 @@
 # vitepress-infographic-preview
 
+## 1.1.1
+
+### Patch Changes
+
+- feat(infographic): 实现 SVG 平移并改进缩放
+
 ## 1.1.0
 
 ### Minor Changes

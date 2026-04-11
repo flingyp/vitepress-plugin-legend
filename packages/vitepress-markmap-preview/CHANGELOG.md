@@ -1,5 +1,11 @@
 # vitepress-markmap-preview
 
+## 0.2.1
+
+### Patch Changes
+
+- feat(infographic): 实现 SVG 平移并改进缩放
+
 ## 0.2.0
 
 ### Minor Changes

@@ -1,5 +1,15 @@
 # vitepress-plugin-legend
 
+## 1.4.2
+
+### Patch Changes
+
+- feat(infographic): 实现 SVG 平移并改进缩放
+- Updated dependencies
+  - vitepress-infographic-preview@1.1.1
+  - vitepress-markmap-preview@0.2.1
+  - vitepress-mermaid-preview@0.2.1
+
 ## 1.4.1
 
 ### Patch Changes
