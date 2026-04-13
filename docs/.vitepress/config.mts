@@ -19,6 +19,10 @@ export default defineConfig({
                         link: '/',
                     },
                     {
+                        text: '示例',
+                        link: '/example/markmap',
+                    },
+                    {
                         text: 'Markmap 预览插件',
                         link: '/markmap/',
                     },
@@ -31,8 +35,8 @@ export default defineConfig({
                         link: '/infographic/',
                     },
                     {
-                        text: '示例',
-                        link: '/example/markmap',
+                        text: 'PlantUML 预览插件',
+                        link: '/plantuml/',
                     },
                 ],
                 sidebar: {
@@ -48,6 +52,10 @@ export default defineConfig({
                         {
                             text: 'Infographic',
                             link: '/example/infographic',
+                        },
+                        {
+                            text: 'PlantUML',
+                            link: '/example/plantuml',
                         },
                     ],
                     '/markmap/': [
@@ -78,6 +86,16 @@ export default defineConfig({
                         {
                             text: '配置指南',
                             link: '/infographic/configuration',
+                        },
+                    ],
+                    '/plantuml/': [
+                        {
+                            text: 'PlantUML 预览插件',
+                            link: '/plantuml/',
+                        },
+                        {
+                            text: '配置指南',
+                            link: '/plantuml/configuration',
                         },
                     ],
                 },
@@ -113,6 +131,10 @@ export default defineConfig({
                         link: '/en/',
                     },
                     {
+                        text: 'Example',
+                        link: '/en/example/markmap',
+                    },
+                    {
                         text: 'Markmap Preview',
                         link: '/en/markmap/',
                     },
@@ -125,8 +147,8 @@ export default defineConfig({
                         link: '/en/infographic/',
                     },
                     {
-                        text: 'Example',
-                        link: '/en/example/markmap',
+                        text: 'PlantUML Preview',
+                        link: '/en/plantuml/',
                     },
                 ],
                 sidebar: {
@@ -142,6 +164,10 @@ export default defineConfig({
                         {
                             text: 'Infographic',
                             link: '/en/example/infographic',
+                        },
+                        {
+                            text: 'PlantUML',
+                            link: '/en/example/plantuml',
                         },
                     ],
                     '/en/markmap/': [
@@ -172,6 +198,16 @@ export default defineConfig({
                         {
                             text: 'Configuration Guide',
                             link: '/en/infographic/configuration',
+                        },
+                    ],
+                    '/en/plantuml/': [
+                        {
+                            text: 'PlantUML Preview',
+                            link: '/en/plantuml/',
+                        },
+                        {
+                            text: 'Configuration Guide',
+                            link: '/en/plantuml/configuration',
                         },
                     ],
                 },
@@ -217,6 +253,9 @@ export default defineConfig({
                     showToolbar: true,
                 },
                 infographic: {
+                    showToolbar: true,
+                },
+                plantuml: {
                     showToolbar: true,
                 },
             });

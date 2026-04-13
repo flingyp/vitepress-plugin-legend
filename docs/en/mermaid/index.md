@@ -110,14 +110,9 @@ Use the `PreviewMermaidPath` component to read specified Mermaid file content an
 <PreviewMermaidPath showToolbar />
 ```
 
-## ⚙️ Config Options
+## ⚙️ Configuration
 
-### PreviewMermaidPath Component Properties
-
-| Property Name | Type   | Default | Description                          |
-| ------------- | ------ | ------- | ------------------------------------ |
-| path          | string | -       | The path of the Mermaid file to read |
-| showToolbar   | string | -       | Whether to show the toolbar          |
+See the [configuration guide](./configuration.md) for plugin options, fence frontmatter, and `PreviewMermaidPath` props.
 
 ## 📄 License
 

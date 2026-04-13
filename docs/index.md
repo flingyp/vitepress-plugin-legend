@@ -2,16 +2,17 @@
 
 ![npm](https://img.shields.io/npm/v/vitepress-plugin-legend.svg)
 
-一个综合性的 VitePress 插件，集成了 Markmap、Mermaid 和 Infographic 图表预览功能，为 Markdown 文档提供增强的图表支持。
+一个综合性的 VitePress 插件，集成了 Markmap、Mermaid、Infographic 与 PlantUML 图表预览功能，为 Markdown 文档提供增强的图表支持。
 
 ## ✨ 特性
 
 - 🗺️ **Markmap 集成**: Markdown 思维导图交互式预览
 - 🏞️ **Mermaid 集成**: 交互式图表（流程图、时序图等）
 - 📊 **Infographic 集成**: AntV 信息图模板（236+ 内置模板）
+- 📐 **PlantUML 集成**: `plantuml` / `puml` 代码块，通过 PlantUML Server 渲染
 - 🎨 **可定制**: 所有插件都支持灵活的配置选项
 - 🔧 **简单设置**: 单个插件安装，统一配置
-- 📁 **组件支持**: 提供 Markmap、Mermaid 和 Infographic 的 Vue 组件
+- 📁 **组件支持**: 提供 Markmap、Mermaid、Infographic 与 PlantUML 的 Vue 组件
 - 🚀 **TypeScript**: 完整的 TypeScript 支持和类型定义
 - ⚙️ **配置灵活**: 支持通过 frontmatter 语法自定义配置
 
@@ -86,6 +87,9 @@ export default defineConfig({
         infographic: {
           showToolbar: false, // 默认隐藏工具栏
         }, // 或 false 禁用
+        plantuml: {
+          showToolbar: false,
+        }, // 或 false 禁用
       });
     },
   },
@@ -103,6 +107,7 @@ import {
   vitepressMarkmapPreview,
   vitepressMermaidPreview,
   vitepressInfographicPreview,
+  vitepressPlantumlPreview,
 } from 'vitepress-plugin-legend';
 
 export default defineConfig({
@@ -111,6 +116,7 @@ export default defineConfig({
       vitepressMarkmapPreview(md, { showToolbar: true });
       vitepressMermaidPreview(md);
       vitepressInfographicPreview(md);
+      vitepressPlantumlPreview(md, { showToolbar: true });
     },
   },
 });
@@ -124,6 +130,7 @@ import {
   initMarkmapComponent,
   initMermaidComponent,
   initInfographicComponent,
+  initPlantumlComponent,
 } from 'vitepress-plugin-legend/component';
 // Import CSS
 import 'vitepress-plugin-legend/dist/index.css';
@@ -134,6 +141,7 @@ export default {
     initMarkmapComponent(app);
     initMermaidComponent(app);
     initInfographicComponent(app);
+    initPlantumlComponent(app);
   },
 } satisfies Theme;
 ```
@@ -195,6 +203,18 @@ data
 <PreviewInfographicPath path="./chart.igf" showToolbar />
 ````
 
+### PlantUML
+
+通过官方 PlantUML Server 渲染为 SVG（源码会发往该服务）：
+
+````markdown
+```plantuml
+@startuml
+Alice -> Bob: hello
+@enduml
+```
+````
+
 ## ⚙️ 配置选项
 
 ### Markmap 选项
@@ -222,6 +242,14 @@ interface VitepressInfographicPreviewOptions {
 }
 ```
 
+### PlantUML 选项
+
+```typescript
+interface VitepressPlantumlPreviewOptions {
+  showToolbar?: boolean; // 未传默认为 true；可传 false 全局隐藏工具栏
+}
+```
+
 ### 插件选项
 
 ```typescript
@@ -229,6 +257,7 @@ interface VitepressPluginLegendOptions {
   markmap?: VitepressMarkmapPreviewOptions | false;
   mermaid?: VitepressMermaidPreviewOptions | false;
   infographic?: VitepressInfographicPreviewOptions | false;
+  plantuml?: VitepressPlantumlPreviewOptions | false;
 }
 ```
 
@@ -241,6 +270,7 @@ interface VitepressPluginLegendOptions {
 | [vitepress-markmap-preview](/markmap/)         | Markdown 思维导图预览插件     | ![npm](https://img.shields.io/npm/v/vitepress-markmap-preview.svg)     |
 | [vitepress-mermaid-preview](/mermaid/)         | Markdown Mermaid 图表预览插件 | ![npm](https://img.shields.io/npm/v/vitepress-mermaid-preview.svg)     |
 | [vitepress-infographic-preview](/infographic/) | AntV 信息图预览插件           | ![npm](https://img.shields.io/npm/v/vitepress-infographic-preview.svg) |
+| [vitepress-plantuml-preview](/plantuml/)       | PlantUML / puml 预览插件      | ![npm](https://img.shields.io/npm/v/vitepress-plantuml-preview.svg)     |
 
 ## 🤝 贡献
 

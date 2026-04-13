@@ -97,6 +97,8 @@ Use the `PreviewInfographicPath` component to load an external file:
 
 ## Configuration Options
 
+See the [configuration guide](./configuration.md) for full details.
+
 ### vitepressInfographicPreview Options
 
 | Option      | Type    | Default | Description             |
