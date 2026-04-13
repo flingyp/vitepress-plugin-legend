@@ -59,6 +59,12 @@ export default {
 
 ### 基本用法
 
+```plantuml
+@startuml
+Alice -> Bob: hello
+@enduml
+```
+
 ````markdown
 ```plantuml
 @startuml
@@ -68,6 +74,12 @@ Alice -> Bob: hello
 ````
 
 `puml` 语言标记与 `plantuml` 等价：
+
+```puml
+@startuml
+Bob --> Alice: ok
+@enduml
+```
 
 ````markdown
 ```puml

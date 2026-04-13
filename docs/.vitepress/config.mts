@@ -38,7 +38,6 @@ export default defineConfig({
                         text: 'PlantUML 预览插件',
                         link: '/plantuml/',
                     },
-
                 ],
                 sidebar: {
                     '/example/': [
@@ -132,6 +131,10 @@ export default defineConfig({
                         link: '/en/',
                     },
                     {
+                        text: 'Example',
+                        link: '/en/example/markmap',
+                    },
+                    {
                         text: 'Markmap Preview',
                         link: '/en/markmap/',
                     },
@@ -146,10 +149,6 @@ export default defineConfig({
                     {
                         text: 'PlantUML Preview',
                         link: '/en/plantuml/',
-                    },
-                    {
-                        text: 'Example',
-                        link: '/en/example/markmap',
                     },
                 ],
                 sidebar: {
