@@ -1,1 +1,0 @@
-import{F as a,g as e}from"./theme.BmBFdcv2.js";var r=a((n,o)=>{let t;return o==="sandbox"&&(t=e("#i"+n)),(o==="sandbox"?e(t.nodes()[0].contentDocument.body):e("body")).select(`[id="${n}"]`)},"getDiagramElement");export{r as a};
